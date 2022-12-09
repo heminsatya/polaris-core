@@ -1,0 +1,65 @@
+/* ---------- Fields ---------- */
+// -- Parent -- //
+@include parent-styles($field-control-styles, $name-field, $name-control);
+
+
+// * Component * //
+@include component-styles($field-styles, $name-field);
+
+
+// * Modifiers * //
+//  Sizes
+@include modifiers-styles($field-sizes, $name-field, true);
+
+// Colors
+@include modifier-colors($field-colors, $name-field);
+@include check-radio-colors($check-radio-colors, $name-field);
+
+// Colors on focus
+@include modifier-colors-focus($field-colors-focus, $name-field);
+
+// Focusable colors
+@include modifier-colors-focusable($field-colors-focusable, $name-field);
+
+// Checkbox & radio
+input[type=checkbox].#{$name-field}, 
+input[type=radio].#{$name-field} {
+    display:        inline-block;
+    width:          1em;
+    height:         1em;
+    margin-top:     0.25em;
+    padding:        0 !important;
+    vertical-align: top;
+    appearance:     none;
+    @if $ltr {
+        margin-right: 0.5em;
+    }
+    @else {
+        margin-left: 0.5em;
+    }
+}
+
+input[type=radio].#{$name-field} {
+    border-radius: 50%;
+}
+
+input:checked[type=checkbox].#{$name-field},
+input:checked[type=checkbox].#{$name-field}:focus,
+input:checked[type=radio].#{$name-field},
+input:checked[type=radio].#{$name-field}:focus {
+    background-color:  color(app-500);
+    border-color:      color(app-500);
+    background-repeat: no-repeat;
+    background-size:   contain;
+}
+
+input:checked[type=checkbox].#{$name-field},
+input:checked[type=checkbox].#{$name-field}:focus {
+    background-image:  url(../images/checkbox.svg);
+}
+
+input:checked[type=radio].#{$name-field},
+input:checked[type=radio].#{$name-field}:focus {
+    background-image:  url(../images/radio.svg);
+}
+

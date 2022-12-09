@@ -1,0 +1,16 @@
+/* ---------- Progress Bar ---------- */
+// -- Component -- //
+@include component-styles($progress-styles, $name-progress, false, true);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($progress-colors, $name-progress);
+
+
+// -- Children -- //
+// Styles
+@include child-styles($progress-child-styles, $name-progress, $name-progress-bar);
+
+// Colors
+@include child-colors($progress-colors-child, $name-progress, $name-progress-bar);

@@ -1,0 +1,348 @@
+// ----- Form Mixins ----- //
+///
+// @desc Generates colors for .field[type=checkbox], .field[type=radio]
+//
+// @param {map}    $map  -- The modifier map
+// @param {string} $name -- The name key
+///
+@mixin check-radio-colors($map, $name, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+    
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name}[type=checkbox],
+                .#{$name}[type=radio],
+                .#{$name}.#{$name + $mod + $key}[type=checkbox],
+                .#{$name}.#{$name + $mod + $key}[type=radio] {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}[type=checkbox],
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}[type=radio],
+                .#{$name}.#{$name + $mod + $key}[type=checkbox],
+                .#{$name}.#{$name + $mod + $key}[type=radio] {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+
+        // Other colors
+        @else{
+            .#{$name}.#{$name + $mod + $key}[type=checkbox],
+            .#{$name}.#{$name + $mod + $key}[type=radio] {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for field__group (parent)
+//
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+// @param {string} $name-3 -- The 3rd name key
+///
+@mixin field-group($name-1: "field", $name-2: "group", $name-3: "text") {
+    .#{$name-1 + $par + $name-2} {
+        letter-spacing: -1em !important;
+        display:        flex;
+        margin-bottom:  1rem;
+        @include direction-styles();
+    }
+    .#{$name-1 + $par + $name-2} > * {
+        margin-bottom:  0;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1},
+    .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3} {
+        letter-spacing: normal !important;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1}:focus {
+        z-index: 1;
+        position: relative;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1}:not(:first-child):not(:last-child),
+    .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:not(:first-child):not(:last-child) {
+        border-radius: 0;
+    }
+    @if $ltr {
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:first-child {
+            border-right-width: 0;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:last-child {
+            border-left-width: 0;
+        }
+    }
+    @else{
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:first-child {
+            border-left-width: 0;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:last-child {
+            border-right-width: 0;
+        }
+    }
+
+    .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:not(:first-child):not(:last-child) {
+        border-left-width: 0;
+        border-right-width: 0;
+    }
+    @if $ltr {
+        .#{$name-1 + $par + $name-2} .#{$name-1}:first-child,
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:first-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1}:last-child,
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:last-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+    }
+    @else{
+        .#{$name-1 + $par + $name-2} .#{$name-1}:first-child,
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:first-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1}:last-child,
+        .#{$name-1 + $par + $name-2} .#{$name-1 + $sib + $name-3}:last-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+    }
+}
+
+
+///
+// @desc Generates Colors for field validation
+//
+// @param {map}    $map  -- The parent map
+// @param {string} $name -- The name key
+///
+@mixin field-validation-parent($map, $name) {
+    $selectors-parent: null;
+    $selectors-component: null;
+
+    @each $key, $value in $map {
+        $selectors-parent: append($selectors-parent, "." + $name + $par + $key + ", ");
+        $selectors-component: append($selectors-component, "." + $name + $par + $key + " ." + $name + ", ");
+        
+        // Get inner maps
+        $inner: inner-map($map, $key);
+
+        // Components //
+        // Generate Colors
+        .#{$name + $par + $key} .#{$name} {
+            @include generate-styles($inner, true);
+            background-image: url(../images/alert-#{$key}.svg);
+            margin-bottom:    0.5rem;
+            box-shadow:       none !important;
+        }
+    }
+
+    // Components //
+    #{$selectors-component} {
+        background-size:   contain;
+        background-repeat: no-repeat;
+        @if $ltr {
+            background-position: right;
+            padding-right: 2rem;
+        }
+        @else{
+            background-position: left;
+            padding-left: 2rem;
+        }
+    }
+
+    // Parents //
+    #{$selectors-parent} {
+        margin-bottom:     1rem;
+        background-repeat: no-repeat;
+        background-size:   cover;
+    }
+}
+
+
+///
+// @desc Generates Colors for field validation
+//
+// @param {map}    $map    -- The parent map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin field-validation-sibling($map, $name-1, $name-2) {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Sibling //
+        // Generate Colors
+        .#{$name-1 + $par + $key} .#{$name-1 + $sib + $name-2} {
+            @include generate-styles($inner, true);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for switch -> input + switch--button
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin switch-checked-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name-1} input:checked + .#{$name-1 + $chi + $name-2} {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates colors for for switch -> input + switch--button
+//
+// @param {map}    $map    -- The child map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin switch-checked-colors($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1} input:checked + .#{$name-1 + $chi + $name-2},
+                .#{$name-1}.#{$name-1 + $mod + $key} input:checked + .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1}.#{$name-1 + $mod + $key} input:checked + .#{$name-1 + $chi + $name-2},
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1} input:checked + .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+
+        // Other colors
+        @else{
+            .#{$name-1}.#{$name-1 + $mod + $key} input:checked + .#{$name-1 + $chi + $name-2} {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for switch -> input
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin switch-input($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name} input {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates switch sizes
+//
+// @param {map}    $map    -- The modifier map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin switch-size($map-1, $map-2, $map-3, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Switch
+    @each $key, $value in $map-1 {
+        // Get inner map
+        $inner: inner-map($map-1, $key);
+
+        // Generate styles
+        .#{$name-1 + $mod + $key} {
+            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        }
+    }
+
+    // Switch button
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-2, $key);
+
+        // Generate styles
+        .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
+            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        }
+    }
+    
+    @each $key, $value in $map-3 {
+        // Get inner map
+        $inner: inner-map($map-3, $key);
+
+        @if $key == 'sm' {
+            // Generate styles
+            .#{$name-1} input[type=checkbox] {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+    }
+    @each $key, $value in $map-3 {
+        // Get inner map
+        $inner: inner-map($map-3, $key);
+
+        // Generate styles
+        .#{$name-1 + $mod + $key} input[type=checkbox] {
+            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        }
+    }
+}
+
+
+///
+// @desc Generates slim switch sizes
+//
+// @param {map}    $map    -- The modifier map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin switch-size-slim($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Switch default
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        @if $key == 'sm' {
+            // Generate styles
+            .#{$name-1}.#{$name-1 + $mod + $name-2} {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+    }
+
+    // Switch
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Generate styles
+        .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $name-2} {
+            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        }
+    }
+}

@@ -1,0 +1,9 @@
+/* ---------- Container ---------- */
+// -- Component -- //
+@include component-styles($container-styles, $name-container);
+@include auto-component-styles($responsive-containers, $name-container, $responsive-container);
+
+
+// -- Modifiers -- //
+// Sizes
+@include modifier-class($container-sizes, $name-container, "max-width", true);

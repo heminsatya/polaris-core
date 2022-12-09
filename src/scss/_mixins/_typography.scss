@@ -1,0 +1,355 @@
+// ----- Typography Mixins ----- //
+///
+// @desc Generates css styles for link classes
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin link-styles($map, $name) {
+    a.#{$name} {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates css styles for a text-decoration class
+//
+// @param {map}    $map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The optional property name
+// @param {string} $strict   -- The !important CSS value placeholder
+// 
+// @NOTICE If you omit the property, you have to provide a nested map
+///
+@mixin text-decoration($map, $name, $property: null, $strict: false) {
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key}, &#{$sep + $key + $mod + $hoverable}:hover {
+                // Single CSS property
+                @if $property and $property != "" {
+                    @include generate-vendor($property, $value, $strict);
+                }
+                // Multiple CSS properties
+                @else {
+                    // Get inner map
+                    $inner: inner-map($map, $key);
+    
+                    @include generate-styles($inner, $strict);
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for ul component
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ul-styles($map, $name: "ul") {
+    .#{$name} {
+        @include generate-styles($map);
+        @include direction-styles();
+    }
+}
+
+
+///
+// @desc Generates css styles for ul alignment
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ul-alignment($map, $name: "ul") {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Generate styles
+        .#{$name + $mod + $key} > li {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for ul list
+//
+// @param {map}    $map
+// @param {list}   $list  -- The ul styles list (from polaris icons)
+// @param {string} $name -- The name key
+///
+@mixin ul-list-styles($map, $list, $name: "ul") {
+    $selectors: null;
+        
+    @each $key in $list {
+        $selectors: append($selectors, "." + $name + $mod + $key + " > li::before, ");
+    }
+
+    #{$selectors} {
+        @include generate-styles($pi-styles);
+        @include generate-styles($map);
+        @include direction-styles($list-styles-ltr, $list-styles-rtl);
+    }
+
+    .#{$name + $mod} {
+        @each $key in $list {
+            &#{$key} > li::before {
+                content: #{'"\\' + polaris-icon($key) + '"'}; 
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for ul collapse
+//
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin ul-collapse($name-1: "ul", $name-2: "collapse") {
+    .#{$name-1 + $mod + $name-2} {
+        letter-spacing: -1em !important;
+    }
+    .#{$name-1 + $mod + $name-2} > li {
+        letter-spacing: normal !important;
+    }
+}
+
+
+///
+// @desc Generates css styles for hidden image caption (sibling)
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin img-caption-h($map, $name-1: "img", $name-2: "cap") {
+    .#{$name-1 + $sib + $name-2 + $mod + $hoverable} {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates css styles for visibe image caption on hover (sibling)
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+// @param {string} $name-3 -- The 3rd name key
+///
+@mixin img-caption-v($map, $name-1: "img", $name-2: "cap", $name-3: "frame") {
+    .#{$name-1 + $par + $name-3}:hover .#{$name-1 + $sib + $name-2 + $mod + $hoverable} {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates css styles for table component 
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin tbl-styles($map, $name: "tbl") {
+    .#{$name} {
+        @include generate-styles($map);
+        @include direction-styles();
+    }
+}
+
+
+///
+// @desc Generates table sizes
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin tbl-sizes($map, $name: "tbl") {
+    .#{$name} {
+        & th, 
+        & td {
+            padding: map-get($map, md);
+        }
+
+        @each $key, $value in $map {
+            &#{$mod + $key} th, 
+            &#{$mod + $key} td {
+                padding: #{$value};
+            }
+        }
+    }
+}
+
+
+///
+// @desc The blueprint for tbl-colors mixin
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin tbl-colors-blueprint($map, $name-1, $name-2) {
+    @each $key, $value in $map {
+        @if $key == color or $key == background-color {
+            @include generate-vendor($key, $value);
+
+        } @else if $key == border-color {
+            & tr:not(:last-child) td {
+                border-bottom: solid 1px #{$value};
+            }
+            
+            & thead tr th {
+                border-bottom: solid 2px #{$value};
+            }
+            
+            & tbody tr:not(:last-child) th {
+                border-bottom: solid 1px #{$value};
+            }
+            &.#{$name-1 + $mod + $name-bordered} {
+                border: solid 1px #{$value};
+            }
+            
+            &.#{$name-1 + $mod + $name-bordered} td:not(:first-child), 
+            &.#{$name-1 + $mod + $name-bordered} thead th:not(:first-child) {
+                border-left: solid 1px #{$value};
+            }
+
+            &.#{$name-1 + $mod + $name-bordered} tbody th {
+                border-right: solid 2px #{$value};
+            }
+
+        } @else if $key == "stripped" {
+            &.#{$name-1 + $mod + $name-2} tbody tr:nth-child(odd) {
+                background-color: #{$value};
+            }
+            &.#{$name-1 + $mod + $name-2}:not(.#{$name-1 + $mod + $name-bordered}) tr td {
+                border-bottom: none;
+            }
+
+        } @else if $key == "hoverable" {
+            &.#{$name-1 + $mod + $hoverable} tbody tr:hover {
+                background-color: #{$value};
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates table colors
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin tbl-colors($map, $name-1: "tbl", $name-2: "strip", $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1},
+                .#{$name-1}.#{$name-1 + $mod + $key} {
+                    @include tbl-colors-blueprint($inner, $name-1, $name-2);
+                }
+            }
+            @else {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1},
+                .#{$name-1}.#{$name-1 + $mod + $key} {
+                    @include tbl-colors-blueprint($inner, $name-1, $name-2);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1}.#{$name-1 + $mod + $key} {
+                @include tbl-colors-blueprint($inner, $name-1, $name-2);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates divider gradient styles
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin divider-gradient-styles($map, $name-1: "hr", $name-2: "g") {
+    .#{$name-1 + $mod + $name-2} {
+        @each $key, $value in $map {
+            @include generate-vendor($key, $value);
+        }
+    }
+}
+
+
+///
+// @desc Generates divider gradient colors
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin divider-gradient-colors($map, $name-1: "hr", $name-2: "g", $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $mod + $name-2},
+                .#{$name-1 + $mod + $name-2}.#{$name-1 + $mod + $key} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $mod + $name-2},
+                .#{$name-1 + $mod + $name-2}.#{$name-1 + $mod + $key} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $name-2}.#{$name-1 + $mod + $key} {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for hr--icon 
+//
+// @param {map}    $map    -- The child map
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key (modifer)
+// @param {string} $name-3 -- 3rdd name key (child)
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin divider-icon-styles($map, $name-1, $name-2, $name-3, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $mod + $name-2} .#{$name-1 + $chi + $name-3} {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}

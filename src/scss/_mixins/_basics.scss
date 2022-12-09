@@ -1,0 +1,503 @@
+// ----- Basic Mixins ----- //
+///
+// @desc The blueprint for color-class mixin
+//
+// @param {map}    $map
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-class-blueprint($map, $property, $strict) {
+    @each $key, $value in $map {
+        @if $property == "color" or $property == "background-color" or $property == "border-color" {
+            &#{$sep + $key}, 
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                @include generate-vendor($property, $value, $strict);
+            }
+        }
+        @else if $property == "outline-color" {
+            &#{$sep + $key}, 
+            &#{$sep + $key + $mod + $hoverable}:hover,
+            &#{$sep + $key + $mod + $focusable}:focus {
+                @include generate-vendor($property, $value, $strict);
+            }
+        }
+        @else if $property == "placeholder" {
+            &#{$sep + $key}::placeholder  {
+                color: #{$value + $strict};
+                @if $cross-browser == true {
+                    opacity: 1; // Legacy Firefox 
+                }
+            }
+            @if $cross-browser == true {
+                &#{$sep + $key}:-ms-input-placeholder  { // IE 10-11
+                    color: #{$value + $strict};
+                }
+                &#{$sep + $key}::-ms-input-placeholder  { // Legacy Edge
+                    color: #{$value + $strict};
+                }
+            }
+        }
+        @else if $property == "selection" {
+            $color: null;
+
+            @if $key == "white" or $key == "light" or $key == "warning" {
+                $color: $black;
+            }
+            @else {
+                $color: $white;
+            }
+
+            @if $cross-browser == true {
+                &#{$sep + $key}::-moz-selection { // Legacy Firefox
+                    color: #{$color+$strict};
+                    background-color: #{$value + $strict};
+                }
+            }
+            &#{$sep + $key}::selection{
+                color: #{$color+$strict};
+                background-color: #{$value + $strict};
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates CSS styles for color, background-color, border-color, placeholder, selection
+//
+// @param {map}    $map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-class($map, $name, $property, $strict: true) {
+    @if $property == "placeholder" or $property == "selection" {
+        $strict: check-strict($strict);
+    }
+
+    @if $color-scheme {
+        .#{$name-doc + $mod + $light-scheme} .#{$light-scheme + $sep + $name}, .#{$name-doc + $mod + $dark-scheme} .#{$dark-scheme + $sep + $name}, .#{$name} {
+            @include color-class-blueprint($map, $property, $strict);
+        }
+    }
+    @else {
+        .#{$name} {
+            @include color-class-blueprint($map, $property, $strict);
+        }
+    }
+}
+
+
+///
+// @desc The blueprint for color-palette mixin
+//
+// @param {list}   $list-1   -- The color names
+// @param {list}   $list-2   -- The color intensities
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-palette-blueprint($list-1, $list-2, $property, $strict, $type) {
+    @each $i in $list-1 {
+        &#{$sep + $i} {
+            @each $j in $list-2 {
+                @if $property == "color" or $property == "background-color" or $property == "border-color" {
+                    &#{$sep + $j}, 
+                    &#{$sep + $j + $mod + $hoverable}:hover {
+                        @include generate-vendor($property, color($i + "-" + $j, $type), $strict);
+                    }
+                }
+                @else if $property == "outline-color" {
+
+                    &#{$sep + $j},
+                    &#{$sep + $j + $mod + $hoverable}:hover,
+                    &#{$sep + $j + $mod + $focusable}:focus {
+                        @include generate-vendor($property, color($i + "-" + $j, $type), $strict);
+                    }
+                }
+                @else if $property == "placeholder" {
+                    &#{$sep + $j}::placeholder  {
+                        color: #{color($i + "-" + $j, $type) + $strict};
+                        @if $cross-browser == true {
+                            opacity: 1; // Legacy Firefox 
+                        }
+                    }
+                    @if $cross-browser == true {
+                        &#{$sep + $j}:-ms-input-placeholder  { // IE 10-11
+                            color: #{color($i + "-" + $j, $type) + $strict};
+                        }
+                        &#{$sep + $j}::-ms-input-placeholder  { // Legacy Edge
+                            color: #{color($i + "-" + $j, $type) + $strict};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates color palettes for color, background-color, border-color, placeholder, selection
+//
+// @param {list}   $list-1   -- The color names
+// @param {list}   $list-2   -- The color intensities
+// @param {string} $name     -- The name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-palette($list-1, $list-2, $name, $property, $strict: true, $type: "core") {
+    @if $property == "placeholder" {
+        $strict: check-strict($strict);
+    }
+
+    @if $color-scheme {
+        .#{$name-doc + $mod + $light-scheme} .#{$light-scheme + $sep + $name}, .#{$name-doc + $mod + $dark-scheme} .#{$dark-scheme + $sep + $name}, .#{$name} {
+            @include color-palette-blueprint($list-1, $list-2, $property, $strict, $type);
+        }
+    }
+    @else {
+        .#{$name} {
+            @include color-palette-blueprint($list-1, $list-2, $property, $strict, $type);
+        }
+    }
+}
+
+
+///
+// @desc The blueprint for color-alpha mixin
+//
+// @param {list}   $list-1   -- The color names
+// @param {list}   $list-2   -- The color intensities
+// @param {string} $name-2   -- The 2nd name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-alpha-blueprint($list-1, $list-2, $name-2, $property, $strict, $type) {
+    @each $i in $list-1 {
+        &#{$sep + $i} {
+            @each $j in $list-2 {
+                @if $property == "color" or $property == "background-color" or $property == "border-color" {
+                    &#{$sep + $name-2 + $j}, 
+                    &#{$sep + $name-2 + $j + $mod + $hoverable}:hover {
+                        @include generate-vendor($property, rgba(color($i, $type), math.div($j, 1000)), $strict);
+                    }
+                }
+                @else if $property == "outline-color" {
+                    &#{$sep + $name-2 + $j},
+                    &#{$sep + $name-2 + $j + $mod + $hoverable}:hover,
+                    &#{$sep + $name-2 + $j + $mod + $focusable}:focus {
+                        @include generate-vendor($property, rgba(color($i, $type), math.div($j, 1000)), $strict);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates rgba colors for color, background-color, border-color, placeholder, selection
+//
+// @param {list}   $list-1   -- The color names
+// @param {list}   $list-2   -- The color intensities
+// @param {string} $name-1   -- The 1st name key
+// @param {string} $name-2   -- The 2nd name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin color-alpha($list-1, $list-2, $name-1, $name-2, $property, $strict: true, $type: "core") {
+    @if $color-scheme {
+        .#{$name-doc + $mod + $light-scheme} .#{$light-scheme + $sep + $name-1}, .#{$name-doc + $mod + $dark-scheme} .#{$dark-scheme + $sep + $name-1}, .#{$name-1} {
+            @include color-alpha-blueprint($list-1, $list-2, $name-2, $property, $strict, $type);
+        }
+    }
+    @else {
+        .#{$name-1} {
+            @include color-alpha-blueprint($list-1, $list-2, $name-2, $property, $strict, $type);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles background alpha component 
+//
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin bg-alpha($name: "bg-alpha", $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        background-image:  #{"url('../images/bg-alpha.png')" + $strict};
+        background-repeat: repeat#{$strict};
+    }
+}
+
+
+///
+// @desc Generates css styles background transparent component 
+//
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin bg-parent($name: "bg-parent", $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        background: transparent#{$strict};
+    }
+}
+
+
+///
+// @desc Generates css padding, margin, border for x, y axis
+//
+// @param {string} $spacing -- margin | padding | border
+// @param {string} $axis    -- x | y
+// @param {string} $value   -- The spacing css value
+///
+@mixin spacing-axis($value, $axis, $spacing) {
+    $width: null;
+
+    @if $spacing == "padding" or $spacing == "margin" {
+        $width: "";
+    }
+    @else if $spacing == "border" {
+        $width: "-width";
+    }
+
+    // x axis
+    @if $axis == "x" {
+        #{$spacing}-left#{$width}:  #{$value};
+        #{$spacing}-right#{$width}:  #{$value};
+
+    // y axis
+    } @else if $axis == "y" {
+        #{$spacing}-top#{$width}:    #{$value};
+        #{$spacing}-bottom#{$width}: #{$value};
+    }
+}
+
+
+///
+// @desc The blueprint for spacing classes
+//
+// @param {map}    $map-1   -- The component map
+// @param {map}    $map-2   -- The $positions-abbr map
+// @param {map}    $map-3   -- The $positions-axis map
+// @param {string} $spacing -- padding | margin
+// @param {string} $strict  -- The !important CSS value placeholder
+///
+@mixin spacing-blueprint($map-1, $map-2, $map-3, $spacing, $strict: true) {
+    $strict: check-strict($strict);
+
+    @each $key-1, $value-1 in $map-1 {
+        @if $spacing == "padding" or $spacing == "margin" {
+            // spacing
+            &#{$sep + $key-1}, &#{$sep + $key-1 + $mod + $children} > * {
+                #{$spacing}: #{$value-1 + $strict};
+            }
+
+            // spacing-left, spacing-right, spacing-top, spacing-bottom
+            @each $key-2, $value-2 in $map-2 {
+                &#{$key-2 + $sep + $key-1}, &#{$key-2+ $sep + $key-1 + $mod + $children} > *  {
+                    #{$spacing+ $sep + $value-2}: #{$value-1 + $strict};
+                }
+            }
+
+            // spacing-x, spacing-y
+            @each $key-2, $value-2 in $map-3 {
+                &#{$key-2 + $sep + $key-1}, &#{$key-2+ $sep + $key-1 + $mod + $children} > * {
+                    @include spacing-axis($value-1 + $strict, $value-2, $spacing);
+                }
+            }
+        }
+        @else if $spacing == "border" {
+            // spacing
+            &#{$sep + $key-1}, 
+            &#{$sep + $key-1 + $mod + $hoverable}:hover {
+                #{$spacing}-width: #{$value-1 + $strict};
+            }
+
+            // spacing-left, spacing-right, spacing-top, spacing-bottom
+            @each $key-2, $value-2 in $map-2 {
+                &#{$key-2 + $sep + $key-1}, 
+                &#{$key-2 + $sep + $key-1 + $mod + $hoverable}:hover {
+                    #{$spacing+ $sep + $value-2}-width: #{$value-1 + $strict};
+                }
+            }
+
+            // spacing-x, spacing-y
+            @each $key-2, $value-2 in $map-3 {
+                &#{$key-2 + $sep + $key-1}, 
+                &#{$key-2 + $sep + $key-1 + $mod + $hoverable}:hover {
+                    @include spacing-axis($value-1 + $strict, $value-2, $spacing);
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for spacing classes
+//
+// @param {map}    $map-1   -- The component map
+// @param {map}    $map-2   -- The $positions-abbr map
+// @param {map}    $map-3   -- The $positions-axis map
+// @param {string} $name    -- The name key
+// @param {string} $spacing -- padding | margin
+// @param {string} $strict  -- The !important CSS value placeholder
+///
+@mixin spacing-class($map-1, $map-2, $map-3, $name, $spacing, $strict: true) {
+    .#{$name} {
+        @include spacing-blueprint($map-1, $map-2, $map-3, $spacing, $strict);
+    }
+}
+
+
+///
+// @desc Generates responsive css styles for spacing classes
+//
+// @param {map}     $map-1      -- The component map
+// @param {map}     $map-2      -- The $positions-abbr map
+// @param {map}     $map-3      -- The $positions-axis map
+// @param {string}  $name       -- The name key
+// @param {boolean} $responsive -- The responsive value
+// @param {string}  $spacing    -- padding | margin | border
+// @param {string}  $strict     -- The !important CSS value placeholder
+///
+@mixin responsive-spacing($map-1, $map-2, $map-3, $name, $spacing, $responsive: true, $strict: true) {
+    @include responsive-blueprint($name, $responsive) {
+        @include spacing-blueprint($map-1, $map-2, $map-3, $spacing, $strict);
+    }
+}
+
+
+///
+// @desc Generates css styles for border-style
+//
+// @param {map}    $map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin border-class($map, $name: "b", $strict: true) {
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key}, 
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                border-width: 0;
+                @include generate-vendor("border-style", $value, $strict);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for outline classes
+//
+// @param {map}    $map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The CSS property name
+// @param {string} $strict   -- The !important CSS value placeholder
+///
+@mixin outline-class($map, $name: "out", $property, $strict: true) {
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key}, 
+            &#{$sep + $key + $mod + $hoverable}:hover, 
+            &#{$sep + $key + $mod + $focusable}:focus {
+                @include generate-vendor($property, $value, $strict);
+            }
+        }
+    }
+}
+
+
+///
+// @desc The blueprint for gutters
+//
+// @param {map}    $map-1   -- The component map
+// @param {string} $spacing -- padding | margin
+// @param {string} $strict  -- The !important CSS value placeholder
+///
+@mixin gutter-blueprint($map, $strict: true) {
+    $strict: check-strict($strict);
+
+    @each $key, $value in $map {
+        &#{$sep + $key} {
+            @include spacing-axis(#{-$value + $strict}, x, "margin");
+        }
+        &#{$sep + $key} > * {
+            @include spacing-axis(#{$value + $strict}, x, "padding");
+        }
+    }
+}
+
+
+///
+// @desc Generates spacing gutters
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin gutter-class($map, $name: "gt", $strict: true) {
+    .#{$name} {
+        @include gutter-blueprint($map, $strict);
+    }
+}
+
+
+///
+// @desc Generates responsive css styles for spacing classes
+//
+// @param {map}     $map        -- The component map
+// @param {string}  $name       -- The name key
+// @param {boolean} $responsive -- The responsive value
+// @param {string}  $spacing    -- padding | margin | border
+// @param {string}  $strict     -- The !important CSS value placeholder
+///
+@mixin responsive-gutter($map, $name, $responsive: true, $strict: true) {
+    @include responsive-blueprint($name, $responsive) {
+        @include gutter-blueprint($map, $strict);
+    }
+}
+
+
+///
+// @desc Generates css styles for clear-fix component 
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin clear-fix($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name}::before,
+    .#{$name}::after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for resize class
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin resize-class($map, $name: "resize", $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key} {
+                resize: #{$value + $strict};
+                overflow: hidden;
+            }
+        }
+    }
+}

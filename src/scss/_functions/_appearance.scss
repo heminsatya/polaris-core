@@ -1,0 +1,118 @@
+// ----- Appearance Functions ----- //
+///
+// @desc Generates $orders map
+//
+// @param {number} $scale -- Flexbox scale in percent from 1 to 100 - Default is 100
+// @param {number} $ratio -- Flexbox growth ratio from 1 to 100 - Default is 5
+// @param {string} $name  -- The name key for order
+// 
+// @var {map} $orders -- The $orders map placeholder
+//
+// @return {map}
+// 
+// @NOTICE! If you want the same behaviour as grid sytem set and $flex-scale: 12, $flex-ratio: 1
+// @CAUTION! The `$flex-scale` must be divisible by `$flex-ratio`.
+///
+@function order-generator($scale: 100, $ratio: 5, $name: "order") {
+    // Check the flex number
+    @if $scale < 1 or $scale > 100 {
+        @error "Invalid number for `$flex-scale` variable! " +
+            "Please enter a number from 1 to 100.";
+    }
+    // Check the divisibility of $scale to $ratio
+    @else if ($scale % $ratio != 0) {
+        @error "Invalid numbers for `$flex-scale` and `$flex-ratio` variables! " +
+            "The `$flex-scale` must be divisible by `$flex-ratio`.";
+    }
+    // Generate orders map
+    @else {
+        // Defaine Grid Map
+        $orders: (); 
+        
+        @for $i from 1 through (math.div($scale, $ratio)) {
+            $orders: map-merge($orders, ($name + "-" + $i: $i));
+        }
+
+        @return $orders;
+    }
+}
+
+
+///
+// @desc Generates $flex-grows map
+//
+// @param {number} $scale -- Flexbox scale in percent from 1 to 100 - Default is 100
+// @param {number} $ratio -- Flexbox growth ratio from 1 to 100 - Default is 5
+// @param {string} $name  -- The name key for flex-grow
+// 
+// @var {map} $grids -- The $flex-grows map placeholder
+//
+// @return {map}
+// 
+// @NOTICE! If you want the same behaviour as grid sytem set and $flex-scale: 12, $flex-ratio: 1
+// @CAUTION! The `$flex-scale` must be divisible by `$flex-ratio`.
+///
+@function flex-grow-generator($scale: 100, $ratio: 5, $name: "grow") {
+    // Check the flex number
+    @if $scale < 1 or $scale > 100 {
+        @error "Invalid number for `$flex-scale` variable! " +
+            "Please enter a number from 1 to 100.";
+    }
+    // Check the divisibility of $scale to $ratio
+    @else if ($scale % $ratio != 0) {
+        @error "Invalid numbers for `$flex-scale` and `$flex-ratio` variables! " +
+            "The `$flex-scale` must be divisible by `$flex-ratio`.";
+    }
+    // Generate flex-grows map
+    @else {
+        // Defaine Grid Map
+        $flex-grows: (); 
+        
+        @for $i from 1 through (math.div($scale, $ratio)) {
+            $flex-grows: map-merge($flex-grows, ($name + "-" + $i: $i));
+        }
+
+        @return $flex-grows;
+    }
+}
+
+
+///
+// @desc Generates $flex-sizes map (used for flex-basis)
+//
+// @param {number} $scale -- Flexbox scale in percent from 1 to 100 - Default is 100
+// @param {number} $ratio -- Flexbox growth ratio from 1 to 100 - Default is 5
+// 
+// @var {map} $flex-sizes -- The $flex-sizes map placeholder
+//
+// @return {map}
+// 
+// @NOTICE! If you want the same behaviour as grid sytem set and $flex-scale: 12, $flex-ratio: 1
+// @CAUTION! The `$flex-scale` must be divisible by `$flex-ratio`.
+///
+@function flex-size-generator($scale: 100, $ratio: 5) {
+    $count: $ratio;    // Set counter
+
+    // Check the flex number
+    @if $scale < 1 or $scale > 100 {
+        @error "Invalid number for `$flex-scale` variable! " +
+            "Please enter a number from 1 to 100.";
+    }
+    // Check the divisibility of $scale to $ratio
+    @else if ($scale % $ratio != 0) {
+        @error "Invalid numbers for `$flex-scale` and `$flex-ratio` variables! " +
+            "The `$flex-scale` must be divisible by `$flex-ratio`.";
+    }
+    // Generate flex-sizes map
+    @else {
+        // Defaine Grid Map
+        $flex-sizes: (); 
+        
+        @while $count <= $scale {
+            $flex-sizes: map-merge($flex-sizes, ($count: percentage(math.div($count, $scale))));
+            $count: $count + $ratio;
+        }
+
+        @return $flex-sizes;
+    }
+}

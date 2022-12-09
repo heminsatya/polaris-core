@@ -1,0 +1,408 @@
+/* ---------- Root ---------- */
+:root {
+    --light:                #{$light};
+    --gray:                 #{$gray};
+    --dark:                 #{$dark};
+    --app:                  #{$app};
+    --notice:               #{$notice};
+    --warning:              #{$warning};
+    --danger:               #{$danger};
+    --success:              #{$success};
+    --main-font-family:     #{$main-font-family};
+    --main-font-size:       #{$main-font-size};
+    --main-font-weight:     #{$main-font-weight};
+    --main-line-height:     #{$main-line-height};
+    --heading-font-family:  #{$h-font-family};
+    --heading-font-weight:  #{$h-font-weight};
+    --document-light-color: #{$doc-light-color};
+    --document-light-bg:    #{$doc-light-bg};
+    --document-dark-color:  #{$doc-dark-color};
+    --document-dark-bg:     #{$doc-dark-bg};
+}
+
+html {
+    @include generate-styles($html-styles);
+}
+
+*, 
+*:before, 
+*:after {
+    @include box-sizing(inherit);
+}
+
+body {
+    @include generate-styles($body-styles);
+}
+
+html, 
+body {
+    min-height: #{$html-body-height};
+}
+
+body:before,
+body:after {
+    content: "" !important;
+    display: table !important;
+    clear: both !important;
+}
+
+
+/* ---------- Sections ---------- */
+header, 
+footer, 
+nav, 
+aside, 
+main, 
+section, 
+article, 
+figcaption, 
+figure, 
+hgroup, 
+details {
+    display: block;
+}
+
+summary {
+    display: list-item;
+    cursor:  pointer;
+}
+
+
+/* ---------- Misc ---------- */
+template, 
+[hidden] {
+    display: none;
+}
+
+
+/* ---------- Paragraphs ---------- */
+p {
+    @include generate-styles($p-styles);
+}
+
+
+/* ---------- Links ---------- */
+a {
+    @include generate-styles($a-styles);
+}
+
+a:hover {
+    @include generate-styles($a-hover-styles);
+}
+
+a:visited {
+    @include generate-styles($a-visited-styles);
+}
+
+a:active {
+    @include generate-styles($a-active-styles);
+}
+
+
+/* ---------- Headings ---------- */
+/**
+ * Heading Defaults 
+**/
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    @include generate-styles($h-styles);
+}
+
+/**
+ * Responsive Headings (Generic) 
+**/
+@include h-font-size($h-font-sizes);
+
+
+/* ---------- Multimedia ---------- */
+audio, 
+canvas, 
+progress, 
+video {
+    display: inline-block;
+}
+
+progress {
+    vertical-align: baseline;
+}
+
+audio:not([controls]) {
+    display: none;
+    height:  0;
+}
+
+
+/* ---------- Text Markup ---------- */
+small {
+    @include generate-styles($small-styles);
+}
+
+sup {
+    @include generate-styles($sup-styles);
+}
+
+sub {
+    @include generate-styles($sub-styles);
+}
+
+sup, 
+sub {
+    @include generate-styles($sup-sub-styles);
+}
+
+abbr[title] {
+    @include generate-styles($abbr-styles);
+}
+
+del {
+    text-decoration: line-through;
+}
+
+ins {
+    text-decoration: underline;
+}
+
+dfn {
+    font-style: italic;
+}
+
+address {
+    font-style: italic;
+}
+
+pre,
+code,
+kbd,
+samp,
+var {
+    font-size: $codes-font-size;
+}
+
+pre {
+    font-family: $pre-font-family;
+}
+
+code, 
+kbd, 
+samp,
+var {
+    @include generate-styles($codes-styles);
+}
+
+kbd {
+    @include generate-styles($kbd-styles);
+}
+
+mark {
+    @include generate-styles($mark-styles);
+}
+
+var {
+    @include generate-styles($var-styles);
+}
+
+
+/* ---------- hr ---------- */
+/**
+ * hr
+**/
+hr {
+    @include generate-styles($hr-styles);
+}
+
+/**
+ * Responsive hr (Generic) 
+**/
+@include hr-margin($hr-margins);
+
+
+/* ---------- Quotes ---------- */
+q, 
+blockquote {
+    quotes: none;
+}
+
+q {
+    margin:  0;
+    padding: 0;
+}
+
+q:before, 
+q:after, 
+blockquote:before, 
+blockquote:after {
+    content: '';
+}
+
+q,
+blockquote, 
+blockquote p {
+    color: inherit;
+}
+
+blockquote {
+    @include generate-styles($blockquote-styles);
+}
+
+
+/* ---------- Lists ---------- */
+/**
+ * Order Lists
+**/
+ol {
+    @include generate-styles($ol-styles);
+}
+
+ol:not([type]) {
+    list-style-type: $ol-list-style;    // Update with class
+}
+
+/**
+ * Unorder Lists
+**/
+ul {
+    @include generate-styles($ul-styles);
+}
+
+/**
+ * Definition Lists
+**/
+dl {
+    dt {
+        font-weight: $dt-font-weight;
+    }
+    
+    dd:not(:last-child) {
+        margin-bottom: $dd-margin-bottom;
+    }
+}
+
+/**
+ * Lists
+**/
+dl, 
+ol, 
+ul {
+    @include generate-styles($lists-styles);
+}
+
+
+/* ---------- Images ---------- */
+figure {
+    @include generate-styles($figure-styles);
+}
+
+img {
+    @include generate-styles($img-styles);
+}
+
+
+/* ---------- Tables ---------- */
+table {
+    @include generate-styles($table-styles);
+}
+
+
+/* ---------- Forms ---------- */
+label {
+    @include generate-styles($label-styles);
+}
+
+input, 
+button, 
+select, 
+optgroup, 
+textarea {
+    @include generate-styles($inputs-styles);
+}
+
+fieldset {
+    @include generate-styles($fieldset-styles);
+}
+
+legend {
+    @include generate-styles($legend-styles);
+}
+
+button, 
+input[type=button] {
+    @include generate-styles($button-styles);
+}
+
+input,
+select,
+button {
+  vertical-align: middle;
+  text-transform: none;
+  overflow:       visible;
+}
+
+textarea {
+    @include generate-styles($textarea-styles);
+}
+
+select {
+    @include generate-styles($select-styles);
+}
+
+optgroup {
+    @include generate-styles($optgroup-styles);
+}
+
+option {
+    @include generate-styles($option-styles);
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    @include get-vendor(appearance, button);
+}
+
+input[type="radio"], 
+input[type="checkbox"] {
+    box-sizing:     border-box;
+    padding:        0;
+    vertical-align: baseline;
+}
+
+input[disabled], 
+button[disabled], 
+select[disabled], 
+optgroup[disabled], 
+textarea[disabled] {
+    opacity:        0.67;
+    pointer-events: none;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    padding:      0;
+    border-style: none;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+[type="search"] {
+    @include get-vendor(appearance, textfield);
+    outline-offset: -2px;
+}
+
+[type="search"]::-webkit-search-decoration {
+    @include get-vendor(appearance, none);
+}
+
+::-webkit-file-upload-button {
+    @include get-vendor(appearance, button);
+    font: inherit;
+}

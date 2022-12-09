@@ -1,0 +1,28 @@
+/* ---------- Popup ---------- */
+// -- Parent -- //
+@include parent-styles($popup-control, $name-popup, $name-control);
+
+// -- Component -- //
+@include component-styles($popup-styles, $name-popup);
+@include component-after-styles($popup-after, $name-popup);
+@include popup-hover($popup-hover, $name-popup);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($popup-colors, $name-popup);
+@include modifier-after-colors($popup-after-colors, $name-popup);
+
+// ::after border-color
+.#{$name-popup}:not(.#{$name-popup + $mod + 'top'}):not(.#{$name-popup + $mod + 'bottom'}):not(.#{$name-popup + $mod + 'left'}):not(.#{$name-popup + $mod + 'right'})::after {
+    border-bottom-color: transparent !important;
+    border-left-color:   transparent !important;
+    border-right-color:  transparent !important;
+}
+
+// Sizes
+@include modifiers-styles($popup-sizes, $name-popup);
+
+// Positions
+@include modifiers-styles($popup-positions, $name-popup);
+@include modifiers-after-styles($popup-after-positions, $name-popup);

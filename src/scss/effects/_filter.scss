@@ -1,0 +1,60 @@
+/* ---------- Filter ---------- */
+// -- Component Classes -- //
+/*
+* blur
+*/
+@include filter-class($blurs, $name-blur, "blur", $strict-filter);
+
+
+/*
+* brightness
+*/
+@include filter-class($brightnesses, $name-brightness, "brightness", $strict-filter);
+
+
+/*
+* darkness (reverse brightness)
+*/
+@include filter-class($darknesses, $name-darkness, "brightness", $strict-filter);
+
+
+/*
+* grayscale
+*/
+@include filter-class($grayscales, $name-grayscale, "grayscale", $strict-filter);
+
+
+/*
+* sepia
+*/
+@include filter-class($sepias, $name-sepia, "sepia", $strict-filter);
+
+
+/*
+* invert
+*/
+@include filter-class($inverts, $name-invert, "invert", $strict-filter);
+
+
+/*
+* hue-rotate
+*/
+@include filter-class($hue-rotates, $name-hue-rotate, "hue-rotate", $strict-filter);
+
+
+/*
+* reverse hue-rotate
+*/
+@include filter-class($hue-rotates-r, $name-hue-rotate-r, "hue-rotate", $strict-filter);
+
+
+/*
+* saturate
+*/
+@include filter-class($saturates, $name-saturate, "saturate", $strict-filter);
+
+
+/*
+* filter negator
+*/
+@include filter-negator($name-filter, $name-negator, $strict-filter);

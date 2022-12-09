@@ -1,0 +1,16 @@
+/* ---------- Links ---------- */
+// -- Components -- //
+/*
+* Active link
+*/
+@include link-styles($active-styles, $name-active);
+
+/*
+* Inactive link
+*/
+@include link-styles($inactive-styles, $name-inactive);
+
+/*
+* Disabled link
+*/
+@include link-styles($disabled-styles, $name-disabled);

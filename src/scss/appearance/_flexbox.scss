@@ -1,0 +1,112 @@
+/* ---------- Flexbox ---------- */
+// -- Modifiers -- //
+/**
+* Flex Container (Modifiers)
+*/
+/*
+* flex class
+*/
+@include modifier-class($flex-class, $name-flex, "flex", $strict-flex);
+@include responsive-modifier-class($flex-class, $name-flex, "flex", $responsive-display, $strict-flex);
+
+
+/*
+* flex-direction
+*/
+@include modifier-class($flex-directions, $name-flex, "flex-direction", $strict-flex);
+@include responsive-modifier-class($flex-directions, $name-flex, "flex-direction", $responsive-display, $strict-flex);
+
+
+/*
+* flex-wrap
+*/
+@include modifier-class($flex-wraps, $name-flex, "flex-wrap", $strict-flex);
+@include responsive-modifier-class($flex-wraps, $name-flex, "flex-wrap", $responsive-display, $strict-flex);
+
+
+/*
+* flex-flow
+*/
+@include modifier-class($flex-flows, $name-flex, "flex-flow", $strict-flex);
+@include responsive-modifier-class($flex-flows, $name-flex, "flex-flow", $responsive-display, $strict-flex);
+
+
+/*
+* align-content
+*/
+@include modifier-class($align-contents, $name-flex, "align-content", $strict-flex);
+@include responsive-modifier-class($align-contents, $name-flex, "align-content", $responsive-display, $strict-flex);
+
+
+/*
+* justify-content
+*/
+@include modifier-class($justify-contents, $name-flex, "justify-content", $strict-flex);
+@include responsive-modifier-class($justify-contents, $name-flex, "justify-content", $responsive-display, $strict-flex);
+
+
+/*
+* align-items
+*/
+@include modifier-class($align-items, $name-flex, "align-items", $strict-flex);
+@include responsive-modifier-class($align-items, $name-flex, "align-items", $responsive-display, $strict-flex);
+
+
+/*
+* Flex fill for children ("flex: 1 100%")
+*/
+@include flex-fill($flex-fills, $name-flex, $strict-flex);
+@include responsive-flex-fill($flex-fills, $name-flex, $responsive-display, $strict-flex);
+
+
+// -- Children -- //
+/*
+* Flex Elements (Children)
+*/
+/*
+* order
+*/
+@include child-class($orders, $name-flex, "order", $strict-flex);
+@include responsive-child-class($orders, $name-flex, "order", $responsive-display, $strict-flex);
+
+
+/*
+* flex-grow
+*/
+@include child-class($flex-grows, $name-flex, "flex-grow", $strict-flex);
+@include responsive-child-class($flex-grows, $name-flex, "flex-grow", $responsive-display, $strict-flex);
+
+
+/*
+* flex-shrink
+*/
+@include child-class($flex-shrinks, $name-flex, "flex-shrink", $strict-flex);
+@include responsive-child-class($flex-shrinks, $name-flex, "flex-shrink", $responsive-display, $strict-flex);
+
+
+/*
+* flex-basis
+*/
+@include child-class($flex-basis, $name-flex, "flex-basis", $strict-flex);
+@include responsive-child-class($flex-basis, $name-flex, "flex-basis", $responsive-display, $strict-flex);
+
+
+/*
+* align-self
+*/
+@include child-class($align-selves, $name-flex, "align-self", $strict-flex);
+@include responsive-child-class($align-selves, $name-flex, "align-self", $responsive-display, $strict-flex);
+
+
+/*
+* flex size (flex-basis: %...)
+*/
+@include child-class($flex-sizes, $name-flex, "flex-basis", $strict-flex);
+@include responsive-child-class($flex-sizes, $name-flex, "flex-basis", $responsive-display, $strict-flex);
+
+
+/*
+* Flex fill for child ("flex: 1 100%")
+*/
+@include child-class($flex-fills, $name-flex, "flex", $strict-flex);
+@include responsive-child-class($flex-fills, $name-flex, "flex", $responsive-display, $strict-flex);

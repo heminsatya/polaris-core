@@ -1,0 +1,27 @@
+/**
+ * To learn more about this file visit the following links:
+ * https://www.typescriptlang.org/tsconfig
+ * https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+ */
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "es6",
+        "module": "es6",
+        "rootDir": "src/ts/",
+        "outDir": "dist/js/",
+        "declaration": true,
+        "sourceMap": true,
+        "preserveConstEnums": true,
+        "removeComments": false,
+        "importHelpers": true,
+        "noImplicitAny": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "allowJs": true,
+        "checkJs": true,
+        "moduleResolution": "node"
+    },
+    "include": ["src/ts/modules/*.ts"],
+    "exclude": ["node_modules"]
+}

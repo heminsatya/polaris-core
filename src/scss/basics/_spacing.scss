@@ -1,0 +1,60 @@
+/* ---------- Spacing ---------- */
+// -- Component Classes -- //
+/*
+* 1. Padding
+*/
+@include spacing-class($paddings, $polaris-positions-abbr, $positions-axis, $name-padding, "padding", $strict-spacing);
+@include responsive-spacing($paddings, $polaris-positions-abbr, $positions-axis, $name-padding, "padding", $responsive-spacing, $strict-spacing);
+
+
+/*
+* 2. Margin
+*/
+@include spacing-class($margins, $polaris-positions-abbr, $positions-axis, $name-margin, "margin", $strict-spacing);
+@include responsive-spacing($margins, $polaris-positions-abbr, $positions-axis, $name-margin, "margin", $responsive-spacing, $strict-spacing);
+
+
+/*
+* 3. Border
+*/
+/*
+* 3.1 border-style
+*/
+@include border-class($border-styles, $name-border-style, $strict-spacing);
+
+/*
+* 3.2 border-width
+*/
+@include spacing-class($border-widths, $polaris-positions-abbr, $positions-axis, $name-border-width, "border", $strict-spacing);
+
+
+/*
+* 4. outline
+*/
+/*
+* 4.1 outline-style
+*/
+@include outline-class($outline-styles, $name-outline-style, "outline-style", $strict-spacing);
+
+/*
+* 4.2 outline-width
+*/
+@include outline-class($outline-widths, $name-outline-width, "outline-width", $strict-spacing);
+
+/*
+* 4.2 outline-offset
+*/
+@include outline-class($outline-offsets, $name-outline-offset, "outline-offset", $strict-spacing);
+
+
+/*
+* 5. box-sizing 
+*/
+@include component-class($box-sizings, $name-box-sizing, "box-sizing", $strict-spacing);
+
+
+/*
+* 6. Gutters
+*/
+@include gutter-class($gutters, $name-gutter, $strict-spacing);
+@include responsive-gutter($gutters, $name-gutter, $responsive-spacing, $strict-spacing);

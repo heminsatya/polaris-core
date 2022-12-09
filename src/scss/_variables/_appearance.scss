@@ -1,0 +1,313 @@
+// ----- Appearance Variables ----- //
+// -- Float -- //
+$responsive-float: true !default;            // true | false
+$strict-float:     true !default;            // true | false
+
+
+// -- Position -- //
+$responsive-position: true !default;            // true | false
+$strict-position:     true !default;            // true | false
+
+// Position alignment styles
+$position-aligns: (
+    // Tops
+    #{$position-top-left}: (
+        top:  0,
+        left: 0
+    ),
+
+    #{$position-top}: (
+        top:       0,
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+
+    #{$position-top-right}: (
+        top:   0,
+        right: 0
+    ),
+
+    
+    // Middles
+    #{$position-left}: (
+        top:       50%,
+        left:      0,
+        transform: translate(0%, -50%)
+    ),
+
+    #{$position-center}: (
+        top:       50%,
+        left:      50%,
+        transform: translate(-50%, -50%)
+    ),
+
+    #{$position-right}: (
+        top:       50%,
+        right:     0,
+        transform: translate(0%, -50%)
+    ),
+
+    
+    // Bottoms
+    #{$position-bottom-left}: (
+        bottom: 0,
+        left:   0
+    ),
+
+    #{$position-bottom}: (
+        bottom:    0,
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+
+    #{$position-bottom-right}: (
+        bottom: 0,
+        right:  0
+    )
+) !default;
+
+
+// -- Display -- //
+$responsive-display: true !default;            // true | false
+$strict-display:     true !default;            // true | false
+
+
+// -- Overflow -- //
+$responsive-overflow: true !default;            // true | false
+$strict-overflow:     true !default;            // true | false
+
+
+// -- Visibility -- //
+$responsive-visibility: true !default;          // true | false
+$strict-visibility:     true !default;          // true | false
+
+
+// -- Opacity -- //
+$responsive-opacity: true !default;             // true | false
+$strict-opacity:     true !default;             // true | false
+
+
+// -- z-index -- //
+$responsive-z-index: true !default;             // true | false
+$strict-z-index:     true !default;             // true | false
+
+
+// -- Backdrop -- //
+$backdrop-styles: (
+    position: fixed,
+    top:      0,
+    left:     0,
+    z-index:  60,
+    width:    100%,
+    height:   100%
+) !default;
+
+
+// Backdrop modifiers
+// Backdrop colors
+$backdrop-colors: (
+    light: (
+        background-color: rgba(255, 255, 255, 0.15)
+    ),
+
+    dark: (
+        background-color: rgba(0, 0, 0, 0.25)
+    )
+) !default;
+
+
+// -- Loader -- //
+// Component //
+// Styles
+$loader-styles: (
+    position:     fixed,
+    z-index:      100,
+    margin-left:  auto,
+    margin-right: auto,
+    height:       auto,
+    width:        100%,
+    max-width:    100%
+) !default;
+
+
+// -- Spiner -- //
+// Container //
+// Styles
+$spiner-container: (
+    position:  absolute,
+    top:       50%,
+    left:      50%,
+    transform: translate(-50%, -50%),
+    z-index:   100
+) !default;
+
+// Component //
+// Styles
+$spiner-styles: (
+    border-radius:             50%,
+    border-width:              0.1875rem,
+    border-style:              solid,
+    width:                     2rem,
+    height:                    2rem,
+    z-index:                   99,
+    animation-name:            var(--animation, rotate),
+    animation-duration:        var(--animation-duration, 1s),
+    animation-delay:           var(--animation-delay, 0s),
+    animation-iteration-count: var(--animation-count, infinite),
+    animation-timing-function: var(--animation-function, linear),
+    animation-play-state:      var(--animation-state, running),
+    animation-fill-mode:       both
+) !default;
+
+$spiner-colors: (
+    "light" : (
+        border-color:     rgba(0, 0, 0, 0.05),
+        border-top-color: color(app-500)
+    ),
+
+    "dark": (
+        border-color:     rgba(255, 255, 255, 0.05),
+        border-top-color: color(app-400)
+    )
+) !default;
+
+$spiner-sizes: (
+    "xs" : (
+        border-width:  0.0625rem,
+        width:         1rem,
+        height:        1rem,
+    ),
+
+    "sm" : (
+        border-width:  0.125rem,
+        width:         1.5rem,
+        height:        1.5rem,
+    ),
+
+    "md" : (
+        border-width:  0.1875rem,
+        width:         2rem,
+        height:        2rem,
+    ),
+
+    "lg" : (
+        border-width:  0.25rem,
+        width:         2.5rem,
+        height:        2.5rem,
+    ),
+
+    "xl" : (
+        border-width:  0.3125rem,
+        width:         3rem,
+        height:        3rem,
+    ),
+) !default;
+
+
+// -- Scrolls -- //
+$strict-scroll: true !default;          // true | false
+
+// Component
+// Styles
+$scroll-styles: (
+    "container": (
+        width:      0.75rem,
+        min-width:  0.25vw,
+        max-width:  2.5vw,
+        height:     0.75rem,
+        min-height: 0.25vh,
+        max-height: 2.5vh
+    ),
+    
+    "thumb": (
+        border-radius: 0
+    )
+) !default;
+
+// Modifiers //
+// Colors
+$scroll-colors: (
+    "light": (
+        "track": (
+            background-color: rgba(0, 0, 0, 0.1)
+        ),
+
+        "thumb": (
+            background-color: color(gray-400)
+        ),
+
+        "thumb-hover": (
+            background-color: color(gray-500)
+        ),
+
+        "thumb-active": (
+            background-color: color(gray-600)
+        )
+    ),
+    
+    "dark": (
+        "track": (
+            background-color: rgba(255, 255, 255, 0.1)
+        ),
+
+        "thumb": (
+            background-color: color(gray-600)
+        ),
+
+        "thumb-hover": (
+            background-color: color(gray-500)
+        ),
+
+        "thumb-active": (
+            background-color: color(gray-400)
+        )
+    ),
+) !default; 
+
+// Sizes
+$scroll-sizes: (
+    "xs": (
+        width:  0.25rem,
+        height: 0.25rem
+    ),
+
+    "sm": (
+        width:  0.5rem,
+        height: 0.5rem
+    ),
+
+    "md": (
+        width:  0.75rem,
+        height: 0.75rem
+    ),
+
+    "lg": (
+        width:  1rem,
+        height: 1rem
+    ),
+
+    "xl": (
+        width:  1.25rem,
+        height: 1.25rem
+    )
+) !default;
+
+// Radius
+$scroll-radii: (
+    "xs": 0.125rem,
+    "sm": 0.25rem,
+    "md": 0.375rem,
+    "lg": 0.5rem,
+    "xl": 0.625rem
+) !default;
+
+
+// -- Flexbox -- //
+$responsive-flex: true !default;            // true | false
+$strict-flex:     true !default;            // true | false
+
+$flex-class: (
+    auto:    auto,
+    inherit: inherit,
+    none:    none,
+) !default;

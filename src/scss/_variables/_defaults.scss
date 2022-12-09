@@ -1,0 +1,369 @@
+// ----- Default Variables ----- //
+// -- Root -- //
+$main-font-family: font-family(sans) !default;
+$main-font-size:   font-size(xl) !default;
+$main-font-weight: 400 !default;
+$main-line-height: line-height(md) !default;
+$h-font-family:    inherit !default;
+$h-font-weight:    400 !default;
+$doc-light-color:  color(gray-750) !default;
+$doc-light-bg:     $white !default;
+$doc-dark-color:   color(gray-150) !default;
+$doc-dark-bg:      color(gray-900) !default;
+
+$html-styles: (
+    font-family:      sans-serif,
+    font-size:        100%,
+    box-sizing:       border-box,
+    text-size-adjust: auto
+) !default;
+
+$body-styles: (
+    font-family:      $main-font-family,
+    font-size:        $main-font-size,
+    font-weight:      $main-font-weight,
+    line-height:      $main-line-height,
+    color:            $doc-light-color,
+    background-color: $doc-light-bg,
+    vertical-align:   baseline,
+    margin:           0,
+    padding:          0,
+    border:           0,
+    outline:          0,   
+    overflow-x:       hidden
+) !default;
+
+$html-body-height: 100vh !default;
+
+
+// -- Paragraphs -- //
+$p-styles: (
+    font-family:   inherit,
+    font-size:     font-size(xl),
+    margin-top:    0,
+    margin-bottom: margin(md)
+) !default;
+
+
+// -- Links -- //
+$a-light: color(app-500) !default;
+$a-light-hover: color(app-650) !default;
+$a-dark: color(app-300) !default;
+$a-dark-hover: color(app-150) !default;
+
+$a-styles: (
+    color:           $a-light,
+    text-decoration: none
+) !default;
+
+$a-hover-styles: (
+    color:           $a-light-hover,
+    text-decoration: underline
+) !default;
+
+$a-visited-styles: (
+    color: inherit
+) !default;
+
+$a-active-styles: (
+    text-decoration: none
+) !default;
+
+
+// -- Headings -- //
+// Headings Defaults
+$h-styles: (
+    font-family:   $h-font-family,
+    font-weight:   $h-font-weight,
+    margin-top:    0,
+    margin-bottom: margin(md)
+) !default;
+
+// Responsive headings font-size (Generic)
+$h-font-sizes: (
+    // Smartphones
+    $b-1: (
+        h1: 1.75rem,    // 28px
+        h2: 1.625rem,   // 26px
+        h3: 1.5rem,     // 24px
+        h4: 1.375rem,   // 22px
+        h5: 1.25rem,    // 20px
+        h6: 1.125rem    // 18px
+    ),
+
+    // Tablets
+    $b-3: (
+        h1: 2rem,       // 32px
+        h2: 1.75rem,    // 28px
+        h3: 1.5rem,     // 24px
+        h4: 1.375rem,   // 22px
+        h5: 1.25rem,    // 20px
+        h6: 1.125rem    // 18px
+    ),
+
+    // Desktops
+    $b-5: (
+        h1: 2.5rem,     // 40px
+        h2: 2rem,       // 32px
+        h3: 1.75rem,    // 28px
+        h4: 1.5rem,     // 24px
+        h5: 1.25rem,    // 20px
+        h6: 1.125rem    // 18px
+    )
+) !default;
+
+
+// -- Text Markup -- //
+$small-styles: (
+    font-size: $font-small
+) !default;
+
+$sup-styles: (
+    vertical-align: super,
+    top:            -0.5em
+) !default;
+
+$sub-styles: (
+    vertical-align: sub,
+    bottom:         -0.25em
+) !default;
+
+$sup-sub-styles: (
+    font-size:      $font-small,
+    line-height:    0,
+    position:       relative,
+    vertical-align: baseline
+) !default;
+
+$abbr-styles: (
+    line-height:     1,
+    vertical-align:  baseline,
+    border:          none,
+    border-bottom:   dotted 1px,
+    cursor:          help,
+    text-decoration: none
+) !default;
+
+$codes-font-size: $font-code !default;
+$pre-font-family: initial !default;
+$codes-styles: (
+    font-family: font-family(mono),
+    font-weight: 400,
+    line-height: 1
+) !default;
+
+$kbd-styles: (
+    display:        inline-block,
+    padding:        padding-component(sm),
+    font-family:    font-family(mono),
+    font-size:      $font-code,
+    font-weight:    400,
+    line-height:    1,
+    vertical-align: baseline,
+    white-space:    nowrap,
+    border-radius:  border-radius(xs)
+) !default;
+
+$mark-styles: (
+    color:            rgba(0, 0, 0, 0.9),
+    background-color: color(warning-200),
+    padding:          padding-component(xs),
+    border-radius:    border-radius(xs),
+    line-height:      1,
+    vertical-align:   baseline
+) !default;
+
+$var-styles: (
+    display: inline-block,
+    color:   color(app-700)
+) !default;
+
+
+// -- hr -- //
+$hr-light: color(gray-150) !default;
+$hr-dark:  color(gray-750) !default;
+
+$hr-styles: (
+    display:    block,
+    border:     none,
+    border-top: 1px solid $hr-light,
+    padding:    0,
+    width:      100%,
+    max-width:  100%,
+    text-align: center,
+    position:   relative
+) !default;
+
+// Responsive hr margins (Generic)
+$hr-margins: (
+    // Smartphones
+    $b-1: (
+        margin: 1rem auto
+    ),
+
+    // Tablets
+    $b-3: (
+        margin: 1.5rem auto
+    ),
+
+    // Desktops
+    $b-5: (
+        margin: 2rem auto
+    )
+) !default;
+
+
+// -- Quotes -- //
+$blockquote-styles: (
+    margin:           0 0 margin(md) 0,
+    padding:          padding-component(md),
+    border-radius:    border-radius(sm),
+    background-color: color(gray-50)
+) !default;
+
+
+// -- Lists -- //
+$ol-list-style: decimal !default;    // ol default list style
+$ol-styles: (
+    padding-left:  padding(md),
+    padding-right: padding(md),
+) !default;
+
+$ul-styles: (
+    list-style: none,
+    margin:     0,
+    padding:    0
+) !default;
+
+$dt-font-weight:   600 !default;
+$dd-margin-bottom: margin(sm) !default;
+
+// dl, ol, ul
+$lists-styles: (
+    margin-top:    0,
+    margin-bottom: margin(md)
+) !default;
+
+
+// -- Images -- //
+$figure-styles: (
+    display:             inline-block,
+    position:            relative,
+    overflow:            hidden,
+    max-width:           100%,
+    margin-block-end:    0,
+    margin-block-start:  0,
+    margin-inline-start: 0,
+    margin-inline-end:   0,
+    margin-bottom:       margin(md)
+) !default;
+
+$img-styles: (
+    border:         none,
+    max-width:      100%,
+    vertical-align: middle
+) !default;
+
+
+// -- Tables -- //
+$table-styles: (
+    border-collapse:  collapse,
+    border-spacing:   0,
+    width:            100%,
+    max-width:        100%,
+    margin-bottom:    margin(md),
+    background-color: transparent
+) !default;
+
+
+// -- Forms -- //
+$label-styles: (
+    display: inline-block,
+    margin:  0 0 margin(sm) 0
+) !default;
+
+$inputs-styles: (
+    font-family: inherit,
+    font-size:   inherit,
+    line-height: inherit,
+    margin:      0 0 margin(md) 0
+) !default;
+
+$fieldset-styles: (
+    color:            inherit,
+    background-color: transparent,
+    border:           0.0625rem solid color(gray-200),
+    border-radius:    border-radius(sm),
+    padding:          padding-container(md),
+    margin-bottom:    margin(md),
+    max-width:        100%,
+    display:          block,
+    box-sizing:       border-box
+) !default;
+
+$legend-styles: (
+    font-weight:      600,
+    color:            inherit,
+    background-color: transparent,
+    border-radius:    border-radius(xs),
+    padding:          padding-component(md),
+    margin:           0,
+    line-height:      1,
+    display:          inline-block,
+    box-sizing:       border-box,
+    white-space:      normal
+) !default;
+
+$button-styles: (
+    font-weight:   400,
+    line-height:   1.5,
+    text-align:    center,
+    padding:       padding-component(md),
+    margin-bottom: margin(md),
+    border:        none,
+    outline:       none,
+    cursor:        pointer,
+    border-radius: border-radius(sm),
+    transition:    transition(xs)
+) !default;
+
+$textarea-styles: (
+    overflow:   auto,
+    resize:     vertical
+) !default;
+
+$select-styles: (
+    overflow-y: auto
+) !default;
+
+$optgroup-styles: (
+    font-weight: 600
+) !default;
+
+$option-styles: (
+    font-weight: normal
+) !default;
+
+
+// -- Print -- //
+$print-text-shadow:       none !important !default;
+$print-box-shadow:        none !important !default;
+$print-size:              a4 !default;
+$print-a-text-decoration: underline !default;
+$print-abbr-content:      "' (' attr(title) ')'" !default;
+$print-pre-white-space:   pre-wrap !important !default;
+
+
+// -- Icons -- //
+$strict-pi: true !default;
+$pi-styles: (
+    display:                 inline-block,
+    font-family:             "polaris-icons",
+    line-height:             1,
+    font-style:              normal,
+    font-weight:             normal,
+    font-variant:            normal,
+    text-transform:          none,
+    -webkit-font-smoothing:  antialiased,
+    -moz-osx-font-smoothing: grayscale
+) !default;

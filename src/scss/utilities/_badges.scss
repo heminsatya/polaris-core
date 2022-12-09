@@ -1,0 +1,12 @@
+/* ---------- Badges ---------- */
+// -- Component -- //
+// Styles
+@include component-styles($badge-styles, $name-badge);
+
+
+// -- Modifiers -- //
+// Sizes
+@include modifiers-styles($badge-sizes, $name-badge);
+
+// Colors 
+@include modifier-colors($badge-colors, $name-badge);

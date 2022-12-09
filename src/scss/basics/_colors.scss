@@ -1,0 +1,69 @@
+/* ---------- Colors ---------- */
+// -- Component & Modifier Classes -- //
+/*
+* color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-color, "color", $strict-colors);
+
+/* Color Palettes */
+@include color-palette($color-palettes, $palettes, $name-color, "color", $strict-colors);
+
+/* Color Alphas */
+@include color-alpha($color-alphas, $alphas, $name-color, $name-alpha, "color", $strict-colors);
+
+
+/*
+* background-color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-bg-color, "background-color", $strict-colors);
+
+/* Color Palettes */
+@include color-palette($color-palettes, $palettes, $name-bg-color, "background-color", $strict-colors);
+
+/* Color Alphas */
+@include color-alpha($color-alphas, $alphas, $name-bg-color, $name-alpha, "background-color", $strict-colors);
+
+
+/*
+* border-color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-border-color, "border-color", $strict-colors);
+
+/* Color Palettes */
+@include color-palette($color-palettes, $palettes, $name-border-color, "border-color", $strict-colors);
+
+/* Color Alphas */
+@include color-alpha($color-alphas, $alphas, $name-border-color, $name-alpha, "border-color", $strict-colors);
+
+
+/*
+* outline-color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-outline-color, "outline-color", $strict-colors);
+
+/* Color Palettes */
+@include color-palette($color-palettes, $palettes, $name-outline-color, "outline-color", $strict-colors);
+
+// Color Alphas
+@include color-alpha($color-alphas, $alphas, $name-outline-color, $name-alpha, "outline-color", $strict-colors);
+
+
+/*
+* ::placeholder color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-placeholder-color, "placeholder", $strict-colors);
+
+/* Color Palettes */
+@include color-palette($color-palettes, $palettes, $name-placeholder-color, "placeholder", $strict-colors);
+
+
+/*
+* ::selection color & background-color
+*/
+/* Core Colors */
+@include color-class($core-vars, $name-selection, "selection", $strict-colors);

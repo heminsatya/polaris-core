@@ -1,0 +1,2644 @@
+// ----- Effect Variables ----- //
+// -- Radius -- //
+$strict-radius:   true !default;     // true | false
+$position-radius: true !default;     // true | false
+
+
+// -- Shadow -- //
+$strict-shadow: true !default;       // true | false
+
+
+// -- Filter -- //
+$strict-filter: true !default;       // true | false
+
+
+// -- Transform -- //
+$strict-transform: true !default;    // true | false
+
+
+// -- Transition -- //
+$strict-transition: true !default;   // true | false
+
+
+// -- Ripple (JS) -- //
+// ripple component
+$ripple-styles: (
+    position:   relative,
+    box-sizing: content-box
+) !default;
+
+// [data-animation=ripple]
+$data-ripple: (
+    overflow: hidden
+) !default;
+
+// [data-animation=ripple]::before
+$data-ripple-before: (
+    opacity:                    0,
+    visibility:                 hidden,
+    position:                   absolute,
+    top:                        var(--animation-top, 0),
+    left:                       var(--animation-left, 0),
+    content:                    '""',
+    transform:                  scale(0),
+    background-color:           var(--animation-color),
+    border-radius:              100%,
+    transition-timing-function: linear,
+    animation-name:             ripple,
+    animation-duration:         var(--animation-duration, 0.5s),
+    animation-timing-function:  cubic-bezier(0, 0, 0.2, 1)
+) !default;
+
+// [data-animation=rippleAuto]
+$data-ripple-auto: (
+    display:         flex,
+    flex-direction:  row,
+    justify-content: center,
+    align-items:     center,
+) !default;
+
+//  [data-animation=rippleAuto]::after & before
+$data-ripple-auto-pseudo: (
+    opacity:                    0,
+    visibility:                 hidden,
+    position:                   absolute,
+    z-index:                    -1,
+    content:                    '""',
+    height:                     100%,
+    width:                      100%,
+    border-width:               0.5rem,
+    border-style:               solid,
+    border-color:               var(--animation-color),
+    border-radius:              100%,
+    transition-timing-function: linear,
+    animation-name:             rippleAuto,
+    animation-duration:         var(--animation-duration, 3s),
+    animation-iteration-count:  var(--animation-count, infinite),
+    animation-timing-function:  cubic-bezier(0.67, 0, 0.33, 1)
+) !default;
+
+// Ripple colors
+$ripple-colors: (
+    light: (
+        --animation-color: rgba(255, 255, 255, 0.6)
+    ),
+
+    dark: (
+        --animation-color: rgba(0, 0, 0, 0.4)
+    )
+) !default;
+
+$ripple-auto-colors: (
+    light: (
+        --animation-color: rgba(255, 255, 255, 0.4)
+    ),
+
+    dark: (
+        --animation-color: rgba(0, 0, 0, 0.2)
+    )
+) !default;
+
+// Ripple animations
+$ripple: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        width:      0,
+        height:     0,
+        transform:  translate(-50%, -50%) scale(0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        width:      var(--animation-dimension, 0),
+        height:     var(--animation-dimension, 0),
+        transform:  translate(-50%, -50%) scale(1)
+    )
+) !default;
+
+$rippleAuto: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(0.75)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(1.5)
+    )
+) !default;
+
+
+// -- Animation (JS) -- //
+// Component //
+// Animation styles
+$animation-styles: (
+    animation-name:            var(--animation, none),
+    animation-duration:        var(--animation-duration, 500ms),
+    animation-delay:           var(--animation-delay, 0s),
+    animation-iteration-count: var(--animation-count, 1),
+    animation-timing-function: var(--animation-function, ease),
+    animation-play-state:      var(--animation-state, running),
+    animation-fill-mode:       both
+) !default;
+
+
+// Modifier //
+// Animated styles
+$animated-styles: (
+    opacity:                   0,
+    visibility:                hidden
+) !default;
+
+
+// Keyframes //
+// Fade Animations
+$fadeIn: (
+    from: (
+        opacity:    0,
+        visibility: hidden
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible
+    )
+) !default;
+
+$fadeOut: (
+    from: (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden
+    )
+) !default;
+
+
+$fadeInLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    )
+) !default;
+
+
+$fadeInRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    )
+) !default;
+
+
+$fadeInTop: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$fadeInBottom: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$fadeInTopLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutTopLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$fadeInTopRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutTopRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$fadeInBottomLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutBottomLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$fadeInBottomRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$fadeOutBottomRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+// Zoom Animations
+$zoomIn: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$zoomOut: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInTop: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInBottom: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInTopLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutTopLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInTopRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutTopRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInBottomLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutBottomLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$zoomInBottomRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$zoomOutBottomRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0) scale(calc(1 - var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+// Scale Animations
+$scaleIn: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$scaleOut: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInTop: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInBottom: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInTopLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutTopLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInTopRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutTopRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInBottomLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutBottomLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$scaleInBottomRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    )
+) !default;
+
+$scaleOutBottomRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0) scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0) scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+// Bounce Animations
+$bounceIn: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '40%': (
+        transform:  scale(calc(1 - var(--animation-scale, 0.25) / 4))
+    ),
+
+    '60%': (
+        transform:  scale(calc(1 + var(--animation-scale, 0.25) / 8))
+    ),
+
+    '80%': (
+        transform:  scale(calc(1 - var(--animation-scale, 0.25) / 16))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$bounceOut: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  scale(calc(1 - var(--animation-scale, 0.25) / 8))
+    ),
+
+    // '20%': (
+    //     transform:  scale(calc(1 - var(--animation-scale, 0.25) / 16))
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  scale(calc(1 + var(--animation-scale, 0.25) / 8))
+    // ),
+
+    // '60%': (
+    //     transform:  scale(calc(1 - var(--animation-scale, 0.25) / 4))
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    )
+) !default;
+
+
+$bounceInLeft: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 4), 0, 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), 0, 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 16), 0, 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutLeft: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), 0, 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 16), 0, 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -8), 0, 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 4), 0, 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    )
+) !default;
+
+
+$bounceInRight: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -4), 0, 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), 0, 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -16), 0, 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutRight: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), 0, 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -16), 0, 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 8), 0, 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -4), 0, 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    )
+) !default;
+
+
+$bounceInTop: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / 4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / 16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutTop: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / 16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / -8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / 4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$bounceInBottom: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutBottom: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / -16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / 8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(0, calc(var(--animation-position, 100%) / -4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$bounceInTopLeft: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 4), calc(var(--animation-position, 100%) / 4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 16), calc(var(--animation-position, 100%) / 16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutTopLeft: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 16), calc(var(--animation-position, 100%) / 16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / -8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 4), calc(var(--animation-position, 100%) / 4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$bounceInTopRight: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -4), calc(var(--animation-position, 100%) / 4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -16), calc(var(--animation-position, 100%) / 16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutTopRight: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -16), calc(var(--animation-position, 100%) / 16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / -8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -4), calc(var(--animation-position, 100%) / 4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$bounceInBottomLeft: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 4), calc(var(--animation-position, 100%) / -4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 16), calc(var(--animation-position, 100%) / -16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutBottomLeft: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 16), calc(var(--animation-position, 100%) / -16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / 8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 4), calc(var(--animation-position, 100%) / -4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$bounceInBottomRight: (
+    '0%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -4), calc(var(--animation-position, 100%) / -4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / 8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(calc(var(--animation-position, 100%) / -16), calc(var(--animation-position, 100%) / -16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$bounceOutBottomRight: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '20%': (
+        opacity:    1,
+        transform:  translate3d(calc(var(--animation-position, 100%) / -8), calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    // '20%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -16), calc(var(--animation-position, 100%) / -16), 0)
+    // ),
+
+    // '40%': (
+    //     opacity:    0.8,
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / 8), calc(var(--animation-position, 100%) / 8), 0)
+    // ),
+
+    // '60%': (
+    //     transform:  translate3d(calc(var(--animation-position, 100%) / -4), calc(var(--animation-position, 100%) / -4), 0)
+    // ),
+
+    '100%': (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+// Slide Animations
+$slideInLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    )
+) !default;
+
+
+$slideInRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    )
+) !default;
+
+
+$slideInTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$slideInBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$slideInTopLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutTopLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$slideInTopRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutTopRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+
+$slideInBottomLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutBottomLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+$slideInBottomRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$slideOutBottomRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), var(--animation-position, 100%), 0)
+    )
+) !default;
+
+
+// Flip Animations
+$flipInLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) rotate3d(0, 1, 0, calc(var(--animation-degree, 90deg) * -1))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    )
+) !default;
+
+$flipOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) rotate3d(0, 1, 0, calc(var(--animation-degree, 90deg) * -1))
+    )
+) !default;
+
+
+$flipInRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(var(--animation-position, 100%), 0, 0) rotate3d(0, 1, 0, var(--animation-degree, 90deg))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    )
+) !default;
+
+$flipOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(var(--animation-position, 100%), 0, 0) rotate3d(0, 1, 0, var(--animation-degree, 90deg))
+    )
+) !default;
+
+
+$flipInTop: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(0, calc(var(--animation-position, 100%) * -1), 0) rotate3d(1, 0, 0, var(--animation-degree, 90deg))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    )
+) !default;
+
+$flipOutTop: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(0, calc(var(--animation-position, 100%) * -1), 0) rotate3d(1, 0, 0, var(--animation-degree, 90deg))
+    )
+) !default;
+
+
+$flipInBottom: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(0, var(--animation-position, 100%), 0) rotate3d(1, 0, 0, calc(var(--animation-degree, 90deg) * -1))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    )
+) !default;
+
+$flipOutBottom: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  perspective(var(--animation-perspective, 300px)) translate3d(0, var(--animation-position, 100%), 0) rotate3d(1, 0, 0, calc(var(--animation-degree, 90deg) * -1))
+    )
+) !default;
+
+
+// Rotate Animations
+$rotateInLeft: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) rotate3d(0, 0, 1, calc(var(--animation-degree, 180deg) * -1))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+
+$rotateOutLeft: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0) rotate3d(0, 0, 1, calc(var(--animation-degree, 180deg) * -1))
+    )
+) !default;
+
+
+$rotateInRight: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) rotate3d(0, 0, 1, var(--animation-degree, 180deg))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+
+$rotateOutRight: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0) rotate3d(0, 0, 1, var(--animation-degree, 180deg))
+    )
+) !default;
+
+
+$rotate: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  rotate(0deg),
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  rotate(360deg)
+    )
+) !default;
+
+$rotateR: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  rotate(0deg),
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  rotate(-360deg)
+    )
+) !default;
+
+
+$rotateX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px)) rotate3d(1, 0, 0, var(--animation-degree, 360deg))
+    )
+) !default;
+
+$rotateRX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px)) rotate3d(1, 0, 0, var(--animation-degree, -360deg))
+    )
+) !default;
+
+
+$rotateY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px)) rotate3d(0, 1, 0, var(--animation-degree, 360deg))
+    )
+) !default;
+
+$rotateRY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px))
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  perspective(var(--animation-perspective, 300px)) rotate3d(0, 1, 0, var(--animation-degree, -360deg))
+    )
+) !default;
+
+
+// Expand & Shrink Animations
+$expand: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$shrink: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scale(0)
+    )
+) !default;
+
+
+$expandX: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scaleX(0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleX(1)
+    )
+) !default;
+
+$shrinkX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleX(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scaleX(0)
+    )
+) !default;
+
+
+$expandY: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scaleY(0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleY(1)
+    )
+) !default;
+
+$shrinkY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleY(1)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        transform:  scaleY(0)
+    )
+) !default;
+
+
+// Show & Hide animations
+$show: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        width:      0,
+        height:     0
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        width:      var(--animation-width, 100%),
+        height:     var(--animation-height, 100%)
+    )
+) !default;
+
+$hide: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        width:      var(--animation-width, 100%),
+        height:     var(--animation-height, 100%)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        width:      0,
+        height:     0
+    )
+) !default;
+
+
+$showX: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        width:      0
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        width:      var(--animation-width, 100%)
+    )
+) !default;
+
+$hideX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        width:      var(--animation-width, 100%)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        width:      0
+    )
+) !default;
+
+
+$showY: (
+    from: (
+        opacity:    0,
+        visibility: hidden,
+        height:     0
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        height:     var(--animation-height, 100%)
+    )
+) !default;
+
+$hideY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        height:     var(--animation-height, 100%)
+    ),
+
+    to: (
+        opacity:    0,
+        visibility: hidden,
+        height:     0
+    )
+) !default;
+
+
+// Load & Unload Animations
+$loadX: (
+    from: (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        width:      100%
+    )
+) !default;
+
+$unloadX: (
+    from: (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        width:      0
+    )
+) !default;
+
+
+$loadY: (
+    from: (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        height:     100%
+    )
+) !default;
+
+$unloadY: (
+    from: (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        height:     0
+    )
+) !default;
+
+
+// Move Animations
+$moveX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(-100%, 0, 0)
+    ),
+
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    )
+) !default;
+
+$moveRX: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(100%, 0, 0)
+    ),
+    
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    )
+) !default;
+
+$moveY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 100%, 0)
+    ),
+    
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    )
+) !default;
+
+$moveRY: (
+    from: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, -100%, 0)
+    ),
+    
+    to: (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    )
+) !default;
+
+$swayX: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '50%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(var(--animation-position, 100%), 0, 0)
+    ),
+    
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$swayRX: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+    
+    '50%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(calc(var(--animation-position, 100%) * -1), 0, 0)
+    ),
+    
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$swayY: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+    
+    '50%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, calc(var(--animation-position, 100%) * -1), 0)
+    ),
+    
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$swayRY: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+    
+    '50%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, var(--animation-position, 100%), 0)
+    ),
+    
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+
+// Alert Animations
+$bounce: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '10%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -1), 0)
+    ),
+
+    '20%': (
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '30%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -2), 0)
+    ),
+
+    '40%': (
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '50%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -4), 0)
+    ),
+
+    '60%': (
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '70%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -8), 0)
+    ),
+
+    '80%': (
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '90%': (
+        transform:  translate3d(0, calc(var(--animation-position, 100%) / -16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$pulse: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    '45%, 55%': (
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$beat: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    '20%, 30%': (
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$blink: (
+    '0%': (
+        opacity:    1,
+        visibility: visible
+    ),
+
+    '50%': (
+        opacity:    0,
+        visibility: hidden
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible
+    )
+) !default;
+
+$flash: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        filter:     brightness(1)
+    ),
+
+    '50%': (
+        filter:     brightness(var(--animation-brightness, 1.25))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        filter:     brightness(1)
+    )
+) !default;
+
+$stretch: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    ),
+
+    '40%': (
+        transform:  scale(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '60%': (
+        transform:  scale(calc(1 - var(--animation-scale, 0.25) / 4))
+    ),
+
+    '80%': (
+        transform:  scale(calc(1 + var(--animation-scale, 0.25) / 8))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scale(1)
+    )
+) !default;
+
+$stretchX: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleX(1)
+    ),
+
+    '40%': (
+        transform:  scaleX(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '60%': (
+        transform:  scaleX(calc(1 - var(--animation-scale, 0.25) / 4))
+    ),
+
+    '80%': (
+        transform:  scaleX(calc(1 + var(--animation-scale, 0.25) / 8))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleX(1)
+    )
+) !default;
+
+$stretchY: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleY(1)
+    ),
+
+    '40%': (
+        transform:  scaleY(calc(1 + var(--animation-scale, 0.25)))
+    ),
+
+    '60%': (
+        transform:  scaleY(calc(1 - var(--animation-scale, 0.25) / 4))
+    ),
+
+    '80%': (
+        transform:  scaleY(calc(1 + var(--animation-scale, 0.25) / 8))
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  scaleY(1)
+    )
+) !default;
+
+
+$shake: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '17%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -1), 0, 0) rotate3d(0, 0, 1, -8deg)
+    ),
+
+    '33%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / 2), 0, 0) rotate3d(0, 0, 1, 8deg)
+    ),
+
+    '50%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -4), 0, 0) rotate3d(0, 0, 1, -4deg)
+    ),
+
+    '67%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / 8), 0, 0) rotate3d(0, 0, 1, 4deg)
+    ),
+
+    '83%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -16), 0, 0) rotate3d(0, 0, 1, -2deg)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$shakeX: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '17%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -1), 0, 0)
+    ),
+
+    '33%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / 2), 0, 0)
+    ),
+
+    '50%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -4), 0, 0)
+    ),
+
+    '67%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / 8), 0, 0)
+    ),
+
+    '83%': (
+        transform:  translate3d(calc(var(--animation-position, 50%) / -16), 0, 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;
+
+$shakeY: (
+    '0%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    ),
+
+    '17%': (
+        transform:  translate3d(0, calc(var(--animation-position, 50%) / -1), 0)
+    ),
+
+    '33%': (
+        transform:  translate3d(0, calc(var(--animation-position, 50%) / 2), 0)
+    ),
+
+    '50%': (
+        transform:  translate3d(0, calc(var(--animation-position, 50%) / -4), 0)
+    ),
+
+    '67%': (
+        transform:  translate3d(0, calc(var(--animation-position, 50%) / 8), 0)
+    ),
+
+    '83%': (
+        transform:  translate3d(0, calc(var(--animation-position, 50%) / -16), 0)
+    ),
+
+    '100%': (
+        opacity:    1,
+        visibility: visible,
+        transform:  translate3d(0, 0, 0)
+    )
+) !default;

@@ -1,0 +1,26 @@
+/* ---------- Tooltip ---------- */
+// -- Component -- //
+@include component-styles($tooltip-styles, $name-tooltip);
+@include component-before-styles($tooltip-before, $name-tooltip);
+@include component-after-styles($tooltip-after, $name-tooltip);
+@include component-pseudo-styles-hover($tooltip-pseudo-hover, $name-tooltip);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-before-colors($tooltip-before-colors, $name-tooltip);
+@include modifier-after-colors($tooltip-after-colors, $name-tooltip);
+
+// ::after border-color
+.#{$name-tooltip}:not(.#{$name-tooltip + $mod + 'top'}):not(.#{$name-tooltip + $mod + 'bottom'}):not(.#{$name-tooltip + $mod + 'left'}):not(.#{$name-tooltip + $mod + 'right'})::after {
+    border-bottom-color: transparent !important;
+    border-left-color:   transparent !important;
+    border-right-color:  transparent !important;
+}
+
+// Sizes
+@include modifiers-before-styles($tooltip-before-sizes, $name-tooltip);
+
+// Positions
+@include modifiers-before-styles($tooltip-before-positions, $name-tooltip);
+@include modifiers-after-styles($tooltip-after-positions, $name-tooltip);

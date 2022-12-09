@@ -1,0 +1,10 @@
+/* ---------- Field Group ---------- */
+// -- Parent -- //
+// field__group
+@include field-group($name-field, $name-grouped, $name-field-text);
+
+
+// -- Sibling -- //
+// field_text
+@include sibling-styles($field-text-styles, $name-field, $name-field-text);
+@include sibling-colors($field-text-colors, $name-field, $name-field-text);

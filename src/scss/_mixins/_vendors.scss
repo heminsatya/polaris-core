@@ -1,0 +1,362 @@
+// ----- Vendor Mixins ----- //
+///
+// @desc Generates vendors for CSS box-sizing
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+// 
+// @NOTICE! Valid values are: border-box, content-box, inherit
+///
+@mixin box-sizing($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-box-sizing: #{$value + $strict};
+        -moz-box-sizing: #{$value + $strict};
+             box-sizing: #{$value + $strict};
+    } @else {
+        box-sizing: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS text-size-adjust
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+// 
+// @NOTICE! Valid values are: none, auto, <percentage>
+///
+@mixin text-size-adjust($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-text-size-adjust: #{$value + $strict};
+           -moz-text-size-adjust: #{$value + $strict};
+            -ms-text-size-adjust: #{$value + $strict};
+                text-size-adjust: #{$value + $strict};
+    } @else {
+        text-size-adjust: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS box-shadow
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin box-shadow($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-box-shadow: #{$value + $strict};
+           -moz-box-shadow: #{$value + $strict};
+                box-shadow: #{$value + $strict};
+    } @else {
+        box-shadow: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS filter
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin filter($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-filter: #{$value + $strict};
+                filter: #{$value + $strict};
+    } @else {
+        filter: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS transform
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin transform($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-transform: #{$value + $strict};
+            -ms-transform: #{$value + $strict};
+                transform: #{$value + $strict};
+    } @else {
+        transform: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS transition
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin transition($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-transition: #{$value + $strict};
+           -moz-transition: #{$value + $strict};
+             -o-transition: #{$value + $strict};
+                transition: #{$value + $strict};
+    } @else {
+        transition: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS transition-timing-function
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin transition-timing-function($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-transition-timing-function: #{$value + $strict};
+           -moz-transition-timing-function: #{$value + $strict};
+             -o-transition-timing-function: #{$value + $strict};
+                transition-timing-function: #{$value + $strict};
+    } @else {
+        transition-timing-function: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex: #{$value + $strict};
+            -ms-flex: #{$value + $strict};
+                flex: #{$value + $strict};
+    } @else {
+        flex: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS display: flex
+//
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin display-flex($strict: "") {
+    @if $cross-browser == true {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex#{$strict};
+    } @else {
+        display: flex#{$strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-direction
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-direction($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex-direction: #{$value + $strict};
+            -ms-flex-direction: #{$value + $strict};
+                flex-direction: #{$value + $strict};
+    } @else {
+        flex-direction: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-wrap
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-wrap($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex-wrap: #{$value + $strict};
+            -ms-flex-wrap: #{$value + $strict};
+                flex-wrap: #{$value + $strict};
+    } @else {
+        flex-wrap: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-flow
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-flow($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex-flow: #{$value + $strict};
+            -ms-flex-flow: #{$value + $strict};
+                flex-flow: #{$value + $strict};
+    } @else {
+        flex-flow: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS align-content
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin align-content($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-align-content: #{$value + $strict};
+           -ms-flex-line-pack: #{$value + $strict};
+                align-content: #{$value + $strict};
+    } @else {
+        align-content: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS justify-content
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin justify-content($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-justify-content: #{$value + $strict};
+                  -ms-flex-pack: #{$value + $strict};
+                justify-content: #{$value + $strict};
+    } @else {
+        justify-content: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS align-items
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin align-items($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-align-items: #{$value + $strict};
+             -ms-flex-align: #{$value + $strict};
+                align-items: #{$value + $strict};
+    } @else {
+        align-items: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS order
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin order($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-order: #{$value + $strict};
+       -ms-flex-order: #{$value + $strict};
+                order: #{$value + $strict};
+    } @else {
+        order: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-grow
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-grow($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-box-flex: #{$value + $strict};
+       -webkit-flex-grow: #{$value + $strict};
+       -ms-flex-positive: #{$value + $strict};
+               flex-grow: #{$value + $strict};
+    } @else {
+        flex-grow: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-shrink
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-shrink($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex-shrink: #{$value + $strict};
+          -ms-flex-negative: #{$value + $strict};
+                flex-shrink: #{$value + $strict};
+    } @else {
+        flex-shrink: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS flex-basis
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-basis($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-flex-basis: #{$value + $strict};
+   -ms-flex-preferred-size: #{$value + $strict};
+                flex-basis: #{$value + $strict};
+    } @else {
+        flex-basis: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS align-self
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin align-self($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-align-self: #{$value + $strict};
+                align-self: #{$value + $strict};
+    } @else {
+        align-self: #{$value + $strict};
+    }
+}
+
+
+///
+// @desc Generates vendors for CSS appearance
+//
+// @param {string} $value  -- The vendor CSS value
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin appearance($value, $strict: "") {
+    @if $cross-browser == true {
+        -webkit-appearance: #{$value + $strict};
+           -moz-appearance: #{$value + $strict};
+                appearance: #{$value + $strict};
+    } @else {
+        appearance: #{$value + $strict};
+    }
+}

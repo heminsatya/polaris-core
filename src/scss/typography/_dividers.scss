@@ -1,0 +1,31 @@
+/* ---------- Dividers ---------- */
+// -- Component -- //
+@include component-styles($divider-styles, $name-divider);
+@include auto-component-styles($divider-margins, $name-divider);
+
+
+// -- Modifiers -- //
+// Divider
+@include modifier-colors($divider-colors, $name-divider);
+
+// Divider gradient
+@include divider-gradient-styles($divider-g-styles, $name-divider, $name-divider-gradient);
+@include divider-gradient-colors($divider-g-colors, $name-divider, $name-divider-gradient);
+
+// Divider gradient left
+@include divider-gradient-styles($divider-gl-styles, $name-divider, $name-divider-gradient-left);
+@include divider-gradient-colors($divider-gl-colors, $name-divider, $name-divider-gradient-left);
+
+// Divider gradient right
+@include divider-gradient-styles($divider-gr-styles, $name-divider, $name-divider-gradient-right);
+@include divider-gradient-colors($divider-gr-colors, $name-divider, $name-divider-gradient-right);
+
+
+// -- Children -- //
+// Icon styles
+@include child-styles($divider-icon-styles, $name-divider, $name-icon);
+@include divider-icon-styles($divider-gl-icon, $name-divider, $name-divider-gradient-left, $name-icon);
+@include divider-icon-styles($divider-gr-icon, $name-divider, $name-divider-gradient-right, $name-icon);
+
+// Icon colors
+@include child-colors($divider-icon-colors, $name-divider, $name-icon);

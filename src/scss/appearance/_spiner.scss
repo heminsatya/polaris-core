@@ -1,0 +1,16 @@
+/* ---------- Spiner ---------- */
+// -- Parents -- //
+// spiner__container
+// Styles
+@include parent-styles($spiner-container, $name-spiner, $name-container);
+
+// -- Component -- //
+// Styles
+@include component-styles($spiner-styles, $name-spiner);
+
+// -- Modifiers -- //
+// Sizes
+@include modifiers-styles($spiner-sizes, $name-spiner);
+
+// Colors
+@include modifier-colors($spiner-colors, $name-spiner);

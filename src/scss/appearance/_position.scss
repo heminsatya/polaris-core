@@ -1,0 +1,10 @@
+/* ---------- Position ---------- */
+// -- Component Classes -- //
+@include component-class($positions, $name-position, "position", $strict-position);
+@include responsive-component-class($positions, $name-position, "position", $responsive-position, $strict-position);
+
+
+// -- Modifier Classes -- //
+// Position alignment
+@include modifier-class($position-aligns, $name-position, null, $strict-position);
+@include responsive-modifier-class($position-aligns, $name-position, null, $responsive-position, $strict-position);

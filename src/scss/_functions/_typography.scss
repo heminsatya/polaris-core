@@ -1,0 +1,230 @@
+// ----- Typography Functions ----- //
+///
+// @desc Returns corresponding font-family value in $font-families map if any exists
+//
+// @param {string} $key -- The font-family key
+//
+// @return {string} -- The CSS font-family value
+///
+@function font-family($key) {
+    // Check the key existance
+    @if map-has-key($font-families, $key) {
+        // Retrieve result
+        @return #{map-get($font-families, $key)};
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$font-families` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding font-size value in $font-sizes map if any exists
+//
+// @param {string} $key -- The font-size key
+//
+// @return {string} -- The CSS font-size value
+///
+@function font-size($key) {
+    // Check the key existance
+    @if map-has-key($font-sizes, $key) {
+        // Retrieve result
+        @return map-get($font-sizes, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$font-sizes` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding font-weight value in $font-weights map if any exists
+//
+// @param {string} $key -- The font-weight key
+//
+// @return {string} -- The CSS font-weight value
+///
+@function font-weight($key) {
+    // Check the key existance
+    @if map-has-key($font-weights, $key) {
+        // Retrieve result
+        @return map-get($font-weights, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$font-weights` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding font-style value in $font-styles map if any exists
+//
+// @param {string} $key -- The font-style key
+//
+// @return {string} -- The CSS font-style value
+///
+@function font-style($key) {
+    // Check the key existance
+    @if map-has-key($font-styles, $key) {
+        // Retrieve result
+        @return map-get($font-styles, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$font-styles` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding text-align value in $text-aligns map if any exists
+//
+// @param {string} $key -- The text-align key
+//
+// @return {string} -- The CSS text-align value
+///
+@function text-align($key) {
+    // Check the key existance
+    @if map-has-key($text-aligns, $key) {
+        // Retrieve result
+        @return map-get($text-aligns, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$text-aligns` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding vertical-align value in $vertical-aligns map if any exists
+//
+// @param {string} $key -- The vertical-align key
+//
+// @return {string} -- The CSS vertical-align value
+///
+@function vertical-align($key) {
+    // Check the key existance
+    @if map-has-key($vertical-aligns, $key) {
+        // Retrieve result
+        @return map-get($vertical-aligns, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$vertical-aligns` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding text-decoration value in $text-decorations map if any exists
+//
+// @param {string} $key -- The text-decoration key
+//
+// @return {string} -- The CSS text-decoration value
+///
+@function text-decoration($key) {
+    // Check the key existance
+    @if map-has-key($text-decorations, $key) {
+        // Retrieve result
+        @return map-get($text-decorations, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$text-decorations` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding text-transform value in $text-transforms map if any exists
+//
+// @param {string} $key -- The text-transform key
+//
+// @return {string} -- The CSS text-transform value
+///
+@function text-transform($key) {
+    // Check the key existance
+    @if map-has-key($text-transforms, $key) {
+        // Retrieve result
+        @return map-get($text-transforms, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$text-transforms` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding white-space value in $white-spaces map if any exists
+//
+// @param {string} $key -- The white-space key
+//
+// @return {string} -- The CSS white-space value
+///
+@function white-space($key) {
+    // Check the key existance
+    @if map-has-key($white-spaces, $key) {
+        // Retrieve result
+        @return map-get($white-spaces, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$white-spaces` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding line-height value in $line-heights map if any exists
+//
+// @param {string} $key -- The line-height key
+//
+// @return {string} -- The CSS line-height value
+///
+@function line-height($key) {
+    // Check the key existance
+    @if map-has-key($line-heights, $key) {
+        // Retrieve result
+        @return map-get($line-heights, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$line-heights` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding letter-spacing value in $letter-spacings map if any exists
+//
+// @param {string} $key -- The letter-spacing key
+//
+// @return {string} -- The CSS letter-spacing value
+///
+@function letter-spacing($key) {
+    // Check the key existance
+    @if map-has-key($letter-spacings, $key) {
+        // Retrieve result
+        @return map-get($letter-spacings, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$letter-spacings` map.";
+        @return null;
+    }
+}

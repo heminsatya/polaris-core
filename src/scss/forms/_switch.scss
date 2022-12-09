@@ -1,0 +1,36 @@
+/* ---------- Switch ---------- */
+// -- Component -- //
+@include component-styles($switch-styles, $name-switch);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($switch-colors, $name-switch);
+
+// Disabled
+@include modifier-styles($switch-disabled, $name-switch, $name-disabled);
+
+
+// -- Children -- //
+// Slider //
+// Styles
+@include child-styles($switch-slider-styles, $name-switch, $name-switch-slider);
+
+// Colors
+@include child-colors($switch-slider-colors, $name-switch, $name-switch-slider);
+
+// Checked //
+// Styles
+@include switch-checked-styles($switch-checked-styles, $name-switch, $name-switch-slider, false, true, $switch-checked-ltr, $switch-checked-rtl);
+
+// Colors
+@include switch-checked-colors($switch-checked-colors, $name-switch, $name-switch-slider);
+
+
+// -- Input -- //
+@include switch-input($switch-input, $name-switch);
+
+
+// -- Sizes -- //
+@include switch-size($switch-sizes, $switch-slider-sizes, $switch-input-sizes, $name-switch, $name-switch-slider);
+@include switch-size-slim($switch-sizes-slim, $name-switch, $name-switch-slim);

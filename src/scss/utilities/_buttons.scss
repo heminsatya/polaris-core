@@ -1,0 +1,30 @@
+/* ---------- Buttons ---------- */
+// -- Parent -- //
+// btn__group
+@include btn-group($name-btn, $name-grouped);
+
+
+// -- Component -- //
+// Styles
+@include component-styles($btn-styles, $name-btn);
+
+
+// -- Modifiers -- //
+// Sizes
+@include modifiers-styles($btn-sizes, $name-btn);
+
+// Colors
+@include modifier-colors($btn-colors, $name-btn);
+
+// Colors on hover
+@include  modifier-colors-hover($btn-colors-hover, $name-btn);
+
+// Colors on click (active)
+@include modifier-colors-active($btn-colors-click, $name-btn);
+
+// Focusable colors 
+@include modifier-colors-focusable($btn-colors-focus, $name-btn);
+
+// Bordered colors
+@include modifier-colors-bordered($btn-colors-border, $name-btn);
+@include modifier-colors-bordered-doc($btn-colors-border-light, $btn-colors-border-dark, $name-btn);

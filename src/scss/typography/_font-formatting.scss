@@ -1,0 +1,25 @@
+/* ---------- Font Formating  ---------- */
+// -- Component Classes -- //
+/*
+* font-family
+*/
+@include component-class($font-families, $name-font-family, "font-family", $strict-font-formating);
+
+
+/*
+* font-size
+*/
+@include component-class($font-sizes, $name-font-size, "font-size", $strict-font-formating);
+@include responsive-component-class($font-sizes, $name-font-size, "font-size",  $responsive-font-formating, $strict-font-formating);
+
+
+/*
+* font-weight
+*/
+@include component-class($font-weights, $name-font-weight, "font-weight", $strict-font-formating);
+
+
+/*
+* font-style
+*/
+@include component-class($font-styles, $name-font-style, "font-style", $strict-font-formating);

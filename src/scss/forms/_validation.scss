@@ -1,0 +1,9 @@
+/* ---------- Validation ---------- */
+// -- Parent -- //
+// Colors
+@include field-validation-parent($field-validation-parent, $name-field);
+
+
+// -- Sibling -- //
+// Colors
+@include field-validation-sibling($field-validation-sibling, $name-field, $name-field-alert);

@@ -1,0 +1,22 @@
+/* ---------- Trail ---------- */
+// -- Component -- //
+// Styles
+@include component-styles($trail-styles, $name-trail);
+
+// li styles
+@include component-item-styles($trail-li-styles, $name-trail, "li");
+
+// a styles
+@include component-item-styles($trail-a-styles, $name-trail, "li a");
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-item-colors($trail-colors, $name-trail, "li a");
+@include modifier-item-colors($trail-colors, $name-trail, "li span");
+@include modifier-item-colors-hover($trail-colors-hover, $name-trail, "li a");
+
+
+// -- Children -- //
+// Active colors
+@include child-colors($trail-active-colors, $name-trail, $name-active);

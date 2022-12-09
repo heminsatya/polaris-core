@@ -1,0 +1,8 @@
+/* ---------- Backdrop ---------- */
+// -- Component -- //
+// Styles
+@include component-styles($backdrop-styles, $name-backdrop);
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($backdrop-colors, $name-backdrop, true);

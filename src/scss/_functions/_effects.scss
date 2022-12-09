@@ -1,0 +1,124 @@
+// ----- Effect Functions ----- //
+///
+// @desc Returns corresponding border-radius value in $border-radii map if any exists
+//
+// @param {string} $key -- The border-radius key
+//
+// @return {string} -- The CSS border-radius value
+///
+@function border-radius($key) {
+    // Check the key existance
+    @if map-has-key($border-radii, $key) {
+        // Retrieve result
+        @return map-get($border-radii, $key);
+    } 
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$border-radii` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding text-shadow value in $text-shadows map if any exists
+//
+// @param {string} $key -- The text-shadow key
+//
+// @return {string} -- The CSS text-shadow value
+///
+@function text-shadow($key) {
+    // Check the key existance
+    @if map-has-key($text-shadows, $key) {
+        // Retrieve result
+        @return #{map-get($text-shadows, $key)};
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$text-shadows` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding box-shadow value in $box-shadows map if any exists
+//
+// @param {string} $key -- The box-shadow key
+//
+// @return {string} -- The CSS box-shadow value
+///
+@function box-shadow($key) {
+    // Check the key existance
+    @if map-has-key($box-shadows, $key) {
+        // Retrieve result
+        @return #{map-get($box-shadows, $key)};
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$box-shadows` map.";
+        @return null;
+    }
+}
+
+///
+// @desc Returns corresponding box-shadow value in $m-box-shadows map if any exists
+//
+// @param {string} $key -- The box-shadow key
+//
+// @return {string} -- The CSS box-shadow value
+///
+@function m-box-shadow($key) {
+    // Check the key existance
+    @if map-has-key($material-shadows, $key) {
+        // Retrieve result
+        @return #{map-get($material-shadows, $key)};
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$material-shadows` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding transition value in $transitions map if any exists
+//
+// @param {string} $key -- The transition key
+//
+// @return {string} -- The CSS transition value
+///
+@function transition($key) {
+    // Check the key existance
+    @if map-has-key($transitions, $key) {
+        // Retrieve result
+        @return map-get($transitions, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$transitions` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding animation value in $animation-names map if any exists
+//
+// @param {string} $key -- The animation key
+//
+// @return {string} -- The animation value
+///
+@function animation($key) {
+    // Check the key existance
+    @if map-has-key($animation-names, $key) {
+        // Retrieve result
+        @return map-get($animation-names, $key);
+    } 
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$animation-names` map.";
+        @return null;
+    }
+}

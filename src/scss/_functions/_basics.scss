@@ -1,0 +1,304 @@
+// ----- Basic Functions ----- //
+///
+// @desc Finds and returns a color map if exists
+//
+// @param {string} $color -- The color name
+// @param {string} $type  -- The color type ("core" | "plugin" | "custom")
+// @param {map}    $maps  -- Custom color maps
+// 
+// @var {map} $color-map -- Related color map
+// @var {map} $final-map -- Produced color map
+//
+// @return {map}
+///
+@function check-color($color, $type: "core", $maps: null) {
+    $color-maps: null;
+
+    // Check color type
+    @if $type == "core" {
+        $color-maps: $core-maps;
+    }
+    @else if $type == "plugin" {
+        $color-maps: $plugin-maps;
+    }
+    @else if $type == "custom" {
+        $color-maps: $maps;
+    }
+
+    // Check color maps
+    @if map-has-key($color-maps, $color) {
+        // Find color map
+        $color-map: map-get($color-maps, $color);
+
+        // Create final color map
+        $final-map: (
+            100: map-get($color-map, 100),
+            500: map-get($color-map, 500),
+            900: map-get($color-map, 900)
+        ) !default;
+
+        // Return inner color map
+        @return $final-map;
+    }
+
+    // Unknown inner color map
+    @else {
+        @warn "Unknown `#{$color}` name.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Produces polaris HEX colors
+//
+// @param {string} $color -- The color name
+// @param {string} $type  -- The color type ("core" | "plugin" | "custom")
+// @param {map}    $maps  -- Custom color maps
+// 
+// @var {map}    $colors    -- The colors map placeholder
+// @var {string} $color-100 -- The color 100 tune
+// @var {string} $color-500 -- The color 500 tune
+// @var {string} $color-900 -- The color 900 tune
+// 
+// @return {color} -- HEX color value
+///
+@function color($color, $type: "core", $maps: null) {
+    $name:       null;
+    $intensity:  null;
+    $color-vars: null;
+    $color-maps: null;
+
+    // Check color vars
+    @if $type == "core" {
+        $color-vars: $core-vars;
+        $color-maps: $core-maps;
+    }
+    @else if $type == "plugin" {
+        $color-vars: $plugin-vars;
+        $color-maps: $plugin-maps;
+    }
+    @else if $type == "custom" {
+        $color-vars: null;
+        $color-maps: $maps;
+    }
+
+	// Check required params
+    @if $color == null {
+		@warn "Please provide the required parameters!";
+        @return null;
+    }
+
+    // Produce color list
+    $list: str-split($color, '-');
+
+    // Check color list length
+    @if length($list) == 1 {
+        @if $color-vars {
+            @return map-get($color-vars, $color);
+        }
+        @else {
+            @return color(#{$color + '-500'});
+        }
+    }
+
+    @else if length($list) == 2 {
+        // Check the 2nd index
+        @if #{to-number(#{nth($list, 2)})} != #{nth($list, 2)} {
+            @if $color-vars {
+                @return map-get($color-vars, $color);
+            }
+            @else {
+                @return color(#{$color + '-500'});
+            }
+        }
+
+        // Color name
+        $name: #{nth($list, 1)};
+    
+        // Color intensity
+        $intensity: to-number(#{nth($list, 2)});
+    }
+
+    @else if length($list) == 3 {
+        // Color name
+        $name: #{nth($list, 1) + '-' + nth($list, 2)};
+    
+        // Color intensity
+        $intensity: to-number(#{nth($list, 3)});
+    }
+
+    // Get colors map
+    $map: check-color($name, $type);
+
+    $color-100: map-get($map, 100);
+    $color-500: map-get($map, 500);
+    $color-900: map-get($map, 900);
+
+    // Create color
+    @if ($intensity == 0) {
+        @return to-upper($white);
+    }
+    @else if ($intensity < 100) {
+        @return to-upper(mix($color-100, $white, $intensity * 1%));
+    }
+    @else if ($intensity == 100) {
+        @return to-upper($color-100);
+    }
+    @else if ($intensity > 100 and $intensity < 500) {
+        @return to-upper(mix($color-100, $color-500, (100 - math.div($intensity - 100, 4)) * 1%));
+    }
+    @else if ($intensity == 500) {
+        @return to-upper($color-500);
+    }
+    @else if ($intensity > 500 and $intensity < 900) {
+        @return to-upper(mix($color-900, $color-500, (math.div($intensity - 100, 4) - 100) * 1%));
+    }
+    @else if ($intensity == 900) {
+        @return to-upper($color-900);
+    }
+    @else if ($intensity > 900 and $intensity < 1000) {
+        @return to-upper(mix($color-900, $black, (1000 - $intensity) * 1%));
+    }
+    @else if ($intensity == 1000) {
+        @return to-upper($black);
+    }
+}
+
+
+///
+// @desc Produces polaris rgba colors
+//
+// @param {string} $color -- The color name
+// 
+// @return {color} -- rgba color
+///
+@function colora($color, $opacity, $type: "core") {
+    @return rgba(str-to-hex(color($color, $type)), $opacity);
+}
+
+
+///
+// @desc Returns corresponding padding value in $paddings map if any exists
+//
+// @param {string} $key -- The padding key
+//
+// @return {string} -- The CSS padding value
+///
+@function padding($key) {
+    // Check the key existance
+    @if map-has-key($paddings, $key) {
+        // Retrieve result
+        @return map-get($paddings, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$paddings` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding padding value in $paddings-component map if any exists
+//
+// @param {string} $key -- The padding key
+//
+// @return {string} -- The CSS padding value
+///
+@function padding-component($key) {
+    // Check the key existance
+    @if map-has-key($paddings-component, $key) {
+        // Retrieve result
+        @return map-get($paddings-component, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$paddings-component` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding padding value in $paddings-container map if any exists
+//
+// @param {string} $key -- The padding key
+//
+// @return {string} -- The CSS padding value
+///
+@function padding-container($key) {
+    // Check the key existance
+    @if map-has-key($paddings-container, $key) {
+        // Retrieve result
+        @return map-get($paddings-container, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$paddings-container` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding margin value in $margins map if any exists
+//
+// @param {string} $key -- The margin key
+//
+// @return {string} -- The CSS margin value
+///
+@function margin($key) {
+    // Check the key existance
+    @if map-has-key($margins, $key) {
+        // Retrieve result
+        @return map-get($margins, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$margins` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding border-width value in $borders map if any exists
+//
+// @param {string} $key -- The border-width key
+//
+// @return string -- The CSS border-width value
+///
+@function border-width($key) {
+    // Check the key existance
+    @if map-has-key($borders, $key) {
+        // Retrieve result
+        @return map-get($borders, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$borders` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Returns corresponding icon value in $polaris-icons map if any exists
+//
+// @param {string} $key -- The icon key
+//
+// @return {string} -- The CSS icon value
+///
+@function polaris-icon($key) {
+    // Check the key existance
+    @if map-has-key($polaris-icons, $key) {
+        // Retrieve result
+        @return map-get($polaris-icons, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$polaris-icons` map.";
+        @return null;
+    }
+}

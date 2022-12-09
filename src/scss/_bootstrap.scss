@@ -1,0 +1,123 @@
+/**
+ * Polaris Framework v0.9.0-beta
+ * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
+**/
+// -------------------------------------------------- //
+//                    Dependencies                    //
+// -------------------------------------------------- //
+@import "./functions";
+@import "./mixins";
+@import "./variables";
+
+
+/* -------------------------------------------------- */
+/*                      Defaults                      */
+/* -------------------------------------------------- */
+@import "./defaults/reset";
+@import "./defaults/print";
+@import "./defaults/icons";
+
+
+/* -------------------------------------------------- */
+/*                      Basics                        */
+/* -------------------------------------------------- */
+@import "./basics/colors";
+@import "./basics/backgrounds";
+@import "./basics/sizing";
+@import "./basics/spacing";
+@import "./basics/clear";
+@import "./basics/resize";
+@import "./basics/cursor";
+
+
+/* -------------------------------------------------- */
+/*                    Typography                      */
+/* -------------------------------------------------- */
+@import "./typography/links";
+@import "./typography/font-formatting";
+@import "./typography/text-formatting";
+@import "./typography/lists";
+@import "./typography/highlights";
+@import "./typography/codes";
+@import "./typography/images";
+@import "./typography/tables";
+@import "./typography/dividers";
+
+
+/* -------------------------------------------------- */
+/*                      Layout                        */
+/* -------------------------------------------------- */
+@import "./layout/document";
+@import "./layout/wrapper";
+@import "./layout/container";
+@import "./layout/collapse";
+@import "./layout/group";
+@import "./layout/direction";
+@import "./layout/grids";
+@import "./layout/print";
+
+
+/* -------------------------------------------------- */
+/*                    Appearance                      */
+/* -------------------------------------------------- */
+@import "./appearance/float";
+@import "./appearance/position";
+@import "./appearance/display";
+@import "./appearance/overflow";
+@import "./appearance/visibility";
+@import "./appearance/opacity";
+@import "./appearance/z-index";
+@import "./appearance/backdrop";
+@import "./appearance/loader";
+@import "./appearance/spiner";
+@import "./appearance/scrolls";
+@import "./appearance/flexbox";
+
+
+/* -------------------------------------------------- */
+/*                     Effects                        */
+/* -------------------------------------------------- */
+@import "./effects/radius";
+@import "./effects/shadow";
+@import "./effects/filter";
+@import "./effects/transform";
+@import "./effects/transition";
+@import "./effects/ripple";
+@import "./effects/animation";
+
+
+/* -------------------------------------------------- */
+/*                      Forms                         */
+/* -------------------------------------------------- */
+@import "./forms/fields";
+@import "./forms/field-group";
+@import "./forms/field-set";
+@import "./forms/validation";
+@import "./forms/switch";
+// @import "./forms/range";
+// @import "./forms/autocomplete";
+
+
+/* -------------------------------------------------- */
+/*                     Utilities                      */
+/* -------------------------------------------------- */
+@import "./utilities/badges";
+@import "./utilities/buttons";
+@import "./utilities/messages";
+@import "./utilities/alerts";
+@import "./utilities/pagination";
+@import "./utilities/trail";
+// @import "./utilities/cards";
+@import "./utilities/tooltip";
+@import "./utilities/popup";
+@import "./utilities/progress";
+@import "./utilities/menu";
+@import "./utilities/modal";
+// @import "./utilities/tabs";
+// @import "./utilities/trees";
+// @import "./utilities/portlet";
+// @import "./utilities/timeline";
+// @import "./utilities/countdown";
+// @import "./utilities/rating";
+// @import "./utilities/sorting";
+// @import "./utilities/dragging";

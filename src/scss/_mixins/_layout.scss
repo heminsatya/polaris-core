@@ -1,0 +1,232 @@
+// ----- Layout Mixins ----- //
+///
+// @desc Generates css styles for collapse container
+//
+// @param {string} $name -- The name key
+///
+@mixin collapse-container($name: "collapse") {
+    .#{$name} {
+        letter-spacing: -1em !important;
+    }
+    .#{$name} > * {
+        letter-spacing: normal !important;
+    }
+}
+
+
+///
+// @desc Generates css styles for group container
+//
+// @param {string} $name -- The name key
+///
+@mixin group-container($name: "group") {
+    .#{$name} {
+        letter-spacing: -1em !important;
+        display:        flex;
+        margin-bottom:  1rem;
+        @include direction-styles();
+    }
+    .#{$name} > * {
+        margin-bottom:  0;
+        letter-spacing: normal !important;
+    }
+    .#{$name} > *:focus {
+        z-index: 1;
+        position: relative;
+    }
+    .#{$name} > *:not(:first-child):not(:last-child) {
+        border-radius: 0;
+    }
+    @if $ltr {
+        .#{$name} > *:first-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+        .#{$name} > *:last-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+    }
+    @else{
+        .#{$name} > *:first-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        .#{$name} > *:last-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+    }
+}
+
+
+///
+// @desc Generates col sizes for grid system
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin col-size($map, $name: "col") {
+    @each $key, $value in $grids {
+        .#{$name + $mod + $key}, .#{$name + $mod + $key + $mod + $children} > * {
+            width: #{$value};
+            @include flex(#{$value} 0);
+            max-width: #{$value};
+        }
+    }
+}
+
+
+///
+// @desc Generates responsive col sizes for grid system
+//
+// @param {map}     $map
+// @param {string}  $name       -- The name key
+// @param {boolean} $responsive -- The responsive value
+///
+@mixin responsive-col-size($map, $name: "col", $responsive: true) {
+    @if $responsive == true {
+        @each $breakpoint, $size in $breakpoints {
+            @include breakpoint($breakpoint) {
+                .#{$breakpoint + $sep + $name} {
+                    @each $key, $value in $map {
+                        &#{$mod + $key}, &#{$mod + $key + $mod + $children} > * {
+                            width: #{$value};
+                            @include flex(#{$value} 0);
+                            max-width: #{$value};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for a document modifier
+//
+// @param {map}    $map  -- The modifier map
+// @param {string} $name -- The name key
+///
+@mixin doc-colors($map, $name) {
+    // Sort color map
+    $map: sort-color-map($map);
+    
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if $key == $doc-color {
+                .#{$name},
+                .#{$name}.#{$name + $mod + $key} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name}.#{$name + $mod + $key} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates a styles for document colors
+//
+// @param {map}    $map-1 -- The a map
+// @param {map}    $map-2 -- The a:hover map
+// @param {string} $name  -- The name key
+///
+@mixin doc-a($map-1, $map-2, $name: "doc") {
+    // a
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-1, $key);
+
+        // Generate colors
+        @if $key == $doc-color {
+            a,
+            .#{$name + $mod + $key} a {
+                @include generate-styles($inner);
+            }
+        }
+        @else {
+            .#{$name + $mod + $key} a {
+                @include generate-styles($inner);
+            }
+        }
+    }
+
+    // a:hover
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-2, $key);
+
+        // Generate colors
+        @if $key == $doc-color {
+            a:hover,
+            .#{$name + $mod + $key} a:hover {
+                @include generate-styles($inner);
+            }
+        }
+        @else {
+            .#{$name + $mod + $key} a:hover {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates hr styles for document colors
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin doc-hr($map, $name: "doc") {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Generate colors
+        @if $key == $doc-color {
+            hr,
+            .#{$name + $mod + $key} hr {
+                @include generate-styles($inner);
+            }
+        }
+        @else {
+            .#{$name + $mod + $key} hr {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates CSS styles for print breakpoint
+//
+// @param {string} $name-1 -- The print-show name
+// @param {string} $name-2 -- The print-hide name
+///
+@mixin print-class($name-1: "print-show", $name-2: "print-hide") {
+    .#{$name-1} {
+        display: none !important;
+    }
+    @include breakpoint(print) {
+        .#{$name-1} {
+            display: inherit !important;
+        }
+
+        .#{$name-2} {
+            display: none !important;
+        }
+    }
+}

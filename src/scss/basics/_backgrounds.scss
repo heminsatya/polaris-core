@@ -1,0 +1,48 @@
+/* ---------- Backgrounds ---------- */
+// -- Component Classes -- //
+/*
+* background-attachment
+*/
+@include component-class($background-attachments, $name-bg-attachment, "background-attachment", $strict-bgs);
+
+
+/*
+* background-position
+*/
+@include component-class($background-positions, $name-bg-position, "background-position", $strict-bgs);
+
+
+/*
+* background-repeat
+*/
+@include component-class($background-repeats, $name-bg-repeat, "background-repeat", $strict-bgs);
+
+
+/*
+* background-size
+*/
+@include component-class($background-sizes, $name-bg-size, "background-size", $strict-bgs);
+
+
+/*
+* background-clip
+*/
+@include component-class($background-clips, $name-bg-clip, "background-clip", $strict-bgs);
+
+
+/*
+* background-origin
+*/
+@include component-class($background-origins, $name-bg-origin, "background-origin", $strict-bgs);
+
+
+/*
+* Background Alpha
+*/
+@include bg-alpha($name-bg-alpha, $strict-bgs);
+
+
+/*
+* Background Transparent
+*/
+@include bg-parent($name-bg-parent, $strict-bgs);

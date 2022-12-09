@@ -1,0 +1,4 @@
+/* ---------- Float ---------- */
+// -- Component Classes -- //
+@include component-class($floats, $name-float, "float", $strict-float);
+@include responsive-component-class($floats, $name-float, "float", $responsive-float, $strict-float);

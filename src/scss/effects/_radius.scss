@@ -1,0 +1,4 @@
+/* ---------- Radius ---------- */
+// -- Component Classes -- // 
+@include component-class($border-radii, $name-radius, "border-radius", $strict-radius);
+@include radius-positions($border-radii, $polaris-positions, $name-radius, $position-radius, $strict-radius);

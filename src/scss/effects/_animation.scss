@@ -1,0 +1,248 @@
+/* ---------- Animation  ---------- */
+// -- Component -- //
+/*
+* animation component
+*/
+@include component-styles($animation-styles, $name-animation);
+
+
+// -- Modifiers -- //
+/*
+* animation-animated modifier
+*/
+@include modifier-styles($animated-styles, $name-animation, $name-animated);
+
+
+// -- Keyframes -- //
+/*
+* Animation keyframes
+*/
+// Fade Animations
+@include animation-generator($fadeIn, fadeIn);
+@include animation-generator($fadeOut, fadeOut);
+
+@include animation-generator($fadeInLeft, fadeInLeft);
+@include animation-generator($fadeOutLeft, fadeOutLeft);
+
+@include animation-generator($fadeInRight, fadeInRight);
+@include animation-generator($fadeOutRight, fadeOutRight);
+
+@include animation-generator($fadeInTop, fadeInTop);
+@include animation-generator($fadeOutTop, fadeOutTop);
+
+@include animation-generator($fadeInBottom, fadeInBottom);
+@include animation-generator($fadeOutBottom, fadeOutBottom);
+
+@include animation-generator($fadeInTopLeft, fadeInTopLeft);
+@include animation-generator($fadeOutTopLeft, fadeOutTopLeft);
+
+@include animation-generator($fadeInTopRight, fadeInTopRight);
+@include animation-generator($fadeOutTopRight, fadeOutTopRight);
+
+@include animation-generator($fadeInBottomLeft, fadeInBottomLeft);
+@include animation-generator($fadeOutBottomLeft, fadeOutBottomLeft);
+
+@include animation-generator($fadeInBottomRight, fadeInBottomRight);
+@include animation-generator($fadeOutBottomRight, fadeOutBottomRight);
+
+
+// Zoom Animations
+@include animation-generator($zoomIn, zoomIn);
+@include animation-generator($zoomOut, zoomOut);
+
+@include animation-generator($zoomInLeft, zoomInLeft);
+@include animation-generator($zoomOutLeft, zoomOutLeft);
+
+@include animation-generator($zoomInRight, zoomInRight);
+@include animation-generator($zoomOutRight, zoomOutRight);
+
+@include animation-generator($zoomInTop, zoomInTop);
+@include animation-generator($zoomOutTop, zoomOutTop);
+
+@include animation-generator($zoomInBottom, zoomInBottom);
+@include animation-generator($zoomOutBottom, zoomOutBottom);
+
+@include animation-generator($zoomInTopLeft, zoomInTopLeft);
+@include animation-generator($zoomOutTopLeft, zoomOutTopLeft);
+
+@include animation-generator($zoomInTopRight, zoomInTopRight);
+@include animation-generator($zoomOutTopRight, zoomOutTopRight);
+
+@include animation-generator($zoomInBottomLeft, zoomInBottomLeft);
+@include animation-generator($zoomOutBottomLeft, zoomOutBottomLeft);
+
+@include animation-generator($zoomInBottomRight, zoomInBottomRight);
+@include animation-generator($zoomOutBottomRight, zoomOutBottomRight);
+
+
+// Scale Animations
+@include animation-generator($scaleIn, scaleIn);
+@include animation-generator($scaleOut, scaleOut);
+
+@include animation-generator($scaleInLeft, scaleInLeft);
+@include animation-generator($scaleOutLeft, scaleOutLeft);
+
+@include animation-generator($scaleInRight, scaleInRight);
+@include animation-generator($scaleOutRight, scaleOutRight);
+
+@include animation-generator($scaleInTop, scaleInTop);
+@include animation-generator($scaleOutTop, scaleOutTop);
+
+@include animation-generator($scaleInBottom, scaleInBottom);
+@include animation-generator($scaleOutBottom, scaleOutBottom);
+
+@include animation-generator($scaleInTopLeft, scaleInTopLeft);
+@include animation-generator($scaleOutTopLeft, scaleOutTopLeft);
+
+@include animation-generator($scaleInTopRight, scaleInTopRight);
+@include animation-generator($scaleOutTopRight, scaleOutTopRight);
+
+@include animation-generator($scaleInBottomLeft, scaleInBottomLeft);
+@include animation-generator($scaleOutBottomLeft, scaleOutBottomLeft);
+
+@include animation-generator($scaleInBottomRight, scaleInBottomRight);
+@include animation-generator($scaleOutBottomRight, scaleOutBottomRight);
+
+
+// Bounce Animations
+@include animation-generator($bounceIn, bounceIn);
+@include animation-generator($bounceOut, bounceOut);
+
+@include animation-generator($bounceInLeft, bounceInLeft);
+@include animation-generator($bounceOutLeft, bounceOutLeft);
+
+@include animation-generator($bounceInRight, bounceInRight);
+@include animation-generator($bounceOutRight, bounceOutRight);
+
+@include animation-generator($bounceInTop, bounceInTop);
+@include animation-generator($bounceOutTop, bounceOutTop);
+
+@include animation-generator($bounceInBottom, bounceInBottom);
+@include animation-generator($bounceOutBottom, bounceOutBottom);
+
+@include animation-generator($bounceInTopLeft, bounceInTopLeft);
+@include animation-generator($bounceOutTopLeft, bounceOutTopLeft);
+
+@include animation-generator($bounceInTopRight, bounceInTopRight);
+@include animation-generator($bounceOutTopRight, bounceOutTopRight);
+
+@include animation-generator($bounceInBottomLeft, bounceInBottomLeft);
+@include animation-generator($bounceOutBottomLeft, bounceOutBottomLeft);
+
+@include animation-generator($bounceInBottomRight, bounceInBottomRight);
+@include animation-generator($bounceOutBottomRight, bounceOutBottomRight);
+
+
+// Slide Animations
+@include animation-generator($slideInLeft, slideInLeft);
+@include animation-generator($slideOutLeft, slideOutLeft);
+
+@include animation-generator($slideInRight, slideInRight);
+@include animation-generator($slideOutRight, slideOutRight);
+
+@include animation-generator($slideInTop, slideInTop);
+@include animation-generator($slideOutTop, slideOutTop);
+
+@include animation-generator($slideInBottom, slideInBottom);
+@include animation-generator($slideOutBottom, slideOutBottom);
+
+@include animation-generator($slideInTopLeft, slideInTopLeft);
+@include animation-generator($slideOutTopLeft, slideOutTopLeft);
+
+@include animation-generator($slideInTopRight, slideInTopRight);
+@include animation-generator($slideOutTopRight, slideOutTopRight);
+
+@include animation-generator($slideInBottomLeft, slideInBottomLeft);
+@include animation-generator($slideOutBottomLeft, slideOutBottomLeft);
+
+@include animation-generator($slideInBottomRight, slideInBottomRight);
+@include animation-generator($slideOutBottomRight, slideOutBottomRight);
+
+
+// Flip Animations
+@include animation-generator($flipInLeft, flipInLeft);
+@include animation-generator($flipOutLeft, flipOutLeft);
+
+@include animation-generator($flipInRight, flipInRight);
+@include animation-generator($flipOutRight, flipOutRight);
+
+@include animation-generator($flipInTop, flipInTop);
+@include animation-generator($flipOutTop, flipOutTop);
+
+@include animation-generator($flipInBottom, flipInBottom);
+@include animation-generator($flipOutBottom, flipOutBottom);
+
+
+// Rotate Animations
+@include animation-generator($rotateInLeft, rotateInLeft);
+@include animation-generator($rotateOutLeft, rotateOutLeft);
+
+@include animation-generator($rotateInRight, rotateInRight);
+@include animation-generator($rotateOutRight, rotateOutRight);
+
+@include animation-generator($rotate, rotate);
+@include animation-generator($rotateR, rotateR);
+
+@include animation-generator($rotateX, rotateX);
+@include animation-generator($rotateRX, rotateRX);
+
+@include animation-generator($rotateY, rotateY);
+@include animation-generator($rotateRY, rotateRY);
+
+
+// Expand & Shrink Animations
+@include animation-generator($expand, expand);
+@include animation-generator($shrink, shrink);
+
+@include animation-generator($expandX, expandX);
+@include animation-generator($shrinkX, shrinkX);
+
+@include animation-generator($expandY, expandY);
+@include animation-generator($shrinkY, shrinkY);
+
+
+// Show & Hide Animations
+@include animation-generator($show, show);
+@include animation-generator($hide, hide);
+
+@include animation-generator($showX, showX);
+@include animation-generator($hideX, hideX);
+
+@include animation-generator($showY, showY);
+@include animation-generator($hideY, hideY);
+
+
+// Load & Unload Animations
+@include animation-generator($loadX, loadX);
+@include animation-generator($unloadX, unloadX);
+
+@include animation-generator($loadY, loadY);
+@include animation-generator($unloadY, unloadY);
+
+
+// Move Animations
+@include animation-generator($moveX, moveX);
+@include animation-generator($moveRX, moveRX);
+
+@include animation-generator($moveY, moveY);
+@include animation-generator($moveRY, moveRY);
+
+@include animation-generator($swayX, swayX);
+@include animation-generator($swayRX, swayRX);
+
+@include animation-generator($swayY, swayY);
+@include animation-generator($swayRY, swayRY);
+
+
+// Alert Animations
+@include animation-generator($bounce, bounce);
+@include animation-generator($pulse, pulse);
+@include animation-generator($beat, beat);
+@include animation-generator($blink, blink);
+@include animation-generator($flash, flash);
+@include animation-generator($stretch, stretch);
+@include animation-generator($stretchX, stretchX);
+@include animation-generator($stretchY, stretchY);
+@include animation-generator($shakeX, shakeX);
+@include animation-generator($shakeY, shakeY);
+@include animation-generator($shake, shake);

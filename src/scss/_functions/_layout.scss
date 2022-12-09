@@ -1,0 +1,52 @@
+// -- Layout Functions -- //
+///
+// @desc Returns corresponding breakpoint value in $breakpoints map if any exists
+//
+// @param {string} $key -- The breakpoint key
+//
+// @return {string} -- The breakpoint value
+///
+@function breakpoint($key) {
+    // Check the key existance
+    @if map-has-key($breakpoints, $key) {
+        // Retrieve result
+        @return map-get($breakpoints, $key);
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$key}` in `$breakpoints` map.";
+        @return null;
+    }
+}
+
+
+///
+// @desc Generates grid system map
+//
+// @param {number} $num -- The grid system column values (12 by default)
+// 
+// @var {map} $grids -- The grid system map placeholder
+//
+// @return map
+// 
+// @NOTICE! $num must be a poitive number from 1 to 100. 
+///
+@function grid-generator($num: 12) {
+    // Check grid number
+    @if $num >= 1 and $num <= 100 {
+        // Defaine Grid Map
+        $grids: (); 
+        
+        // Generate grids map
+        @for $i from 1 through $num {
+            $grids: map-merge($grids, ($i: percentage(math.div($i, $num))));
+        }
+
+        @return $grids;
+    } 
+    // Generate error
+    @else {
+        @error "Invalid number for `$grid-num` variable! " +
+            "Please enter a number from 1 to 100.";
+    }
+}

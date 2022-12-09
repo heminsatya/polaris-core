@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #000;
+        stroke-linejoin: round;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Checkbox" class="cls-1" d="M421.413,177.458L246.7,385.818a45.285,45.285,0,0,1-73.347-5.485L88.2,258.641a45.312,45.312,0,1,1,74.217-52L215.3,282.213,352.007,119.18A45.314,45.314,0,1,1,421.413,177.458Z"/>
+</svg>

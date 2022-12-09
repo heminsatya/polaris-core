@@ -1,0 +1,4 @@
+/* ---------- z-index ---------- */
+// -- Component Classes -- //
+@include component-class($z-indexes, $name-z-index, "z-index", $strict-z-index);
+@include responsive-component-class($z-indexes, $name-z-index, "z-index", $responsive-z-index, $strict-z-index);

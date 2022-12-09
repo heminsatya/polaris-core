@@ -1,0 +1,27 @@
+/* ---------- Images ---------- */
+// -- Parent -- //
+// Styles
+@include parent-styles($img-frame-styles, $name-image, $name-frame);
+
+// Colors
+@include parent-colors($img-frame-colors, $name-image, $name-frame);
+
+
+// -- Component -- //
+// Styles
+@include component-styles($img-component-styles, $name-image);
+
+
+// -- Sibling -- //
+// Styles
+@include sibling-styles($img-cap-styles, $name-image, $name-caption, false, true, $img-caption-ltr, $img-caption-rtl);
+
+// Hidden caption
+@include img-caption-h($img-cap-h, $name-image, $name-caption);
+
+// Visible caption (on hover)
+@include img-caption-v($img-cap-v, $name-image, $name-caption, $name-frame);
+
+// Sibling modifiers
+// Colors
+@include sibling-colors($img-cap-colors, $name-image, $name-caption);

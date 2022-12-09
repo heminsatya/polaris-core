@@ -1,0 +1,171 @@
+// ----- Utility Mixins ----- //
+///
+// @desc Generates css styles for btn__group (parent)
+//
+// @param {string} $name-1 -- The 1st name key
+// @param {string} $name-2 -- The 2nd name key
+///
+@mixin btn-group($name-1: "btn", $name-2: "group") {
+    .#{$name-1 + $par + $name-2} {
+        letter-spacing: -1em !important;
+        display:        flex;
+        margin-bottom:  1rem;
+        @include direction-styles();
+    }
+    .#{$name-1 + $par + $name-2} > * {
+        margin-bottom:  0;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1} {
+        letter-spacing: normal !important;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1}:focus {
+        z-index: 1;
+        position: relative;
+    }
+    .#{$name-1 + $par + $name-2} .#{$name-1}:not(:first-child):not(:last-child) {
+        border-radius: 0;
+    }
+    @if $ltr {
+        .#{$name-1 + $par + $name-2} .#{$name-1}:first-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1}:last-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+    }
+    @else{
+        .#{$name-1 + $par + $name-2} .#{$name-1}:first-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        .#{$name-1 + $par + $name-2} .#{$name-1}:last-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for closable message 
+//
+// @param $map: map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin msg-close-after($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name-1 + $mod + $name-2}:after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+    .#{$name-1 + $mod + $name-2}:after:hover {
+        opacity: 1;
+    }
+}
+
+
+///
+// @desc Generates colors for alert container positions (parent)
+//
+// @param {map}    $map    -- The parent map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin alert-container-positions($map, $name-1, $name-2) {
+    .#{$name-1 + $par + $name-2 + $mod} {
+        @each $key, $value in $map {
+            // Get inner map
+            $inner: inner-map($map, $key);
+
+            &#{$key} {
+                // Generate styles
+                @include generate-styles($inner);
+
+                & .#{$name-1} {
+                    @if $key == "top" {
+                        margin-top:    1rem;
+                        margin-bottom: 0;
+                    }
+                    @else if $key == "bottom" {
+                        margin-top:    0;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for hoverable pagination
+//
+// @param {map}    $map    -- The modifier map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin pagination-hoverable($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $mod + $name-2} li a {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+
+    @if $ltr {
+        .#{$name-1 + $mod + $name-2} li:first-child a {
+            border-top-left-radius:    border-radius(sm);
+            border-bottom-left-radius: border-radius(sm);
+        }
+        .#{$name-1 + $mod + $name-2} li:last-child a {
+            border-top-right-radius:    border-radius(sm);
+            border-bottom-right-radius: border-radius(sm);
+        }
+    }
+    @else{
+        .#{$name-1 + $mod + $name-2} li:last-child a {
+            border-top-right-radius:    border-radius(sm);
+            border-bottom-right-radius: border-radius(sm);
+        }
+        .#{$name-1 + $mod + $name-2} li:last-child a {
+            border-top-left-radius:    border-radius(sm);
+            border-bottom-left-radius: border-radius(sm);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for a popup on hover
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin popup-hover($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name + $par + $name-control}:hover .#{$name}:not(.#{$name + $mod + $clickable}),
+    .#{$name + $par + $name-control}:hover .#{$name}:not(.#{$name + $mod + $clickable})::after,
+    .#{$name + $mod + $name-open},
+    .#{$name + $mod + $name-open}::after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for a menu on hover
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin menu-hover($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name} li:not(.#{$name + $chi + $clickable}):hover > ul:not(.#{$name-animation}),
+    ul.#{$name + $chi + $name-open} {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+    // .#{$name} li:not(.#{$name + $chi + $clickable}):hover > ul.#{$name-animation} {
+    //     @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    // }
+}

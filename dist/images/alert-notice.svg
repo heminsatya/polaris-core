@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #31aaf6;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Alert_Circle" data-name="Alert Circle" class="cls-1" d="M256,116.8A139.2,139.2,0,1,1,116.8,256,139.2,139.2,0,0,1,256,116.8Zm18,162c0,11.929-6.071,21.6-18,21.6s-18-9.671-18-21.6l-3.6-72a21.6,21.6,0,0,1,43.2,0Zm-18,39.6a18,18,0,1,1-18,18A18,18,0,0,1,256,318.4Z"/>
+</svg>

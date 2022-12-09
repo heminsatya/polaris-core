@@ -1,0 +1,38 @@
+// ----- Basic Variables ----- //
+// -- Colors -- //
+$strict-colors: true !default;           // true | false (for !important)
+
+
+// -- Backgrounds -- //
+$strict-bgs: true !default;              // true | false (for !important)
+
+
+// -- Sizing -- //
+$responsive-sizing: true !default;      // true | false
+$strict-sizing:     true !default;      // true | false (for !important)
+$rest-widths: (
+    flex:     "1 0 !important",
+    // overflow: hidden
+) !default;
+
+
+// -- Spacing -- //
+$responsive-spacing: true !default;      // true | false
+$strict-spacing:     true !default;      // true | false
+
+
+// -- Clear -- //
+$strict-clear: true !default;            // true | false
+$clearfix-styles: (
+    content:  '""', 
+    display:  table, 
+    clear:    both
+) !default;
+
+
+// -- Resize -- //
+$strict-resize: true !default;           // true | false
+
+
+// -- Cursor  -- //
+$strict-cursor: true !default;           // true | false

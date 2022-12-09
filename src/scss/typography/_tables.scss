@@ -1,0 +1,36 @@
+/* ---------- Tables ---------- */
+// -- Component -- //
+/*
+* Table styles
+*/
+@include tbl-styles($table-styles, $name-table);
+
+.#{$name-table} th {
+    font-weight: $table-th-font-weight;
+}
+
+.#{$name-table} td {
+    font-weight: $table-td-font-weight;
+}
+
+
+// -- Modifiers -- //
+/*
+* Table sizes
+*/
+@include tbl-sizes($table-sizes, $name-table);
+
+
+/*
+* Table colors
+*/
+@include tbl-colors($table-colors, $name-table, $name-table-stripped);
+
+
+/*
+* Table border-none
+*/
+.#{$name-table + $mod + $name-bordered + $sep + $name-negator} tr th, 
+.#{$name-table + $mod + $name-bordered + $sep + $name-negator} tr td {
+    border: none !important;
+}

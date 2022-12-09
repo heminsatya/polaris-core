@@ -1,0 +1,4 @@
+/* ---------- Display ---------- */
+// -- Component Classes -- //
+@include component-class($displays, $name-display, "display", $strict-display);
+@include responsive-component-class($displays, $name-display, "display", $responsive-display, $strict-display);

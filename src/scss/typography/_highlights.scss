@@ -1,0 +1,23 @@
+/* ---------- Highlights ---------- */
+/*
+* kbd
+*/
+// -- Component -- //
+// Styles
+@include component-styles($kbd-styles, $name-kbd);
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($kbd-colors, $name-kbd);
+
+
+/*
+* mark
+*/
+// -- Component -- //
+// Styles
+@include component-styles($mark-styles, $name-mark);
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors-doc($mark-colors-light, $mark-colors-dark, $name-mark);

@@ -1,0 +1,43 @@
+/* ---------- Text Formating  ---------- */
+// -- Component Classes -- //
+/*
+* text-align
+*/
+@include component-class($text-aligns, $name-text-align, "text-align", $strict-text-formating);
+@include responsive-component-class($text-aligns, $name-text-align, "text-align", $responsive-text-formating, $strict-text-formating);
+
+
+/*
+* text-decoration
+*/
+@include text-decoration($text-decorations, $name-text-decoration, "text-decoration", $strict-text-formating);
+
+
+/*
+* text-transform
+*/
+@include component-class($text-transforms, $name-text-transform, "text-transform", $strict-text-formating);
+
+
+/*
+* white-space
+*/
+@include component-class($white-spaces, $name-white-space, "white-space", $strict-text-formating);
+
+
+/*
+* vertical-align
+*/
+@include component-class($vertical-aligns, $name-vertical-align, "vertical-align", $strict-text-formating);
+
+
+/*
+* line-height
+*/
+@include component-class($line-heights, $name-line-height, "line-height", $strict-text-formating);
+
+
+/*
+* letter-spacing
+*/
+@include component-class($letter-spacings, $name-letter-spacing, "letter-spacing", $strict-text-formating);

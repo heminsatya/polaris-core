@@ -1,0 +1,21 @@
+/* ---------- Overflow ---------- */
+// -- Component Classes -- //
+/*
+* overflow
+*/
+@include component-class($overflows, $name-overflow, "overflow", $strict-overflow);
+@include responsive-component-class($overflows, $name-overflow, "overflow", $responsive-overflow, $strict-overflow);
+
+
+/*
+* overflow-x
+*/
+@include component-class($overflows, $name-overflow-x, "overflow-x", $strict-overflow);
+@include responsive-component-class($overflows, $name-overflow-x, "overflow-x", $responsive-overflow, $strict-overflow);
+
+
+/*
+* overflow-y
+*/
+@include component-class($overflows, $name-overflow-y, "overflow-y", $strict-overflow);
+@include responsive-component-class($overflows, $name-overflow-y, "overflow-y", $responsive-overflow, $strict-overflow);

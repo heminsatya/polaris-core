@@ -1,0 +1,21 @@
+/* ---------- Scrolls ---------- */
+// -- scroll-behavior -- //
+// Component Class //
+@include component-class($scroll-behaviors, $name-scroll, "scroll-behavior", $strict-scroll);
+
+
+// -- Scrollbar -- //
+// Component //
+// Styles
+@include scroll-styles($scroll-styles, $name-scroll);
+
+
+// Modifiers Class //
+// Colors
+@include scroll-colors($scroll-colors, $name-scroll);
+
+// Sizes
+@include scroll-sizes($scroll-sizes, $name-scroll);
+
+// Radius
+@include scroll-radius($scroll-radii, $name-scroll, $name-radius);

@@ -1,0 +1,18 @@
+/* ---------- Shadow ---------- */
+// -- Component Classes -- // 
+/*
+*  text-shadow
+*/
+@include text-shadow-class($text-shadows, $name-text-shadow, $strict-shadow);
+
+
+/*
+*  box-shadow
+*/
+@include box-shadow-class($box-shadows, $name-box-shadow, $strict-shadow);
+
+
+/*
+*  Material box-shadow
+*/
+@include box-shadow-class($material-shadows, $name-material-shadow, $strict-shadow);

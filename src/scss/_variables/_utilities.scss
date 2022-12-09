@@ -1,0 +1,2083 @@
+// ----- Utility Variables ----- //
+// -- Badges -- //
+// Component //
+// Styles
+$badge-styles: (
+    display:        inline-block,
+    text-align:     center,
+    white-space:    nowrap,
+    vertical-align: baseline,
+    box-sizing:     border-box,
+    margin-bottom:  0.5rem,
+    border-radius:  border-radius(sm),
+    padding:        0.25rem,
+    font-weight:    600,
+    font-size:      font-size(lg),
+    line-height:    font-size(lg),
+    min-height:     calc((0.25rem * 2) + font-size(lg)),
+    min-width:      calc((0.25rem * 2) + font-size(lg)),
+    z-index:        30
+) !default;
+
+// Modifiers //
+// Sizes
+$badge-sizes: (
+    "xs": (
+        padding:     0.125rem,
+        font-size:   font-size(md),
+        line-height: font-size(md),
+        min-height:  calc((0.125rem * 2) + font-size(md)),
+        min-width:   calc((0.125rem * 2) + font-size(md)),
+    ),
+    "sm": (
+        padding:     0.25rem,
+        font-size:   font-size(lg),
+        line-height: font-size(lg),
+        min-height:  calc((0.25rem * 2) + font-size(lg)),
+        min-width:   calc((0.25rem * 2) + font-size(lg)),
+    ),
+    "md": (
+        padding:     0.375rem,
+        font-size:   font-size(xl),
+        line-height: font-size(xl),
+        min-height:  calc((0.375rem * 2) + font-size(xl)),
+        min-width:   calc((0.375rem * 2) + font-size(xl)),
+    ),
+    "lg": (
+        padding:     0.5rem,
+        font-size:   font-size(h6),
+        line-height: font-size(h6),
+        min-height:  calc((0.5rem * 2) + font-size(h6)),
+        min-width:   calc((0.5rem * 2) + font-size(h6)),
+    ),
+    "xl": (
+        padding:     0.625rem,
+        font-size:   font-size(h5),
+        line-height: font-size(h5),
+        min-height:  calc((0.625rem * 2) + font-size(h5)),
+        min-width:   calc((0.625rem * 2) + font-size(h5)),
+    ),
+) !default;
+
+// Colors
+$badge-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(gray-100)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(gray-800)
+    ),
+
+    "app": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(app-500)
+    ),
+
+    "notice": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(notice-500)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(warning-500)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(danger-500)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(success-500)
+    )
+) !default;
+
+
+// -- Buttons -- //
+// Component //
+// Styles
+$btn-styles: $button-styles !default;
+
+// Modifiers //
+// Sizes
+$btn-sizes: (
+    "xs": (
+        padding:   padding-component(xs),
+        font-size: font-size(md)
+    ),
+    "sm": (
+        padding: padding-component(sm),
+        font-size: font-size(lg)
+    ),
+    "md": (
+        padding: padding-component(md),
+        font-size: font-size(xl)
+    ),
+    "lg": (
+        padding: padding-component(lg),
+        font-size: font-size(h6)
+    ),
+    "xl": (
+        padding: padding-component(xl),
+        font-size: font-size(h5)
+    ),
+) !default;
+
+// Colors
+$btn-colors: (
+    "white": (
+        color:            rgba(0, 0, 0, 0.9),
+        border:           solid 1px $white,
+        background-color: $white
+    ),
+
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        border:           solid 1px color(gray-100),
+        background-color: color(gray-100)
+    ),
+
+    "gray": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px $gray,
+        background-color: $gray
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px color(gray-800),
+        background-color: color(gray-800)
+    ),
+    
+    "black": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px $black,
+        background-color: $black
+    ),
+
+    "app": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px color(app-500),
+        background-color: color(app-500)
+    ),
+
+    "notice": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px color(notice-500),
+        background-color: color(notice-500)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 0.9),
+        border:           solid 1px color(warning-500),
+        background-color: color(warning-500)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px color(danger-500),
+        background-color: color(danger-500)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 0.9),
+        border:           solid 1px color(success-500),
+        background-color: color(success-500)
+    )
+) !default;
+
+// Colors on hover
+$btn-colors-hover: (
+    "white": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px $white,
+        background-color: $white
+    ),
+    
+    "light": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px color(gray-150),
+        background-color: color(gray-150)
+    ),
+
+    "gray": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px $gray,
+        background-color: $gray
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(gray-750),
+        background-color: color(gray-750)
+    ),
+    
+    "black": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px $black,
+        background-color: $black
+    ),
+
+    "app": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(app-600),
+        background-color: color(app-600)
+    ),
+
+    "notice": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(notice-600),
+        background-color: color(notice-600)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px color(warning-600),
+        background-color: color(warning-600)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(danger-600),
+        background-color: color(danger-600)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(success-600),
+        background-color: color(success-600)
+    )
+) !default;
+
+// Colors on click
+$btn-colors-click: (
+    "white": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px $white,
+        background-color: $white
+    ),
+    
+    "light": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px color(gray-125),
+        background-color: color(gray-125)
+    ),
+
+    "gray": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px $gray,
+        background-color: $gray
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(gray-775),
+        background-color: color(gray-775)
+    ),
+    
+    "black": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px $black,
+        background-color: $black
+    ),
+
+    "app": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(app-550),
+        background-color: color(app-550)
+    ),
+
+    "notice": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(notice-550),
+        background-color: color(notice-550)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 1),
+        border:           solid 1px color(warning-550),
+        background-color: color(warning-550)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(danger-550),
+        background-color: color(danger-550)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 1),
+        border:           solid 1px color(success-550),
+        background-color: color(success-550)
+    )
+) !default;
+
+// Colors (bordered)
+$btn-colors-border: (
+    "white": (
+        color:            $white,
+        border:           solid 1px $white,
+        background-color: transparent
+    ),
+    
+    "light": (
+        color:            color(gray-100),
+        border:           solid 1px color(gray-100),
+        background-color: transparent
+    ),
+
+    "gray": (
+        color:            $gray,
+        border:           solid 1px $gray,
+        background-color: transparent
+    ),
+
+    "dark": (
+        color:            color(gray-800),
+        border:           solid 1px color(gray-800),
+        background-color: transparent
+    ),
+    
+    "black": (
+        color:            $black,
+        border:           solid 1px $black,
+        background-color: transparent
+    ),
+
+    "app": (
+        color:            color(app-500),
+        border:           solid 1px color(app-500),
+        background-color: transparent
+    ),
+
+    "notice": (
+        color:            color(notice-500),
+        border:           solid 1px color(notice-500),
+        background-color: transparent
+    ),
+
+    "warning": (
+        color:            color(warning-500),
+        border:           solid 1px color(warning-500),
+        background-color: transparent
+    ),
+
+    "danger": (
+        color:            color(danger-500),
+        border:           solid 1px color(danger-500),
+        background-color: transparent
+    ),
+
+    "success": (
+        color:            color(success-500),
+        border:           solid 1px color(success-500),
+        background-color: transparent
+    )
+) !default;
+
+// Colors (bordered)
+$btn-colors-border-light: (
+    "light": (
+        color:            color(gray-150),
+    ),
+
+    "gray": (
+        color:            color(gray-600),
+    ),
+
+    "dark": (
+        color:            color(gray-900),
+    ),
+
+    "app": (
+        color:            color(app-600),
+    ),
+
+    "notice": (
+        color:            color(notice-600),
+    ),
+
+    "warning": (
+        color:            color(warning-600),
+    ),
+
+    "danger": (
+        color:            color(danger-600),
+    ),
+
+    "success": (
+        color:            color(success-600),
+    )
+) !default;
+
+// Colors (bordered)
+$btn-colors-border-dark: (
+    "light": (
+        color:            color(gray-50),
+    ),
+
+    "gray": (
+        color:            color(gray-400),
+    ),
+
+    "dark": (
+        color:            color(gray-700),
+    ),
+
+    "app": (
+        color:            color(app-400),
+    ),
+
+    "notice": (
+        color:            color(notice-400),
+    ),
+
+    "warning": (
+        color:            color(warning-400),
+    ),
+
+    "danger": (
+        color:            color(danger-400),
+    ),
+
+    "success": (
+        color:            color(success-400),
+    )
+) !default;
+
+
+// Colors on focus
+$btn-colors-focus: (
+    "white": (
+        box-shadow: 0 0 0 0.25rem rgba($white, 0.4)
+    ),
+    
+    "light": (
+        box-shadow: 0 0 0 0.25rem rgba($light, 0.8)
+    ),
+
+    "gray": (
+        box-shadow: 0 0 0 0.25rem rgba($gray, 0.4)
+    ),
+
+    "dark": (
+        box-shadow: 0 0 0 0.25rem rgba($black, 0.2)
+    ),
+    
+    "black": (
+        box-shadow: 0 0 0 0.25rem rgba($black, 0.4)
+    ),
+
+    "app": (
+        box-shadow: 0 0 0 0.25rem rgba($app, 0.4)
+    ),
+
+    "notice": (
+        box-shadow: 0 0 0 0.25rem rgba($notice, 0.4)
+    ),
+
+    "warning": (
+        box-shadow: 0 0 0 0.25rem rgba($warning, 0.4)
+    ),
+
+    "danger": (
+        box-shadow: 0 0 0 0.25rem rgba($danger, 0.4)
+    ),
+
+    "success": (
+        box-shadow: 0 0 0 0.25rem rgba($success, 0.4)
+    )
+) !default;
+
+
+// -- Messages -- //
+//  Parent //
+// msg__container
+$msg-container-styles: (
+    position: relative,
+    z-index:  10
+) !default;
+
+
+// msg__control
+$msg-control-styles: (
+    position: relative
+) !default;
+
+
+// Component //
+// Styles
+$msg-styles: (
+    font-size:      font-size(xl),
+    line-height:    1.5,
+    width:          100%,
+    max-width:      100%,
+    min-height:     3.5rem,
+    height:         auto,
+    display:        flex,
+    flex-flow:      row,
+    padding:        padding-container(md),
+    margin-bottom:  1rem,
+    border-width:   0,
+    border-style:   solid,
+    border-radius:  border-radius(sm)
+) !default;
+
+// LTR
+$msg-ltr: (
+    border-left-width: 0.25rem
+) !default;
+
+// RTL
+$msg-rtl: (
+    border-right-width: 0.25rem
+) !default;
+
+// Modifiers //
+// Colors
+$msg-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(gray-100),
+        border-color:     color(gray-250)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(gray-800),
+        border-color:     color(gray-650)
+    )
+) !default;
+
+
+// Light colors
+$msg-colors-light: (
+    "notice": (
+        color:            color(notice-950),
+        background-color: color(notice-100),
+        border-color:     color(notice-300)
+    ),
+
+    "warning": (
+        color:            color(warning-950),
+        background-color: color(warning-100),
+        border-color:     color(warning-300)
+    ),
+
+    "danger": (
+        color:            color(danger-950),
+        background-color: color(danger-100),
+        border-color:     color(danger-300)
+    ),
+
+    "success": (
+        color:            color(success-950),
+        background-color: color(success-100),
+        border-color:     color(success-300)
+    )
+) !default;
+
+// Dark colors
+$msg-colors-dark: (
+    "notice": (
+        color:            color(notice-200),
+        background-color: colora(notice, 0.2),
+        border-color:     color(notice-600)
+    ),
+
+    "warning": (
+        color:            color(warning-200),
+        background-color: colora(warning, 0.15),
+        border-color:     color(warning-600)
+    ),
+
+    "danger": (
+        color:            color(danger-200),
+        background-color: colora(danger, 0.2),
+        border-color:     color(danger-600)
+    ),
+
+    "success": (
+        color:            color(success-200),
+        background-color: colora(success, 0.2),
+        border-color:     color(success-600)
+    )
+) !default;
+
+
+// Icon
+$msg-icon-styles: (
+    border: "none !important"
+) !default;
+
+$msg-icon-ltr: (
+    padding-left:  1rem
+) !default;
+
+$msg-icon-rtl: (
+    padding-right: 1rem
+) !default;
+
+// Closable
+$msg-close-styles: (
+    position: relative
+) !default;
+
+// Children //
+// Icon
+$msg-icon-child: (
+    font-size:   24px,
+    align-self:  center
+) !default;
+
+$msg-icon-child-ltr: (
+    padding-right: 0.75rem
+) !default;
+
+$msg-icon-child-rtl: (
+    padding-left:  0.75rem
+) !default;
+
+$msg-icon-colors: (
+    "light": (
+        color: color(gray-400)
+    ),
+
+    "dark": (
+        color: color(gray-500)
+    )
+) !default;
+
+$msg-icon-colors-light: (
+    "notice": (
+        color: color(notice-400)
+    ),
+
+    "warning": (
+        color: color(warning-400)
+    ),
+
+    "danger": (
+        color: color(danger-400)
+    ),
+
+    "success": (
+        color: color(success-400)
+    )
+) !default;
+
+$msg-icon-colors-dark: (
+    "notice": (
+        color: color(notice-600)
+    ),
+
+    "warning": (
+        color: color(warning-600)
+    ),
+
+    "danger": (
+        color: color(danger-600)
+    ),
+
+    "success": (
+        color: color(success-600)
+    )
+) !default;
+
+// Content
+$msg-content-styles: (
+    flex-grow: 1
+) !default;
+
+$msg-content-ltr: (
+    padding-right: 0.75rem
+) !default;
+
+$msg-content-rtl: (
+    padding-left:  0.75rem
+) !default;
+
+// Closable
+$msg-close-child: (
+    font-size:      1rem,
+    width:          "2rem !important",
+    height:         "2rem !important",
+    line-height:    "2rem !important",
+    text-align:     center,
+    cursor:         pointer,
+    border-radius:  border-radius(sm),
+    transition:     transition(xs),
+    position:       absolute,
+    top:            0
+) !default;
+
+$msg-close-child-ltr: (
+    right: 0
+) !default;
+
+$msg-close-child-rtl: (
+    left: 0
+) !default;
+
+$msg-close-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.6)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.6)
+    )
+) !default;
+
+$msg-close-colors-light: (
+    "notice": (
+        color:            rgba(0, 0, 0, 0.6)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 0.6)
+    ),
+
+    "danger": (
+        color:            rgba(0, 0, 0, 0.6)
+    ),
+
+    "success": (
+        color:            rgba(0, 0, 0, 0.6)
+    )
+) !default;
+
+$msg-close-colors-dark: (
+    "notice": (
+        color:            rgba(255, 255, 255, 0.55)
+    ),
+
+    "warning": (
+        color:            rgba(255, 255, 255, 0.55)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 0.55)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 0.55)
+    )
+) !default;
+
+$msg-close-colors-hover: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.75),
+        background-color: rgba(0, 0, 0, 0.05)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.75),
+        background-color: rgba(255, 255, 255, 0.05)
+    )
+) !default;
+
+$msg-close-colors-hover-light: (
+    "notice": (
+        color:            rgba(0, 0, 0, 0.65),
+        background-color: rgba(0, 0, 0, 0.05)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 0.65),
+        background-color: rgba(0, 0, 0, 0.05)
+    ),
+
+    "danger": (
+        color:            rgba(0, 0, 0, 0.65),
+        background-color: rgba(0, 0, 0, 0.05)
+    ),
+
+    "success": (
+        color:            rgba(0, 0, 0, 0.65),
+        background-color: rgba(0, 0, 0, 0.05)
+    )
+) !default;
+
+$msg-close-colors-hover-dark: (
+    "notice": (
+        color:            rgba(255, 255, 255, 0.7),
+        background-color: rgba(255, 255, 255, 0.05)
+    ),
+
+    "warning": (
+        color:            rgba(255, 255, 255, 0.7),
+        background-color: rgba(255, 255, 255, 0.05)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 0.7),
+        background-color: rgba(255, 255, 255, 0.05)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 0.7),
+        background-color: rgba(255, 255, 255, 0.05)
+    )
+) !default;
+
+
+// -- Alert -- //
+//  Parent //
+// alert__container
+$alert-container-styles: (
+    position:    fixed,
+    bottom:      0,
+    z-index:     80,
+    display:     flex,
+    flex-flow:   column-reverse,
+    align-items: end,
+    // padding:     padding(md),
+    width:       fit-content,
+    height:      fit-content
+) !default;
+
+// LTR
+$alert-container-ltr: (
+    right: 0
+) !default;
+
+// RTL
+$alert-container-rtl: (
+    left: 0
+) !default;
+
+
+// positions
+$alert-container-positions: (
+    'top': (
+        flex-flow: column,
+        top:       0,
+        bottom:    inherit
+    ),
+
+    'bottom': (
+        flex-flow: column-reverse,
+        bottom:    0,
+        top:       inherit
+    )
+) !default;
+
+
+// alert__control
+$alert-control-styles: (
+    position: relative
+) !default;
+
+
+// Component //
+// Styles
+$alert-styles: (
+    font-size:      font-size(xl),
+    line-height:    1.5,
+    width:          auto,
+    max-width:      100%,
+    min-height:     3.5rem,
+    display:        flex,
+    flex-flow:      row,
+    padding:        padding-container(md),
+    margin:         1rem,
+    margin-bottom:  0,
+    border-radius:  border-radius(sm),
+    box-shadow:     m-box-shadow(sm),
+    z-index:        79
+) !default;
+
+
+// Modifiers
+// Colors
+$alert-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: $white
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: $black
+    )
+) !default;
+
+// Icon
+$alert-icon-styles: (
+) !default;
+
+$alert-icon-ltr: (
+    padding-left:  1rem
+) !default;
+
+$alert-icon-rtl: (
+    padding-right: 1rem
+) !default;
+
+// Closable
+$alert-close-styles: (
+    position: relative
+) !default;
+
+
+// Children //
+// Icon
+$alert-icon-child: (
+    font-size:   24px,
+    align-self:  center
+) !default;
+
+$alert-icon-child-ltr: (
+    padding-right: 0.75rem
+) !default;
+
+$alert-icon-child-rtl: (
+    padding-left:  0.75rem
+) !default;
+
+// Content
+$alert-content-styles: (
+    flex-grow: 1
+) !default;
+
+$alert-content-ltr: (
+    padding-right: 0.75rem
+) !default;
+
+$alert-content-rtl: (
+    padding-left:  0.75rem
+) !default;
+
+// Closable
+$alert-close-child: (
+    font-size:      1rem,
+    width:          "2rem !important",
+    height:         "2rem !important",
+    line-height:    "2rem !important",
+    text-align:     center,
+    cursor:         pointer,
+    border-radius:  border-radius(sm),
+    transition:     transition(xs),
+    position:       absolute,
+    top:            0
+) !default;
+
+$alert-close-child-ltr: (
+    right: 0
+) !default;
+
+$alert-close-child-rtl: (
+    left: 0
+) !default;
+
+$alert-close-colors: (
+    "light": (
+        color:            inherit
+    ),
+
+    "dark": (
+        color:            inherit
+    )
+) !default;
+
+$alert-close-colors-hover: (
+    "light": (
+        color:            rgba(0, 0, 0, 1),
+        background-color: rgba(0, 0, 0, 0.05)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 1),
+        background-color: rgba(255, 255, 255, 0.1)
+    )
+) !default;
+
+
+// -- Progress Bar -- //
+// Component //
+// Styles
+$progress-styles: (
+    display:         flex,
+    height:          0.125rem,
+    margin-bottom:   1rem,
+    border-radius:   border-radius(sm), 
+    overflow:        hidden,
+    justify-content: start
+) !default;
+
+
+// Modifiers //
+// Colors
+$progress-colors: (
+    "white": (
+        background-color: rgba(255, 255, 255, 0.15)
+    ),
+
+    "light": (
+        background-color: color(gray-100)
+    ),
+
+    "dark": (
+        background-color: color(gray-800)
+    ),
+    
+    "black": (
+        background-color: rgba(0, 0, 0, 0.15)
+    )
+) !default;
+
+// Children //
+// Styles
+$progress-child-styles: (
+    font-size:       font-size(md),
+    line-height:     1,
+    text-align:      center,
+    display:         flex,
+    flex-direction:  column,
+    justify-content: center
+) !default;
+
+// Colors
+$progress-colors-child: (
+    "white": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: rgba(255, 255, 255, 0.3),
+    ),
+
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(gray-250)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(gray-650)
+    ),
+    
+    "black": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: rgba(0, 0, 0, 0.3)
+    )
+) !default;
+
+
+// -- Pagination -- //
+// Component //
+// Styles
+$pagination-styles: (
+    letter-spacing: -1em
+) !default;
+
+$pagination-styles: map-merge($ul-styles, $pagination-styles);
+
+$pagination-li-styles: (
+    letter-spacing: normal,
+    display:        inline-block
+) !default;
+
+$pagination-a-styles: (
+    display:        inline-block,
+    padding:        0.375rem,
+    line-height:    1.5,
+    vertical-align: middle,
+    text-align:     center,
+    font-size:      1rem
+) !default;
+
+
+// Modifiers //
+// Colors
+$pagination-colors: (
+    "light": (
+        color: $a-light
+    ),
+    
+    "dark": (
+        color: $a-dark
+    )
+) !default;
+
+$pagination-colors-hover: (
+    "light": (
+        color: $a-light-hover
+    ),
+    
+    "dark": (
+        color: $a-dark-hover
+    )
+) !default;
+
+// Hoverable
+$pagination-hoverable-styles: (
+    padding:         padding-component(md),
+    text-decoration: none,
+    transition:      transition(xs)
+) !default;
+
+$pagination-colors-hoverable: (
+    "light": (
+        color:            color(gray-900),
+        background-color: color(gray-100)
+    ),
+    
+    "dark": (
+        color:            color(gray-100),
+        background-color: color(gray-800)
+    )
+) !default;
+
+$pagination-colors-hoverable-hover: (
+    "light": (
+        color:            color(gray-950),
+        background-color: color(gray-150)
+    ),
+    
+    "dark": (
+        color:            color(gray-50),
+        background-color: color(gray-750)
+    )
+) !default;
+
+// Sizes
+$pagination-sizes: (
+    "xs": (
+        padding:   0.125rem,
+        font-size: 0.75rem
+    ),
+    
+    "sm": (
+        padding:   0.25rem,
+        font-size: 0.875rem
+    ),
+    
+    "md": (
+        padding:   0.375rem,
+        font-size: 1rem
+    ),
+    
+    "lg": (
+        padding:   0.5rem,
+        font-size: 1.125rem
+    ),
+    
+    "xl": (
+        padding:   0.625rem,
+        font-size: 1.25rem
+    )
+) !default;
+
+$pagination-sizes-hoverable: (
+    "xs": (
+        padding: padding-component(xs)
+    ),
+    
+    "sm": (
+        padding: padding-component(sm)
+    ),
+    
+    "md": (
+        padding: padding-component(md)
+    ),
+    
+    "lg": (
+        padding: padding-component(lg)
+    ),
+    
+    "xl": (
+        padding: padding-component(xl)
+    )
+) !default;
+
+// Children //
+// Active colors
+$pagination-active-colors: (
+    "light": (
+        color: "#{$doc-light-color} !important"
+    ),
+    
+    "dark": (
+        color: "#{$doc-dark-color} !important"
+    )
+) !default;
+
+$pagination-active-colors-hoverable: (
+    "light": (
+        color:            "#{rgba(255, 255, 255, 1)} !important",
+        background-color: "#{color(app-500)} !important"
+    ),
+    
+    "dark": (
+        color:            "#{rgba(255, 255, 255, 1)} !important",
+        background-color: "#{colora(app, 0.7)} !important"
+    )
+) !default;
+
+
+// -- Trail -- //
+// Component //
+// Styles
+$trail-styles: (
+    letter-spacing: -1em
+) !default;
+
+$trail-styles: map-merge($ul-styles, $trail-styles);
+
+$trail-li-styles: (
+    letter-spacing: normal,
+    display:        inline-block
+) !default;
+
+$trail-a-styles: (
+    display:         inline-block,
+    padding:         0.375rem,
+    line-height:     1.5,
+    vertical-align:  middle,
+    text-align:      center,
+    font-size:       1rem,
+    text-decoration: none
+) !default;
+
+// Modifiers //
+// Colors
+// Colors
+$trail-colors: (
+    "light": (
+        color: color(gray-600)
+    ),
+    
+    "dark": (
+        color: color(gray-400)
+    )
+) !default;
+
+$trail-colors-hover: (
+    "light": (
+        color: $a-light-hover
+    ),
+    
+    "dark": (
+        color: $a-dark-hover
+    )
+) !default;
+
+$trail-active-colors: (
+    "light": (
+        color: "#{$a-light-hover} !important"
+    ),
+    
+    "dark": (
+        color: "#{$a-dark-hover} !important"
+    )
+) !default;
+
+
+// -- Tooltip -- //
+$tooltip-styles: (
+    position:        relative,
+    display:         inline-block,
+    border-collapse: separate
+) !default;
+
+$tooltip-before: (
+    display:       table,
+    font-size:     0.9375rem,
+    line-height:   1.5,
+    font-weight:   400,
+    border-radius: border-radius(sm),
+    padding:       padding-component(md),
+    content:       attr(data-tooltip),
+    width:         max-content,
+    min-width:     2rem,
+    max-width:     200px,
+    white-space:   normal,
+    word-wrap:     break-word,
+    opacity:       0,
+    visibility:    hidden,
+    z-index:       90,
+    box-shadow:    0.125rem 0.25rem 1rem rgba(0, 0, 0, 0.2),
+    transition:    transition(xs),
+    position:      absolute,
+    bottom:        calc(100% + 0.5rem),
+    left:          50%,
+    transform:     translate(-50%, 0%)
+) !default;
+
+$tooltip-after: (
+    display:    block,
+    opacity:    0,
+    visibility: hidden,
+    z-index:    90,
+    transition: transition(xs),
+    content:    "''",
+    border:     0.5rem solid rgba(255, 255, 255, 0),
+    position:   absolute,
+    bottom:     calc(100% - 0.5rem),
+    left:       50%,
+    transform:  translate(-50%, 0%)
+) !default;
+
+$tooltip-pseudo-hover: (
+    opacity:    1,
+    visibility: visible
+) !default;
+
+// Modifiers //
+// Colors
+$tooltip-before-colors: (
+    "light": (
+        color:            $doc-light-color,
+        background-color: $white
+    ),
+    
+    "dark": (
+        color:            $doc-dark-color,
+        background-color: $black
+    )
+) !default;
+
+$tooltip-after-colors: (
+    "light": (
+        border-color: $white
+    ),
+    
+    "dark": (
+        border-color: $black
+    )
+) !default;
+
+// Sizes
+$tooltip-before-sizes: (
+    "xs": (
+        max-width: 100px,
+    ),
+    
+    "sm": (
+        max-width: 200px,
+    ),
+    
+    "md": (
+        max-width: 300px,
+    ),
+    
+    "lg": (
+        max-width: 400px,
+    ),
+    
+    "xl": (
+        max-width: 500px,
+    )
+) !default;
+
+// Positions
+$tooltip-before-positions: (
+    "top": (
+        bottom:    calc(100% + 0.5rem),
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+    
+    "bottom": (
+        top:       calc(100% + 0.5rem),
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+
+    "left": (
+        top:       50%,
+        right:     calc(100% + 0.5rem),
+        left:      auto,
+        transform: translate(0, -50%)
+    ),
+    
+    "right": (
+        top:       50%,
+        left:      calc(100% + 0.5rem),
+        right:     auto,
+        transform: translate(0, -50%)
+    )
+    
+) !default;
+
+// Positions
+$tooltip-after-positions: (
+    "top": (
+        bottom:              calc(100% - 0.5rem),
+        left:                50%,
+        transform:           translate(-50%, 0%),
+        border-bottom-color: "transparent !important",
+        border-left-color:   "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+
+    "bottom": (
+        top:                 calc(100% - 0.5rem),
+        left:                50%,
+        transform:           translate(-50%, 0%),
+        border-top-color:    "transparent !important",
+        border-left-color:   "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+
+    "left": (
+        top:                 50%,
+        right:               calc(100% - 1rem),
+        left:                auto,
+        transform:           translate(-0.5rem, -50%),
+        border-top-color:    "transparent !important",
+        border-bottom-color: "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+    
+    "right": (
+        top:                 50%,
+        left:                calc(100% - 0.5rem),
+        right:               auto,
+        transform:           translate(0, -50%),
+        border-top-color:    "transparent !important",
+        border-bottom-color: "transparent !important",
+        border-left-color:   "transparent !important"
+    )
+) !default;
+
+
+// -- Popup -- //
+// Parent //
+$popup-control: (
+    position:        relative,
+    display:         inline-block,
+    border-collapse: separate
+) !default;
+
+// Component //
+// Styles
+$popup-styles: (
+    display:       table,
+    font-size:     0.9375rem,
+    line-height:   1.5,
+    font-weight:   400,
+    cursor:        default,
+    border-radius: border-radius(sm),
+    padding:       padding-component(md),
+    width:         max-content,
+    min-width:     2rem,
+    max-width:     200px,
+    white-space:   normal,
+    word-wrap:     break-word,
+    opacity:       0,
+    visibility:    hidden,
+    z-index:       90,
+    box-shadow:    0.125rem 0.25rem 1rem rgba(0, 0, 0, 0.2),
+    transition:    transition(xs),
+    position:      absolute,
+    bottom:        calc(100% + 0.5rem),
+    left:          50%,
+    transform:     translate(-50%, 0%)
+) !default;
+
+// ::after styles
+$popup-after: (
+    display:        table,
+    opacity:        0,
+    visibility:     hidden,
+    z-index:        90,
+    pointer-events: none,
+    transition:     transition(xs),
+    content:        "''",
+    border:         0.5rem solid rgba(255, 255, 255, 0),
+    position:       absolute,
+    bottom:         -1rem,
+    left:           50%,
+    transform:      translate(-50%, 0%)
+) !default;
+
+// Popup on hover (:not(.popup-click)
+$popup-hover: (
+    opacity:    1,
+    visibility: visible
+) !default;
+
+$popup-active: $popup-hover !default;
+
+// Modifiers //
+// Colors
+$popup-colors: (
+    "light": (
+        color:            $doc-light-color,
+        background-color: $white
+    ),
+    
+    "dark": (
+        color:            $doc-dark-color,
+        background-color: $black
+    )
+) !default;
+
+$popup-after-colors: (
+    "light": (
+        border-color: $white
+    ),
+    
+    "dark": (
+        border-color: $black
+    )
+) !default;
+
+// Sizes
+$popup-sizes: (
+    "xs": (
+        max-width: 100px,
+    ),
+    
+    "sm": (
+        max-width: 200px,
+    ),
+    
+    "md": (
+        max-width: 300px,
+    ),
+    
+    "lg": (
+        max-width: 400px,
+    ),
+    
+    "xl": (
+        max-width: 500px,
+    )
+) !default;
+
+// Positions
+$popup-positions: (
+    "top": (
+        bottom:    calc(100% + 0.5rem),
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+    
+    "bottom": (
+        top:       calc(100% + 0.5rem),
+        left:      50%,
+        transform: translate(-50%, 0%)
+    ),
+
+    "left": (
+        top:       50%,
+        right:     calc(100% + 0.5rem),
+        left:      auto,
+        transform: translate(0, -50%)
+    ),
+    
+    "right": (
+        top:       50%,
+        left:      calc(100% + 0.5rem),
+        right:     auto,
+        transform: translate(0, -50%)
+    )
+    
+) !default;
+
+// Positions
+$popup-after-positions: (
+    "top": (
+        bottom:              -1rem,
+        left:                50%,
+        transform:           translate(-50%, 0%),
+        border-bottom-color: "transparent !important",
+        border-left-color:   "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+
+    "bottom": (
+        top:                 -1rem,
+        bottom:              auto,
+        left:                50%,
+        transform:           translate(-50%, 0%),
+        border-top-color:    "transparent !important",
+        border-left-color:   "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+
+    "left": (
+        top:                 50%,
+        right:               -2rem,
+        left:                auto,
+        transform:           translate(-1rem, -50%),
+        border-top-color:    "transparent !important",
+        border-bottom-color: "transparent !important",
+        border-right-color:  "transparent !important"
+    ),
+    
+    "right": (
+        top:                 50%,
+        left:                -1rem,
+        right:               auto,
+        transform:           translate(0, -50%),
+        border-top-color:    "transparent !important",
+        border-bottom-color: "transparent !important",
+        border-left-color:   "transparent !important"
+    )
+) !default;
+
+
+// -- Menu -- //
+// Component //
+// Styles
+$menu-styles: (
+    position:       relative,
+    display:        block,
+    margin:         0 0 1rem 0,
+    padding:        0,
+    list-style:     none,
+    letter-spacing: -1em,
+    border-radius:  border-radius(sm)
+) !default;
+
+// li styles
+$menu-li-styles: (
+    position:       relative,
+    display:        inline-block,
+    letter-spacing: normal
+) !default;
+
+// ul styles
+$menu-ul-styles: (
+    display:       block,
+    padding:       0.25rem,
+    margin:        0,
+    overflow:      visible,
+    z-index:       40,
+    top:           100%,
+    opacity:       0,
+    visibility:    hidden,
+    transition:    transition(sm),
+    width:         180px,
+    border-radius: border-radius(sm),
+    position:      absolute,
+    box-shadow:    0 0.25rem 0.5rem rgba(0, 0, 0, 0.15)
+) !default;
+
+$menu-ul-ltr: (
+    left: 0
+) !default;
+
+$menu-ul-rtl: (
+    right: 0
+) !default;
+
+// ul ul styles
+$menu-ul-ul: (
+    top: 0
+) !default;
+
+$menu-ul-ul-ltr: (
+    left: 100%
+) !default;
+
+$menu-ul-ul-rtl: (
+    right: 100%
+) !default;
+
+// Nested li styles
+$menu-nested-li-styles: (
+    position: relative,
+    display:  block
+) !default;
+
+// a styles
+$menu-a-styles: (
+    padding:         0.5rem,
+    text-decoration: none,
+    display:         block,
+    border-radius:   border-radius(sm)
+) !default;
+
+// a styles
+$menu-nested-a-styles: (
+    padding:       0.375rem 0.75rem,
+    border-radius: border-radius(sm),
+    font-size:     0.9375rem
+) !default;
+
+// Menu on hover
+$menu-hover: (
+    opacity:    1,
+    visibility: visible
+) !default;
+
+// Modifiers //
+// Colors
+$menu-colors: (
+    "light": (
+        background-color: color(gray-50)
+    ),
+    
+    "dark": (
+        background-color: color(gray-850)
+    ),
+) !default;
+
+$menu-a-colors: (
+    "light": (
+        color: color(gray-700)
+    ),
+    
+    "dark": (
+        color: color(gray-300)
+    ),
+) !default;
+
+$menu-a-colors-hover: (
+    "light": (
+        color: color(gray-900)
+    ),
+    
+    "dark": (
+        color: color(gray-100)
+    ),
+) !default;
+
+$menu-a-colors-hoverable: (
+    "light": (
+        background-color: colora('black', 0.0375)
+    ),
+    
+    "dark": (
+        background-color: colora('white', 0.05)
+    ),
+) !default;
+
+$menu-nested-a-colors: (
+    "light": (
+        color: color(gray-700),
+    ),
+    
+    "dark": (
+        color: color(gray-300)
+    ),
+) !default;
+
+$menu-nested-a-colors-hover: (
+    "light": (
+        color:            color(gray-900),
+        background-color: colora('black', 0.0375)
+    ),
+    
+    "dark": (
+        color:            color(gray-100),
+        background-color: colora('white', 0.05)
+    ),
+) !default;
+
+$menu-ul-colors: (
+    "light": (
+        background-color: $white
+    ),
+    
+    "dark": (
+        background-color: color(gray-925)
+    ),
+) !default;
+
+$menu-active-colors: (
+    "light": (
+        color: "#{color(app-500)} !important"
+    ),
+    
+    "dark": (
+        color: "#{color(app-300)} !important"
+    ),
+) !default;
+
+// Mega menu
+$menu-mega-li: (
+    position: static
+) !default;
+
+$menu-mega-a: (
+    display: inline-block
+) !default;
+
+$menu-mega-ul: (
+    width: 100%
+) !default;
+
+$menu-mega-ul-ul: (
+    position:   static,
+    top:        unset,
+    left:       unset,
+    right:      unset,
+    opacity:    1,
+    visibility: visible,
+    box-shadow: unset
+) !default;
+
+// Alignment
+$menu-alignment: (
+    "x": (
+        display:   block,
+        width:     100%,
+        max-width: 100%
+    ),
+
+    "y": (
+        display: inline-block,
+        width:   auto
+    )
+) !default;;
+
+
+$menu-alignment-ul: null;
+
+@if $ltr {
+    $menu-alignment-ul:(
+        "x": (
+            left: 0
+        ),
+
+        "y": (
+            left: 100%,
+            top:  0
+        )
+    ) !default;
+}
+@else {
+    $menu-alignment-ul:(
+        "x": (
+            right: 0
+        ),
+
+        "y": (
+            right: 100%,
+            top:  0
+        )
+    ) !default;
+}
+
+$menu-alignment-li:(
+    "x": (
+        display: inline-block
+    ),
+
+    "y": (
+        display: list-item
+    ),
+) !default;
+
+
+// Children //
+// Position
+$menu-position:(
+    "left": (
+        right: 0,
+        left:  unset
+    ),
+
+    "right": (
+        left:  0,
+        right: unset
+    ),
+) !default;
+
+$menu-position-auto:(
+    "left-auto": (
+        right: 100%,
+        left:  unset
+    ),
+
+    "right-auto": (
+        left:  100%,
+        right: unset
+    ),
+) !default;
+
+// Arrow
+$menu-arrow: (
+    font-size: 60%,
+    position:  absolute,
+    top:       50%,
+    transform: translate(0%, -50%)
+) !default;
+
+$menu-arrow-ltr: (
+    right: 0.5rem
+) !default;
+
+$menu-arrow-rtl: (
+    left: 0.5rem
+) !default;
+
+// Icon
+$menu-icon: (
+    font-size:      50%,
+    vertical-align: middle
+) !default;
+
+$menu-icon-ltr: (
+    margin-right: 0.625rem
+) !default;
+
+$menu-icon-rtl: (
+    margin-left: 0.625rem
+) !default;
+
+
+// -- Modal -- //
+// Parent //
+$modal-container: (
+    position:      fixed,
+    top:           0,
+    left:          0,
+    width:         100%,
+    height:        100%,
+    max-width:     100%,
+    z-index:       70,
+    display:       flex,
+    align-items:   center,
+    align-content: center
+) !default;
+
+// Component //
+// Styles
+$modal-styles: (
+    margin:        0 auto,
+    width:         480px,
+    max-width:     95%,
+    max-height:    95%,
+    overflow-y:    auto,
+    box-shadow:    box-shadow(md),
+    border-radius: border-radius(sm),
+    position:      relative
+) !default;
+
+
+// Modifiers //
+// Sizes
+$modal-sizes: $container-sizes !default;
+
+// Colors
+$modal-colors: (
+    "light": (
+        color:            $doc-light-color,
+        background-color: color('white')
+    ),
+    
+    "dark": (
+        color:            $doc-dark-color,
+        background-color: color('gray-900')
+    )
+) !default;
+
+
+// Children //
+// Header
+// Styles
+$modal-header: (
+    position: relative,
+    padding:  1rem 1.5rem
+) !default;
+
+$modal-header-h1: (
+    font-size:     font-size(h5),
+    font-weight:   300,
+    margin-bottom: 0
+) !default;
+
+// Header after styles
+$modal-header-after: (
+    display:   table,
+    height:    1px,
+    width:     100%,
+    max-width: 100%,
+    padding:   0,
+    margin:    0,
+    content:   '""',
+    position:  absolute,
+    left:      0,
+    bottom:    0
+) !default;
+
+// Header after colors
+$modal-header-after-colors: (
+    "light": (
+        background-image: linear-gradient(to left, transparent, color(gray-150), transparent)
+    ),
+    
+    "dark": (
+        background-image: linear-gradient(to left, transparent, color(gray-750), transparent)
+    )
+) !default;
+
+
+// Body
+// Styles
+$modal-body: (
+    padding:  2rem 1.5rem
+) !default;
+
+// Footer
+// Styles
+$modal-footer: (
+    font-size:  0.9375rem,
+    text-align: center,
+    padding:    0.75rem 1.5rem
+) !default;
+
+// Colors
+$modal-footer-colors: (
+    "light": (
+        background-image: linear-gradient(to left, transparent, colora('black', 0.05), transparent)
+    ),
+    
+    "dark": (
+        background-image: linear-gradient(to left, transparent, colora('black', 0.25), transparent)
+    )
+) !default;
+
+// Modal close
+// Styles
+$modal-close: (
+    cursor:        pointer,
+    font-size:     font-size(h5),
+    transition:    0.1s,
+    margin:        0.5rem,
+    padding:       0.5rem,
+    border-radius: border-radius(sm),
+    z-index:       69,
+    position:      absolute,
+    top:           0
+) !default;
+
+$modal-close-ltr: (
+    right: 0,
+) !default;
+
+$modal-close-rtl: (
+    left: 0,
+) !default;
+
+$modal-close-colors: (
+    "light": (
+        color: color(gray-600)
+    ),
+    
+    "dark": (
+        color: color(gray-300)
+    )
+) !default;
+
+$modal-close-colors-hover: (
+    "light": (
+        color:            color(gray-800),
+        background-color: colora('black', 0.05)
+    ),
+    
+    "dark": (
+        color:            color(gray-100),
+        background-color: colora('white', 0.05)
+    )
+) !default;

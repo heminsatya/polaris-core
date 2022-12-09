@@ -1,0 +1,4 @@
+/* ---------- Visibility ---------- */
+// -- Component Classes -- //
+@include component-class($visibilities, $name-visibility, "visibility", $strict-visibility);
+@include responsive-component-class($visibilities, $name-visibility, "visibility", $responsive-visibility, $strict-visibility);

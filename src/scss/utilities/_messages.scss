@@ -1,0 +1,41 @@
+/* ---------- Messages ---------- */
+// -- Parents -- //
+// msg__container
+@include parent-styles($msg-container-styles, $name-msg, $name-container);
+
+// msg-control
+@include parent-styles($msg-control-styles, $name-msg, $name-control);
+
+
+// -- Component -- //
+// Styles
+@include component-styles($msg-styles, $name-msg, false, true, $msg-ltr, $msg-rtl);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($msg-colors, $name-msg);
+@include modifier-colors-doc($msg-colors-light, $msg-colors-dark, $name-msg);
+
+// Icon
+@include component-styles($msg-icon-styles, $name-msg + $mod + $name-icon, false, true, $msg-icon-ltr, $msg-icon-rtl);
+
+// Closable
+@include component-styles($msg-close-styles, $name-msg + $mod + $name-closable, false, true);
+
+
+// -- Children -- //
+// Icon
+@include child-styles($msg-icon-child, $name-msg, $name-icon, false, true, $msg-icon-child-ltr, $msg-icon-child-rtl);
+@include child-colors($msg-icon-colors, $name-msg, $name-icon);
+@include child-colors-doc($msg-icon-colors-light, $msg-icon-colors-dark, $name-msg, $name-icon);
+
+// Content
+@include child-styles($msg-content-styles, $name-msg, $name-content, false, true, $msg-content-ltr, $msg-content-rtl);
+
+// Closable
+@include child-styles($msg-close-child, $name-msg, $name-closable, false, true, $msg-close-child-ltr, $msg-close-child-rtl);
+@include child-colors($msg-close-colors, $name-msg, $name-closable);
+@include child-colors-doc($msg-close-colors-light, $msg-close-colors-dark, $name-msg, $name-closable);
+@include child-colors-hover($msg-close-colors-hover, $name-msg, $name-closable);
+@include child-colors-hover-doc($msg-close-colors-hover-light, $msg-close-colors-hover-dark, $name-msg, $name-closable);

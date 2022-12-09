@@ -1,0 +1,4 @@
+/* ---------- Opacity ---------- */
+// -- Component Classes -- //
+@include opacity-class($opacities, $name-opacity, "opacity", $strict-opacity);
+@include responsive-opacity-class($opacities, $name-opacity, "opacity", $responsive-opacity, $strict-opacity);

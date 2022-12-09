@@ -1,0 +1,339 @@
+// ----- Naming Variables ----- //
+// -- Globals -- //
+// Naming Rules //
+$name-bordered: "border" !default;
+$name-grouped:  "group" !default;
+$name-collapse: "collapse" !default;
+$name-closable: "close" !default;
+$name-icon:     "icon" !default;
+$name-content:  "content" !default;
+$name-negator:  "none" !default;
+$name-control:  "control" !default;
+$name-open:     "open" !default;
+$name-header:   "header" !default;
+$name-body:     "body" !default;
+$name-footer:   "footer" !default;
+
+
+// Font Icons //
+$name-polaris-icon: "pi" !default;                  // Name key for polaris font icons
+
+
+// -- Basics -- //
+// Colors //
+$name-color:             "color" !default;           // Name key for color
+$name-bg-color:          "bg" !default;              // Name key for background-color
+$name-border-color:      "b" !default;               // Name key for border-color
+$name-outline-color:     "outline" !default;         // Name key for outline-color
+$name-placeholder-color: "placeholder" !default;     // Name key for ::placeholder color
+$name-selection:         "selection" !default;       // Name key for ::selection color
+$name-alpha:             "a" !default;               // 2nd name key for rgba colors
+
+
+// Backgrounds //
+$name-bg-attachment: "bg" !default;                 // Name key for bg-attachment
+$name-bg-position:   "bg" !default;                 // Name key for bg-pososition
+$name-bg-repeat:     "bg" !default;                 // Name key for bg-repeat
+$name-bg-size:       "bg" !default;                 // Name key for bg-size
+$name-bg-clip:       "bg-clip" !default;            // Name key for bg-clip
+$name-bg-origin:     "bg-origin" !default;          // Name key for bg-origin
+$name-bg-alpha:      "bg-alpha" !default;           // Name key for bg-alpha component
+$name-bg-parent:     "bg-parent" !default;          // Name key for bg-parent component (background: transparent;)
+
+
+// Sizing //
+$name-width:      "w" !default;                     // Name key for width
+$name-min-width:  "min-w" !default;                 // Name key for min-width
+$name-max-width:  "max-w" !default;                 // Name key for max-width
+$name-rest-width: "w-rest" !default;                // Name key for rest width
+$name-height:     "h" !default;                     // Name key for height
+$name-min-height: "min-h" !default;                 // Name key for min-height
+$name-max-height: "max-h" !default;                 // Name key for max-height
+
+
+// Spacing //
+$name-padding:        "p" !default;                 // Name key for padding
+$name-margin:         "m" !default;                 // Name key for margin
+$name-border-style:   "b" !default;                 // Name key for border-style
+$name-border-width:   "b" !default;                 // Name key for border-width
+$name-outline-style:  "outline" !default;           // Name key for outline-style
+$name-outline-width:  "outline" !default;           // Name key for outline-width
+$name-outline-offset: "offset" !default;            // Name key for outline-offset
+$name-box-sizing:     "box" !default;               // Name key for box-sizing
+$name-gutter:         "gt" !default;                // Name key for gutters
+
+
+// Clear //
+$name-clear:    "clear" !default;                   // Name key for clear
+$name-clearfix: "clear-fix" !default;               // Name key for clear-fix component
+
+
+// Resize //
+$name-resize: "resize" !default;                    // Name key for resize
+
+
+// Cursor  //
+$name-cursor: "cursor" !default;                    // Name key for cursor
+
+
+// -- Typography -- //
+// Links //
+$name-active:   "active" !default;
+$name-inactive: "inactive" !default;
+$name-disabled: "disabled" !default;
+
+
+// Font Formatting //
+$name-font-family: "font" !default;                 // Name key for font-family
+$name-font-size:   "font" !default;                 // Name key for font-size
+$name-font-weight: "font" !default;                 // Name key for font-weight
+$name-font-style:  "font" !default;                 // Name key for font-style
+
+
+// Text Formatting //
+$name-text-align:      "text" !default;             // Name key for text-align
+$name-text-decoration: "text" !default;             // Name key for text-decoration
+$name-text-transform:  "text" !default;             // Name key for text-transform
+$name-white-space:     "text" !default;             // Name key for white-space
+$name-vertical-align:  "align" !default;            // Name key for vertical-align
+$name-line-height:     "line" !default;             // Name key for line-height
+$name-letter-spacing:  "letter" !default;           // Name key for letter-spacing
+
+
+// Lists //
+$name-ul: "ul" !default;                            // Name key for ul classes
+
+
+// Highlights //
+$name-kbd:  "kbd" !default;                         // Name key for kbd component
+$name-mark: "mark" !default;                        // Name key for mark component
+
+
+// Codes //
+$name-code: "code" !default;                        // Name key for code component
+$name-ide:  "ide" !default;                         // Name key for ide component
+
+
+// Images //
+$name-image:   "img" !default;                      // Name key for Images
+$name-frame:   "frame" !default;                    // 2nd name for img frame (parent)
+$name-caption: "cap" !default;                      // 2nd name for img figcaption (sibling)
+
+
+// Tables //
+$name-table:          "tbl" !default;               // Name key for Tables
+$name-table-stripped: "strip" !default;             // 2nd name for stripped table
+
+
+// Dividers //
+$name-divider:                "hr" !default;        // Name key for Dividers
+$name-divider-gradient:       "g" !default;         // 2nd name for divider gradient
+$name-divider-gradient-left:  "gl" !default;        // 2nd name for divider gradient-left
+$name-divider-gradient-right: "gr" !default;        // 2nd name for divider gradient-right
+
+
+// -- Layouts -- //
+// Document //
+$name-doc:        "doc" !default;                   // Name key for doc component
+$name-doc-smooth: "smooth" !default;                // 2nd name key for doc-smooth modifier
+
+
+// Wrapper //
+$name-wrapper: "wrapper" !default;                  // Name key for Wrapper
+
+
+// Container //
+$name-container: "container" !default;              // Name key for Container
+
+
+// Direction //
+$name-direction: "dir" !default;                    // Name key for direction
+
+
+// Grid System //
+$name-row: "row" !default;                          // Name key for row component
+$name-col: "col" !default;                          // Name key for col component
+
+
+// Print Breakpoint //
+$name-print-show: "print-show" !default;            // Name key1 for Print Breakpoint
+$name-print-hide: "print-hide" !default;            // Name key2 for Print Breakpoint
+
+
+// -- Appearance -- //
+// Float //
+$name-float: "float" !default;                      // Name key for float
+
+
+// Position //
+$name-position: "position" !default;                // Name key for position
+
+
+// Display //
+$name-display: "display" !default;                  // Name key for display
+
+
+// Overflow //
+$name-overflow:   "o" !default;                     // Name key for overflow
+$name-overflow-x: "ox" !default;                    // Name key for overflow-x
+$name-overflow-y: "oy" !default;                    // Name key for overflow-y
+
+
+// Visibility //
+$name-visibility: "v" !default;                     // Name key for visibility
+
+
+// Opacity //
+$name-opacity: "opacity" !default;                  // Name key for visibility
+
+
+// z-index //
+$name-z-index: "z" !default;                        // Name key for z-index
+
+
+// Backdrop //
+$name-backdrop: "backdrop" !default;                // Name key for Backdrop
+
+
+// -- Loader -- //
+$name-loader: "loader" !default;                    // Name key for loader component
+
+
+// -- Spiner -- //
+$name-spiner: "spiner" !default;                    // Name key for spiner component
+
+
+// -- Scrolls -- //
+$name-scroll: "scroll" !default;                    // Name key for scroll component
+
+
+// Overlay //
+$name-overlay: "overlay" !default;                  // Name key for Overlay
+
+
+// Flexbox //
+$name-flex:      "flex" !default;                   // Name key for Flexbox
+$name-order:     "order" !default;                  // 2nd name for order
+$name-flex-grow: "grow" !default;                   // 2nd name for flex-grow
+$name-basis:     "basis" !default;                  // 2nd name for flex-basis
+$name-flex-auto: "auto" !default;                   // 2nd name for flex-auto (flex: auto)
+
+
+// -- Effects -- //
+// Roundness //
+$name-radius: "round" !default;                     // Name key for border-radius
+
+
+// Shadow //
+$name-text-shadow:     "shadow" !default;           // Name key for text-shadow
+$name-box-shadow:      "shadow" !default;           // Name key for box-shadow
+$name-material-shadow: "m-shadow" !default;         // Name key for material box-shadow
+
+
+// Filter //
+$name-blur:         "blur" !default;                // Name key for blur filter
+$name-brightness:   "brightness" !default;          // Name key for brightness filter
+$name-darkness:     "darkness" !default;            // Name key for darkness (reverse brightness filter)
+$name-grayscale:    "grayscale" !default;           // Name key for grayscale filter
+$name-sepia:        "sepia" !default;               // Name key for sepia filter
+$name-hue-rotate:   "hue" !default;                 // Name key for hue-rotate filter
+$name-hue-rotate-r: "hue-r" !default;               // Name key for reverse hue-rotate filter
+$name-invert:       "invert" !default;              // Name key for invert filter
+$name-saturate:     "saturate" !default;            // Name key for saturate filter
+$name-filter:       "filter" !default;              // Name key for filter class
+
+
+// Transform //
+$name-zoom-in:   "zoom-in" !default;                // Name key for zoom-in (scale transform)
+$name-zoom-out:  "zoom-out" !default;               // Name key for zoom-out (reverse scale transform)
+$name-rotate:    "rotate" !default;                 // Name key for rotate transform
+$name-rotate-r:  "rotate-r" !default;               // Name key for reverse rotate transform
+$name-rotate-x:  "rotate-x" !default;               // Name key for rotateX transform
+$name-rotate-rx: "rotate-rx" !default;              // Name key for reverse rotateX transform
+$name-rotate-y:  "rotate-y" !default;               // Name key for rotateY transform
+$name-rotate-ry: "rotate-ry" !default;              // Name key for reverse rotateY transform
+$name-transform: "transform" !default;              // Name key for transform class
+
+
+// Transition //
+$name-transition: "transition" !default;            // Name key for transition
+$name-time-func:  "transition" !default;            // Name key for transition-timeout
+
+
+// Ripple (JS) //
+$name-ripple:      "ripple" !default;               // Name key for Ripple
+$name-ripple-auto: "auto" !default;                 // 2nd name for ripple-auto component
+
+
+// Animation (JS) //
+$name-animation:          "animation" !default;      // Name key for animation component
+$name-animated:           "animated" !default;       // 2nd name for animation-animated modifier
+$name-animation-duration: "time" !default;           // 2nd name for animation-duration
+$name-animation-delay:    "delay" !default;          // 2nd name for animation-delay
+
+
+// -- Forms -- //
+// Fields //
+$name-field: "field" !default;                      // Name key for Fields
+
+// Field Group //
+$name-field-text: "text" !default;                  // Name key for field-text (sibling)
+
+// Field Set //
+$name-field-set:    "set" !default;                 // Name key for field-text (parent)
+$name-field-title: "title" !default;                // Name key for field-text (sibling)
+
+$name-field-alert: "alert" !default;                // Name key for field-alert (sibling)
+
+// Switch //
+$name-switch: "switch" !default;                    // Name key for switch
+$name-switch-slider: "slider" !default;             // 2nd name key for switch--slider
+$name-switch-slim: "slim" !default;                 // 2nd name key for switch-slim
+
+
+// -- Utilities -- //
+// Badges //
+$name-badge: "badge" !default;                      // Name key for Badges
+
+
+// Buttons //
+$name-btn: "btn" !default;                          // Name key for Buttons
+
+
+// Messages //
+$name-msg: "msg" !default;                          // Name key for Messages
+
+
+// Alerts //
+$name-alert: "alert" !default;                      // Name key for Alerts
+
+
+// Progress-bar //
+$name-progress:     "progress" !default;            // Name key for progress
+$name-progress-bar: "bar" !default;                 // 2nd name key for progress--bar (children)
+
+
+// -- Pagination -- //
+$name-pagination: "page" !default;                  // Name key for progress
+
+
+// -- Trail -- //
+$name-trail: "trail" !default;                      // Name key for progress
+
+
+// -- Tooltip -- //
+$name-tooltip: "tooltip" !default;                  // Name key for tooltip
+
+
+// -- Popup -- //
+$name-popup: "popup" !default;                      // Name key for popup
+
+
+// -- Menu -- //
+$name-menu:       "menu" !default;                  // Name key for menu
+$name-menu-mega:  "mega" !default;                  // 2nd name key for menu-mega
+$name-menu-arrow: "arrow" !default;                 // 2nd name key for menu--arrow
+
+
+// -- Modal -- //
+$name-modal: "modal" !default;                      // Name key for modal

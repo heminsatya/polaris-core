@@ -1,0 +1,25 @@
+/* ---------- Ripple ---------- */
+// -- Component -- //
+@include ripple-styles($ripple-styles, $name-ripple);
+
+
+// -- Modifiers -- //
+// Ripple colors
+@include ripple-colors($ripple-colors, $name-ripple, ripple, true);
+@include ripple-auto-colors($ripple-auto-colors, $name-ripple, rippleAuto, true);
+
+
+// -- Datasets -- //
+// animation = ripple (JS)
+@include ripple($data-ripple, ripple);
+@include ripple-before($data-ripple-before, ripple);
+
+// animation = rippleAuto (JS)
+@include ripple($data-ripple-auto, rippleAuto);
+@include ripple-pseudo($data-ripple-auto-pseudo, rippleAuto);
+
+
+// -- Keyframes -- //
+// Ripple annimations
+@include ripple-generator($ripple, ripple);
+@include ripple-generator($rippleAuto, rippleAuto);

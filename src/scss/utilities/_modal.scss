@@ -1,0 +1,45 @@
+/* ---------- Modal ---------- */
+// -- Parent -- //
+// modal__container
+@include parent-styles($modal-container, $name-modal, $name-container);
+
+
+// -- Component -- //
+@include component-styles($modal-styles, $name-modal, false, true);
+
+
+// Modifiers //
+// Sizes
+@include modifier-class($modal-sizes, $name-modal, "width");
+
+// Colors
+@include modifier-colors($modal-colors, $name-modal);
+
+
+// Children //
+// Header
+// Styles
+@include child-styles($modal-header, $name-modal, $name-header);
+
+// After styles
+@include child-after-styles($modal-header-after, $name-modal, $name-header);
+@include child-after-colors($modal-header-after-colors, $name-modal, $name-header);
+
+// h1 styles
+@include child-item-styles($modal-header-h1, $name-modal, $name-header, "h1");
+
+// Body
+// Styles
+@include child-styles($modal-body, $name-modal, $name-body);
+
+// Footer
+// Styles
+@include child-styles($modal-footer, $name-modal, $name-footer);
+
+// Colors
+@include child-colors($modal-footer-colors, $name-modal, $name-footer);
+
+// Modal close
+@include child-styles($modal-close, $name-modal, $name-closable, false, true, $modal-close-ltr, $modal-close-rtl);
+@include child-colors($modal-close-colors, $name-modal, $name-closable);
+@include child-colors-hover($modal-close-colors-hover, $name-modal, $name-closable);

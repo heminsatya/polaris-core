@@ -1,0 +1,51 @@
+{
+  "name": "polaris-core",
+  "version": "0.9.0",
+  "description": "Polaris is a front-end web framework for creating responsive UI components.",
+  "author": "Hemin Satya",
+  "license": "MIT",
+  "main": "index.js",
+  "style": "/dist/css/polaris.css",
+  "sass": "/src/scss/polaris.scss",
+  "javascript": "/dist/js/polaris.js",
+  "typescript": "/src/ts/polaris.ts",
+  "types": "/dist/js/polaris.d.ts",
+  "module": "/dist/js/modules/Core.js",
+  "keywords": [
+    "responsive",
+    "front-end",
+    "web",
+    "framework",
+    "CSS",
+    "Sass",
+    "JavaScript",
+    "TypeScript",
+    "webpack"
+  ],
+  "homepage": "https://github.com/heminsatya/polaris-core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heminsatya/polaris-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/heminsatya/polaris-core/issues"
+  },
+  "devDependencies": {
+    "sass": "^1.56.1",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0",
+    "ts-loader": "^9.4.1",
+    "inspectpack": "^4.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "sass src/scss/polaris.scss dist/css/polaris.min.css --style compressed",
+    "css-dev": "sass src/scss/polaris.scss dist/css/polaris.css --watch",
+    "css-rtl": "sass src/scss/polaris-rtl.scss dist/css/polaris-rtl.min.css --style compressed",
+    "css-rtl-dev": "sass src/scss/polaris-rtl.scss dist/css/polaris-rtl.css --watch",
+    "js-mod": "tsc --watch",
+    "js": "webpack",
+    "js-dev": "webpack --config webpack.config.dev.js"
+  }
+}

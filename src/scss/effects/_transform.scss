@@ -1,0 +1,94 @@
+/* ---------- Transform ---------- */
+// -- Component Classes -- //
+/*
+* zoom-in (scale transform)
+*/
+.#{$name-zoom-in},
+.#{$name-zoom-in + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", scale(calc(1 + var(--transform-scale, 0.1))));
+}
+
+@include transform-class($zoom-ins, $name-zoom-in, "scale", $strict-transform);
+
+
+/*
+* zoom-out (reverse scale transform)
+*/
+.#{$name-zoom-out},
+.#{$name-zoom-out + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", scale(calc(1 - var(--transform-scale, 0.1))));
+}
+
+@include transform-class($zoom-outs, $name-zoom-out, "scale", $strict-transform);
+
+
+/*
+* rotate
+*/
+.#{$name-rotate},
+.#{$name-rotate + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotate(var(--transform-degree, 90deg)));
+}
+
+@include transform-class($rotates, $name-rotate, "rotate", $strict-transform);
+
+
+/*
+* reverse rotate
+*/
+.#{$name-rotate-r},
+.#{$name-rotate-r + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotate(calc(var(--transform-degree, 90deg) * -1)));
+}
+
+@include transform-class($rotates-r, $name-rotate-r, "rotate", $strict-transform);
+
+
+/*
+* rotateX
+*/
+.#{$name-rotate-x},
+.#{$name-rotate-x + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotateX(var(--transform-degree, 90deg)));
+}
+
+@include transform-class($rotates, $name-rotate-x, "rotateX", $strict-transform);
+
+
+/*
+* reverse rotateX
+*/
+.#{$name-rotate-rx},
+.#{$name-rotate-rx + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotateX(calc(var(--transform-degree, 90deg) * -1)));
+}
+
+@include transform-class($rotates-r, $name-rotate-rx, "rotateX", $strict-transform);
+
+
+/*
+* rotateY
+*/
+.#{$name-rotate-y},
+.#{$name-rotate-y + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotateY(var(--transform-degree, 90deg)));
+}
+
+@include transform-class($rotates, $name-rotate-y, "rotateY", $strict-transform);
+
+
+/*
+* reverse rotateY
+*/
+.#{$name-rotate-ry},
+.#{$name-rotate-ry + $sep + $hoverable}:hover {
+    @include generate-vendor("transform", rotateY(calc(var(--transform-degree, 90deg) * -1)));
+}
+
+@include transform-class($rotates-r, $name-rotate-ry, "rotateY", $strict-transform);
+
+
+/*
+* transform negator
+*/
+@include transform-negator($name-transform, $name-negator, $strict-transform);

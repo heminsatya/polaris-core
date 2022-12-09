@@ -1,0 +1,23 @@
+/* ---------- Codes ---------- */
+/*
+* code
+*/
+// -- Component -- //
+// Styles
+@include component-styles($code-styles, $name-code);
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($code-colors, $name-code);
+
+
+/*
+* ide
+*/
+// -- Component -- //
+// Styles
+@include component-styles($ide-styles, $name-ide);
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($ide-colors, $name-ide);

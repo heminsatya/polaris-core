@@ -1,0 +1,1472 @@
+// ----- Configuration Variables ----- //
+// -- Globals -- //
+// Polaris Prefixes //
+// Breakpoints
+$b-1: "s" !default;         // Smartphone
+$b-2: "ls" !default;        // Landscape Smartphone
+$b-3: "t" !default;         // Tablet
+$b-4: "lt" !default;        // Landscape Tablet
+$b-5: "d" !default;         // Desktop
+$b-6: "ld" !default;        // Large Desktop
+
+
+// Polaris Suffixes //
+$children:  "c" !default;
+$hoverable: "hover" !default;
+$focusable: "focus" !default;
+$clickable: "click" !default;
+
+
+// Name Seperators //
+$sep: "-";      // Name seperator (Please do not change this variable)
+
+// KMC naming rule
+$mod: "-" !default;         // Modifier Separator
+$chi: "--" !default;        // Child Separator
+$sib: "_" !default;         // Sibling Separator
+$par: "__" !default;        // Parent Separator
+
+
+// cross browser (for supporting older browsers) //
+$cross-browser: false !default;    // true | false
+
+
+// -- Vendors -- //
+$vendors: 
+    box-sizing,
+    text-size-adjust,
+    box-shadow,
+    filter,
+    transform,
+    transition,
+    transition-timing-function,
+    flex,
+    flex-direction,
+    flex-wrap,
+    flex-flow,
+    align-content,
+    justify-content,
+    align-items,
+    order,
+    flex-grow,
+    flex-shrink,
+    flex-basis,
+    align-self,
+    appearance;
+
+
+// -- Defaults -- //
+// Breakpoints //
+$breakpoints: (
+    $b-1: 0,         // Smartphone
+    $b-2: 480px,     // Landscape Smartphone
+    $b-3: 768px,     // Tablet
+    $b-4: 1024px,    // Landscape Tablet
+    $b-5: 1280px,    // Desktop
+    $b-6: 1440px     // Large Desktop
+) !default;
+
+
+// Font Icons //
+$polaris-icons: (
+    circle:         "e900",
+    circle-solid:   "e901",
+    square:         "e902",
+    square-solid:   "e903",
+    diamond:        "e904",
+    diamond-solid:  "e905",
+    close:          "e906",
+    nav:            "e907",
+    collapse:       "e908",
+    expand:         "e909",
+    alert-triangle: "e90a",
+    alert-circle:   "e90b",
+    alert-tick:     "e90c",
+    tick:           "e90d",
+    arrow-top:      "e90e",
+    arrow-bottom:   "e90f",
+    arrow-left:     "e910",
+    arrow-right:    "e911"
+) !default;
+
+
+// -- Basics -- //
+// Colors //
+// Color schemes
+$color-scheme: false !default;              // true | false
+$light-scheme: "light" !default;           // For doc-light colors
+$dark-scheme:  "dark" !default;            // For doc-dark colors
+
+// Default color
+$color-system: 'polaris' !default;      // polaris | material
+
+// Default document color
+$doc-color: 'light' !default;           // light | dark
+
+// App colors
+$apps: (
+    100: #E3EDFC,
+    500: #4283F2,
+    900: #0A328F
+) !default;
+
+// Gray tune
+$gray-tune: 'normal' !default;          // warm | normal | cool -- Only availe for `$color-system: 'polaris'`
+
+// Default variables
+$grays:     null;
+$notices:   null;
+$warnings:  null;
+$dangers:   null;
+$successes: null;
+
+// Check color system
+@if to-lower-case($color-system) == 'polaris' {
+    // Warm gray
+    @if $gray-tune == 'warm' {
+        $grays: (
+            100: #F6F4F2,
+            500: #958E88,
+            900: #292421
+        ) !default;
+    }
+
+    // Normal gray
+    @else if $gray-tune == 'normal' {
+        $grays: (
+            100: #F4F4F4,
+            500: #8E8E8E,
+            900: #242424
+        ) !default;
+    }
+
+    // Cool gray
+    @else if $gray-tune == 'cool' {
+        $grays: (
+            100: #F1F4F6,
+            500: #848E96,
+            900: #202428
+        ) !default;
+    }
+}
+
+@else if to-lower-case($color-system) == 'material' {
+    $grays: (
+        100: #F5F5F5,
+        500: #9E9E9E,
+        900: #212121
+    ) !default;
+}
+
+@else {
+    @error "Unknown '#{$color-system}' color system selected!";
+}
+
+// Notice
+@if to-lower-case($color-system) == 'polaris' {
+    $notices: (
+        100: #E1F4FF,
+        500: #31AAF6,
+        900: #0856A0
+    ) !default;
+}
+
+@else if to-lower-case($color-system) == 'material' {
+    $notices: (
+        100: #E3F2FD,
+        500: #2196F3,
+        900: #0D47A1
+    ) !default;
+}
+
+// Warning
+@if to-lower-case($color-system) == 'polaris' {
+    $warnings: (
+        100: #FFF9E2,
+        500: #FFC002,
+        900: #8E5F00
+    ) !default;
+}
+
+@else if to-lower-case($color-system) == 'material' {
+    $warnings: (
+        100: #FFF8E1,
+        500: #FFC107,
+        900: #FF6F00
+    ) !default;
+}
+
+// Danger
+@if to-lower-case($color-system) == 'polaris' {
+    $dangers: (
+        100: #FEE1E0,
+        500: #F23838,
+        900: #810409
+    ) !default;
+}
+
+@else if to-lower-case($color-system) == 'material' {
+    $dangers: (
+        100: #FFEBEE,
+        500: #F44336,
+        900: #B71C1C
+    ) !default;
+}
+
+// Success
+@if to-lower-case($color-system) == 'polaris' {
+    $successes: (
+        100: #E7F8EC,
+        500: #39B663,
+        900: #1F603B
+    ) !default;
+}
+
+@else if to-lower-case($color-system) == 'material' {
+    $successes: (
+        100: #E8F5E9,
+        500: #4CAF50,
+        900: #1B5E20
+    ) !default;
+}
+
+// Neutral Colors
+$white: #FFFFFF !default;
+$light: map-get($map: $grays, $key: 100) !default;
+$gray:  map-get($map: $grays, $key: 500) !default;
+$dark:  map-get($map: $grays, $key: 900) !default;
+$black: #000000 !default;
+
+// Theme Colors
+$app:     map-get($map: $apps, $key: 500) !default;
+$notice:  map-get($map: $notices, $key: 500) !default;
+$warning: map-get($map: $warnings, $key: 500) !default;
+$danger:  map-get($map: $dangers, $key: 500) !default;
+$success: map-get($map: $successes, $key: 500) !default;
+
+// Core color variables
+$core-vars: (
+    "white":   $white,
+    "light":   $light,
+    "gray":    $gray,
+    "dark":    $dark,
+    "black":   $black,
+    'app':     $app,
+    'notice':  $notice,
+    'warning': $warning,
+    'danger':  $danger,
+    'success': $success,
+) !default;
+
+// Core color maps
+$core-maps: (
+    'gray':    $grays,
+    'app':     $apps,
+    'notice':  $notices,
+    'warning': $warnings,
+    'danger':  $dangers,
+    'success': $successes,
+) !default;
+
+// Color Palettes
+$color-palettes: 'gray', 'app' !default;
+$palettes: 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950 !default;
+
+// Colors Alphas
+$color-alphas: 'white', 'black', 'app' !default;
+$alphas: 100, 200, 300, 400, 500, 600, 700, 800, 900 !default;
+
+
+// Backgrounds //
+// background-attachment
+$background-attachments: (
+    fixed:  fixed,
+    local:  local,
+    scroll: scroll
+) !default;
+
+// background-position
+$background-positions: (
+    top-left:     left top,
+    top:          center top,
+    top-right:    right top,
+    left:         left center,
+    center:       center center,
+    right:        right center,
+    bottom-left:  left bottom,
+    bottom:       center bottom,
+    bottom-right: right bottom
+) !default;
+
+// background-repeat
+$background-repeats: (
+    repeat:      repeat,
+    repeat-x:    repeat-x,
+    repeat-y:    repeat-y,
+    repeat-none: no-repeat
+) !default;
+
+// background-size
+$background-sizes: (
+    auto:    auto,
+    contain: contain,
+    cover:   cover
+) !default;
+
+// background-clip
+$background-clips: (
+    border:  border-box,
+    content: content-box,
+    padding: padding-box
+) !default;
+
+// background-origin
+$background-origins: (
+    border:  border-box,
+    content: content-box,
+    padding: padding-box
+) !default;
+
+
+// Sizing //
+// 1.1 width
+$widths: (
+    0:       0,
+    5:       5%,
+    10:      10%,
+    15:      15%,
+    20:      20%,
+    25:      25%,
+    30:      30%,
+    35:      35%,
+    40:      40%,
+    45:      45%,
+    50:      50%,
+    55:      55%,
+    60:      60%,
+    65:      65%,
+    70:      70%,
+    75:      75%,
+    80:      80%,
+    85:      85%,
+    90:      90%,
+    95:      95%,
+    100:     100%,
+    100vw:   100vw,
+    auto:    auto,
+    inherit: inherit,
+    fit:     fit-content,
+    min:     min-content,
+    max:     max-content,
+    fill:    -webkit-fill-available
+) !default;
+
+// 1.2 min-width
+$min-widths: (
+    0:    0,
+    100:  100%,
+    auto: auto,
+    fit:  fit-content,
+    min:  min-content,
+    max:  max-content,
+    fill: -webkit-fill-available
+) !default;
+
+// 1.3 max-width
+$max-widths: (
+    100:  100%,
+    none: none,
+    fit:  fit-content,
+    min:  min-content,
+    max:  max-content,
+    fill: -webkit-fill-available
+) !default;
+
+
+// 2.1 height
+$heights: (
+    0:       0,
+    5:       5%,
+    10:      10%,
+    15:      15%,
+    20:      20%,
+    25:      25%,
+    30:      30%,
+    35:      35%,
+    40:      40%,
+    45:      45%,
+    50:      50%,
+    55:      55%,
+    60:      60%,
+    65:      65%,
+    70:      70%,
+    75:      75%,
+    80:      80%,
+    85:      85%,
+    90:      90%,
+    95:      95%,
+    100:     100%,
+    100vh:   100vh,
+    auto:    auto,
+    inherit: inherit,
+    fit:     fit-content,
+    min:     min-content,
+    max:     max-content,
+    fill:    -webkit-fill-available
+) !default;
+
+// 2.2 min-height
+$min-heights: (
+    0:       0,
+    100:     100%,
+    100vh:   100vh,
+    auto:    auto,
+    inherit: inherit,
+    fit:     fit-content,
+    min:     min-content,
+    max:     max-content,
+    fill:    -webkit-fill-available
+) !default;
+
+// 2.3 max-height
+$max-heights: (
+    100:     100%,
+    100vh:   100vh,
+    none:    none,
+    inherit: inherit,
+    fit:     fit-content,
+    min:     min-content,
+    max:     max-content,
+    fill:    -webkit-fill-available
+) !default;
+
+
+// Spacing //
+// Paddings
+// 1. padding
+$paddings: (
+    min: 0,             // 0px
+    xs:  0.25rem,       // 4px
+    sm:  0.5rem,        // 8px
+    md:  1rem,          // 16px
+    lg:  1.5rem,        // 24px
+    xl:  2rem,          // 32px
+    2xl: 3rem,          // 48px
+    3xl: 4rem           // 64px
+) !default;
+
+// 2. Compenent padding
+$paddings-component: (
+    xs: 0.125rem 0.25rem,    // 2px 4px
+    sm: 0.25rem 0.5rem,      // 4px 8px
+    md: 0.375rem 0.75rem,    // 6px 12px
+    lg: 0.5rem 1rem,         // 8px 16px
+    xl: 0.625rem 1.25rem     // 10px 20px
+) !default;
+
+// 3. Container padding
+$paddings-container: (
+    xs: 0.25rem 0.375rem,   // 4px 6px
+    sm: 0.5rem 0.75rem,     // 8px 12px
+    md: 1rem 1.5rem,        // 16px 24px
+    lg: 1.5rem 2.25rem,     // 24px 36px
+    xl: 2rem 3rem           // 32px 48px
+) !default;
+
+
+// Margins
+// 1. margin
+$margins: (
+    min:  0,            // 0px
+    xs:   0.25rem,      // 4px
+    sm:   0.5rem,       // 8px
+    md:   1rem,         // 16px
+    lg:   1.5rem,       // 24px
+    xl:   2rem,         // 32px
+    2xl:  3rem,         // 48px
+    3xl:  4rem,         // 64px
+    auto: auto          // auto
+) !default;
+
+
+// Borders
+// 1. border-style
+$border-styles: (
+    solid:  solid,
+    dashed: dashed,
+    dotted: dotted,
+    double: double
+) !default;
+
+// 2. border-width
+$border-widths: (
+    min: 0,
+    xs:  1px,
+    sm:  2px,
+    md:  3px,
+    lg:  4px,
+    xl:  5px
+) !default;
+
+
+// Outlines
+// 1. outline-style
+$outline-styles: (
+    solid:  solid,
+    dashed: dashed,
+    dotted: dotted,
+    double: double
+) !default;
+
+// 2. outline-width
+$outline-widths: (
+    min: 0,
+    xs:  1px,
+    sm:  2px,
+    md:  3px,
+    lg:  4px,
+    xl:  5px
+) !default;
+
+// 3. outline-offset
+$outline-offsets: (
+    min: 0,
+    xs:  1px,
+    sm:  2px,
+    md:  3px,
+    lg:  4px,
+    xl:  5px
+) !default;
+
+
+// box-sizing
+$box-sizings: (
+    border:  border-box,
+    content: content-box,
+    inherit: inherit
+) !default;
+
+
+// Gutters
+$gutters: (
+    min: 0,             // 0px
+    xs:  0.25rem,       // 4px
+    sm:  0.5rem,        // 8px
+    md:  1rem,          // 16px
+    lg:  1.5rem,        // 24px
+    xl:  2rem,          // 32px
+) !default;
+
+
+// Clear //
+$clears: (
+    left:  left,
+    right: right,
+    both:  both,
+    none:  none
+) !default;
+
+
+// Resize //
+$resizes: (
+    x:    horizontal,
+    y:    vertical,
+    both: both,
+    auto: auto,
+    none: none
+) !default;
+
+
+// Cursor //
+$cursors: (
+    default:   default,
+    auto:      auto,
+    help:      help,
+    pointer:   pointer,
+    text:      text,
+    copy:      copy,
+    move:      move,
+    grab:      grab,
+    grabbing:  grabbing,
+    wait:      wait,
+    progress:  progress,
+    cell:      cell,
+    crosshair: crosshair,
+    alias:     alias,
+    zoom-in:   zoom-in,
+    zoom-out:  zoom-out,
+    ban:       not-allowed,
+    e:         e-resize,
+    n:         n-resize,
+    ne:        ne-resize,
+    nw:        nw-resize,
+    none:      none
+) !default;
+
+
+// -- Typography -- //
+// Font Formatting //
+// font-family
+$font-families: (
+    serif:   'Georgia, "Times New Roman", Times, serif',
+    sans:    'system-ui, -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif',
+    mono:    'Consolas, "Lucida Console", "Courier New", Monaco, monospace',
+    inherit: inherit
+) !default;
+
+// font-size
+$font-sizes: (
+    // Text
+    xs: 0.5rem,     // 8px
+    sm: 0.625rem,   // 10px
+    md: 0.75rem,    // 12px
+    lg: 0.875rem,   // 14px
+    xl: 1rem,       // 16px
+
+    // Heading
+    h6: 1.125rem,   // 18px
+    h5: 1.25rem,    // 20px
+    h4: 1.5rem,     // 24px
+    h3: 1.75rem,    // 28px
+    h2: 2rem,       // 32px
+    h1: 2.5rem,     // 40px
+
+    // Display
+    d6: 3rem,       // 48px
+    d5: 3.5rem,     // 56px
+    d4: 4rem,       // 64px
+    d3: 4.5rem,     // 72px
+    d2: 5rem,       // 80px
+    d1: 6rem        // 96px
+) !default;
+
+// Small font-size (<sup>, <sub>, <small>)
+$font-small: 75% !default;
+
+// Code font-size (<pre>, <code>, <kbd>, <samp>, <var>)
+$font-code: 1em !default;
+
+// font-weight
+$font-weights: (
+    100: 100,
+    200: 200,
+    300: 300,
+    400: 400,
+    500: 500,
+    600: 600,
+    700: 700,
+    800: 800,
+    900: 900
+) !default;
+
+// font-style
+$font-styles: (
+    italic: italic,
+    normal: normal
+) !default;
+
+
+// Text Formatting //
+// text-align
+$text-aligns: (
+    left:    left,
+    center:  center,
+    right:   right,
+    justify: justify
+) !default;
+
+// text-decoration
+$text-decorations: (
+    under:      underline,
+    over:       overline,
+    through:    line-through,
+    decor-none: none
+) !default;
+
+// text-transform
+$text-transforms: (
+    lower:      lowercase,
+    upper:      uppercase,
+    capital:    capitalize,
+    trans-none: none
+) !default;
+
+// white-space
+$white-spaces: (
+    wrap:     wrap,
+    pre:      pre,
+    pre-wrap: pre-wrap,
+    pre-line: pre-line,
+    nowrap:   nowrap,
+    normal:   normal
+) !default;
+
+// vertical-align
+$vertical-aligns: (
+    top:         top,
+    middle:      middle,
+    bottom:      bottom,
+    baseline:    baseline,
+    text-top:    text-top,
+    text-bottom: text-bottom
+) !default;
+
+// line-height
+$line-heights: (
+    min: 0,
+    xs:  1,
+    sm:  1.25,
+    md:  1.5,
+    lg:  2,
+    xl:  3
+) !default;
+
+// letter-spacing
+$letter-spacings: (
+    xs: -2px,
+    sm: -1px,
+    md: 0,
+    lg: 1px,
+    xl: 2px
+) !default;
+
+
+// Tables //
+// Table sizes (paddings)
+$table-sizes: (
+    xs: 0.125rem 0.375rem,      // 2px 6px
+    sm: 0.25rem 0.5rem,         // 4px 8px
+    md: 0.5rem 1rem,            // 8px 16px
+    lg: 0.75rem 1.5rem,         // 12px 24px
+    xl: 1rem 2rem               // 16px 32px
+) !default;
+
+
+// -- Layout -- //
+// Container //
+// Container size (default)
+$container-max-width: 1280px !default;
+
+// Container sizes
+$container-sizes: (
+    xs: 480px,
+    sm: 768px,
+    md: 1024px,
+    lg: 1280px,
+    xl: 1440px
+) !default;
+
+
+// Grid System //
+// Custom grid number
+$grid-num: 12 !default;      // Default is 12 (a number from 1 to 100)
+
+// Generate grids map
+$grids: grid-generator($grid-num);
+// @debug $grids;  // For test
+// Ex. width: map-get($map: $grids, $key: 1);
+
+
+// Direction //
+$directions: (
+    ltr: ltr,
+    rtl: rtl
+) !default;
+
+// Styles ltr
+$ltr-styles: (
+    text-align: left,
+    direction:  ltr
+) !default;
+
+// Styles rtl
+$rtl-styles: (
+    text-align: right,
+    direction:  rtl
+) !default;
+
+
+// -- Appearance -- //
+// Float //
+$floats: (
+    left:  left,
+    right: right,
+    none:  none,
+    unset: unset
+) !default;
+
+
+// Positions //
+// position
+$positions: (
+    static:   static,
+    relative: relative,
+    absolute: absolute,
+    fixed:    fixed,
+    sticky:   sticky,
+    unset:    unset
+) !default;
+
+// Position alignment
+$position-top-left:     "top-left" !default;
+$position-top:          "top" !default;
+$position-top-right:    "top-right" !default;
+
+$position-left:         "left" !default;
+$position-center:       "center" !default;
+$position-right:        "right" !default;
+
+$position-bottom-left:  "bottom-left" !default;
+$position-bottom:       "bottom" !default;
+$position-bottom-right: "bottom-right" !default;
+
+// Polaris positions (primary)
+$polaris-positions: (
+    left:   left,
+    right:  right,
+    top:    top,
+    bottom: bottom
+) !default;
+
+// Polaris positions (abbreviation)
+$polaris-positions-abbr: (
+    l: left,
+    r: right,
+    t: top,
+    b: bottom
+) !default;
+
+// position axis
+$positions-axis: (
+    x: x,
+    y: y
+) !default;
+
+
+// Display //
+$displays: (
+    block:        block,
+    inline:       inline,
+    inline-block: inline-block,
+    flex:         flex,
+    inline-flex:  inline-flex,
+    grid:         grid,
+    inline-grid:  inline-grid,
+    contents:     contents,
+    inherit:      inherit,
+    initial:      initial,
+    none:         none
+) !default;
+
+
+// Overflow //
+$overflows: (
+    hidden:  hidden,
+    visible: visible,
+    scroll:  scroll,
+    overlay: overlay,
+    auto:    auto
+) !default;
+
+
+// Visibility //
+$visibilities: (
+    visible: visible,
+    hidden:  hidden
+) !default;
+
+
+// Z-Index //
+$z-indexes: (
+    n1: -1,
+    0:  0,
+    1:  1,
+    2:  2,
+    3:  3,
+    4:  4,
+    5:  5,
+    6:  6,
+    7:  7,
+    8:  8,
+    9:  9
+) !default;
+
+
+// Flexbox //
+$flex-scale: 100 !default;      // Flexbox scale in percent from 1 to 100 - Default is 100
+$flex-ratio: 5 !default;        // Flexbox growth ratio from 1 to 100 - Default is 5
+// @NOTICE! If you want the same behaviour as grid sytem set and $flex-scale: 12, $flex-ratio: 1
+// @WARNING! The `$flex-scale` must be divisible by `$flex-ratio`.
+
+
+// Flexbox component (container) 
+// flex-direction
+$flex-directions: (
+    row:   row,
+    row-r: row-reverse,
+    col:   column,
+    col-r: column-reverse
+) !default;
+
+// flex-wrap
+$flex-wraps: (
+    wrap:   wrap,
+    nowrap: nowrap,
+    wrap-r: wrap-reverse
+) !default;
+
+// flex-flow
+$flex-flows: (
+    flow-row:   row,
+    flow-row-r: row-reverse,
+    flow-col:   column,
+    flow-col-r: column-reverse,
+
+) !default;
+
+// justify-content
+$justify-contents: (
+    justify-start:   flex-start,
+    justify-end:     flex-end,
+    justify-center:  center,
+    justify-between: space-between,
+    justify-around:  space-around,
+    justify-evenly:  space-evenly
+) !default;
+
+// align-content
+$align-contents: (
+    content-start:   flex-start,
+    content-end:     flex-end,
+    content-center:  center,
+    content-between: space-between,
+    content-around:  space-around,
+    content-evenly:  space-evenly,
+    content-stretch: stretch
+) !default;
+
+// align-items
+$align-items: (
+    items-start:    flex-start,
+    items-end:      flex-end,
+    items-center:   center,
+    items-baseline: baseline,
+    items-stretch:  stretch
+) !default;
+
+// Flex fill (for "flex: 1 100%")
+$flex-fills: (
+    fill: 1 100%,
+) !default;
+
+
+// Flexbox modifiers (items)
+// Generate orders map  (based on flex number)
+$orders: order-generator($flex-scale, $flex-ratio, $name-order);
+
+// Generate grows map  (based on flex number)
+$flex-grows: flex-grow-generator($flex-scale, $flex-ratio, $name-flex-grow);
+
+// flex-shrink
+$flex-shrinks: (
+    shrink-0: 0,
+    shrink-1: 1,
+    shrink-2: 2,
+    shrink-3: 3
+) !default;
+
+// flex-basis
+$flex-basis: (
+    #{$name-basis}-0:    0,
+    #{$name-basis}-1:    1,
+    #{$name-basis}-auto: auto
+) !default;
+
+// align-self
+$align-selves: (
+    align-start:    flex-start,
+    align-end:      flex-end,
+    align-center:   center,
+    align-baseline: baseline,
+    align-stretch:  stretch,
+    align-auto:     auto
+) !default;
+
+// flex size (flex-basis: %...)
+// Generate flex-sizes map  (based on flex number)
+$flex-sizes: flex-size-generator($flex-scale, $flex-ratio);
+
+
+// -- Effects -- //
+// Roundness //
+// border-radius
+$border-radii: (
+    min: 0,             // 0
+    xs:  0.125rem,      // 2px
+    sm:  0.25rem,       // 4px
+    md:  0.5rem,        // 8px
+    lg:  1rem,          // 16px
+    xl:  2rem,          // 32px
+    max: 50%            // 50%
+) !default;
+
+
+// Shadow //
+// text-shadow
+$text-shadows: (
+    "white": '0 0.0625rem 0 #ffffff',
+    "black":  '0 0.0625rem 0 #000000',
+) !default;
+
+// box-shadow
+$box-shadows: (
+    xs: '0 0.0625rem 0.25rem rgba(0, 0, 0, 0.14)',       // 1px 4px
+    sm: '0 0.1875rem 0.5rem rgba(0, 0, 0, 0.15)',        // 3px 8px
+    md: '0 0.375rem 0.75rem rgba(0, 0, 0, 0.16)',        // 6px 12px
+    lg: '0 0.625rem 1.125rem rgba(0, 0, 0, 0.17)',       // 10px 18px
+    xl: '0 1rem 1.5rem rgba(0, 0, 0, 0.18)'              // 16px 24px
+) !default;
+
+// Material box-shadow
+$material-shadows: (
+    xs: '0 0.0625rem 0.25rem rgba(0, 0, 0, 0.14), 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1)',      // 1px 4px, 2px 10px
+    sm: '0 0.25rem 0.625rem rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1)',       // 4px 10px, 2px 10px 
+    md: '0 0.5rem 0.875rem rgba(0, 0, 0, 0.18), 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1)',        // 8px 14px, 2px 10px 
+    lg: '0 0.875rem 1.125rem rgba(0, 0, 0, 0.20), 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1)',      // 14px 18px, 2px 10px 
+    xl: '0 1.25rem 1.375rem rgba(0, 0, 0, 0.22), 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1)'        // 20px 22px, 2px 10px 
+) !default;
+
+
+// Filter //
+// opacity
+$opacities: (
+    min: 0,
+    xs:  0.17,
+    sm:  0.33,
+    md:  0.5,
+    lg:  0.67,
+    xl:  0.83,
+    max: 1
+) !default;
+
+// blur
+$blurs: (
+    min: 0,
+    xs:  2px,
+    sm:  4px,
+    md:  8px,
+    lg:  16px,
+    xl:  24px,
+    max: 32px
+) !default;
+
+// brightness
+$brightnesses: (
+    min: 1,
+    xs:  1.17,
+    sm:  1.33,
+    md:  1.5,
+    lg:  1.67,
+    xl:  1.83,
+    max: 2
+) !default;
+
+// darkness
+$darknesses: (
+    min: 1,
+    xs:  0.83,
+    sm:  0.67,
+    md:  0.5,
+    lg:  0.33,
+    xl:  0.17,
+    max: 0
+) !default;
+
+// grayscale
+$grayscales: (
+    min: 0,
+    xs:  0.17,
+    sm:  0.33,
+    md:  0.5,
+    lg:  0.67,
+    xl:  0.83,
+    max: 1
+) !default;
+
+// sepia
+$sepias: (
+    min: 0,
+    xs:  0.17,
+    sm:  0.33,
+    md:  0.5,
+    lg:  0.67,
+    xl:  0.83,
+    max: 1
+) !default;
+
+// invert
+$inverts: (
+    min: 0,
+    xs:  0.17,
+    sm:  0.33,
+    md:  0.5,
+    lg:  0.67,
+    xl:  0.83,
+    max: 1
+) !default;
+
+// hue-rotate
+$hue-rotates: (
+    min: 0,
+    xs:  30deg,
+    sm:  60deg,
+    md:  90deg,
+    lg:  120deg,
+    xl:  150deg,
+    max: 180deg
+) !default;
+
+// Reverse hue-rotate
+$hue-rotates-r: (
+    min: 0,
+    xs:  -30deg,
+    sm:  -60deg,
+    md:  -90deg,
+    lg:  -120deg,
+    xl:  -150deg,
+    max: -180deg
+) !default;
+
+// saturate
+$saturates: (
+    min: 0,
+    xs:  0.17,
+    sm:  0.33,
+    md:  0.5,
+    lg:  0.67,
+    xl:  0.83,
+    max: 1
+) !default;
+
+
+// Transform //
+// Scales
+// zoom-in
+$zoom-ins: (
+    min: 1,
+    xs:  1.17,
+    sm:  1.33,
+    md:  1.5,
+    lg:  1.67,
+    xl:  1.83,
+    max: 2
+) !default;
+
+// zoom-out
+$zoom-outs: (
+    min: 1,
+    xs:  0.83,
+    sm:  0.67,
+    md:  0.5,
+    lg:  0.33,
+    xl:  0.17,
+    max: 0
+) !default;
+
+
+// Rotates
+// rotate
+$rotates: (
+    min: 0,
+    xs:  30deg,
+    sm:  60deg,
+    md:  90deg,
+    lg:  120deg,
+    xl:  150deg,
+    max: 180deg
+) !default;
+
+// reverse rotate
+$rotates-r: (
+    min: 0,
+    xs:  -30deg,
+    sm:  -60deg,
+    md:  -90deg,
+    lg:  -120deg,
+    xl:  -150deg,
+    max: -180deg
+) !default;
+
+
+// Transition //
+// Transition
+$transitions: (
+    min: 0,
+    xs:  0.125s,
+    sm:  0.25s,
+    md:  0.5s,
+    lg:  1s,
+    xl:  2s
+) !default;
+
+// Transition Timing Function
+$transition-time-funcs: (
+    ease:       ease,
+    ease-in:    ease-in,
+    ease-out:   ease-out,
+    ease-io:    ease-in-out,
+    linear:     linear,
+    step-start: step-start,
+    step-end:   step-end
+) !default;
+
+
+// Scrolls //
+// scroll-behavior
+$scroll-behaviors: (
+    auto:   auto,
+    smooth: smooth,
+    unset:  unset
+) !default; 
+
+
+// Ripples (JS) //
+$ripples:
+    ripple,
+    rippleAuto
+!default;
+
+
+// Animation (JS) //
+// animation-name
+$animations:
+    // Fade Animations
+    fadeIn,
+    fadeOut,
+
+    fadeInLeft,
+    fadeOutLeft,
+
+    fadeInRight,
+    fadeOutRight,
+
+    fadeInTop,
+    fadeOutTop,
+
+    fadeInBottom,
+    fadeOutBottom,
+
+    fadeInTopLeft,
+    fadeOutTopLeft,
+
+    fadeInTopRight,
+    fadeOutTopRight,
+
+    fadeInBottomLeft,
+    fadeOutBottomLeft,
+
+    fadeInBottomRight,
+    fadeOutBottomRight,
+
+
+    // Zoom Animations
+    zoomIn,
+    zoomOut,
+
+    zoomInLeft,
+    zoomOutLeft,
+
+    zoomInRight,
+    zoomOutRight,
+
+    zoomInTop,
+    zoomOutTop,
+
+    zoomInBottom,
+    zoomOutBottom,
+
+    zoomInTopLeft,
+    zoomOutTopLeft,
+
+    zoomInTopRight,
+    zoomOutTopRight,
+
+    zoomInBottomLeft,
+    zoomOutBottomLeft,
+
+    zoomInBottomRight,
+    zoomOutBottomRight,
+
+
+    // Scale Animations
+    scaleIn,
+    scaleOut,
+
+    scaleInLeft,
+    scaleOutLeft,
+
+    scaleInRight,
+    scaleOutRight,
+
+    scaleInTop,
+    scaleOutTop,
+
+    scaleInBottom,
+    scaleOutBottom,
+
+    scaleInTopLeft,
+    scaleOutTopLeft,
+
+    scaleInTopRight,
+    scaleOutTopRight,
+
+    scaleInBottomLeft,
+    scaleOutBottomLeft,
+
+    scaleInBottomRight,
+    scaleOutBottomRight,
+
+
+    // Bounce Animations
+    bounceIn,
+    bounceOut,
+
+    bounceInLeft,
+    bounceOutLeft,
+
+    bounceInRight,
+    bounceOutRight,
+
+    bounceInTop,
+    bounceOutTop,
+
+    bounceInBottom,
+    bounceOutBottom,
+
+    bounceInTopLeft,
+    bounceOutTopLeft,
+
+    bounceInTopRight,
+    bounceOutTopRight,
+
+    bounceInBottomLeft,
+    bounceOutBottomLeft,
+
+    bounceInBottomRight,
+    bounceOutBottomRight,
+
+
+    // Slide Animations
+    slideInLeft,
+    slideOutLeft,
+
+    slideInRight,
+    slideOutRight,
+
+    slideInTop,
+    slideOutTop,
+
+    slideInBottom,
+    slideOutBottom,
+
+    slideInTopLeft,
+    slideOutTopLeft,
+
+    slideInTopRight,
+    slideOutTopRight,
+
+    slideInBottomLeft,
+    slideOutBottomLeft,
+
+    slideInBottomRight,
+    slideOutBottomRight,
+
+
+    // Flip Animations
+    flipInLeft,
+    flipOutLeft,
+    
+    flipInRight,
+    flipOutRight,
+    
+    flipInTop,
+    flipOutTop,
+    
+    flipInBottom,
+    flipOutBottom,
+
+
+    // Rotate Animations
+    rotateInLeft,
+    rotateOutLeft,
+
+    rotateInRight,
+    rotateOutRight,
+
+    rotate,
+    rotateR,
+
+    rotateX,
+    rotateRX,
+
+    rotateY,
+    rotateRY,
+
+
+    // Expand & Shrink Animations
+    expand,
+    shrink,
+
+    expandX,
+    shrinkX,
+
+    expandY,
+    shrinkY,
+
+
+    // Show & Hide animations
+    show,
+    hide,
+
+    showX,
+    hideX,
+
+    showY,
+    hideY,
+
+
+    // Load & Unload Animations
+    loadX,
+    unloadX,
+
+    loadY,
+    unloadY,
+
+
+    // Move Animations
+    moveX,
+    moveRX,
+
+    moveY,
+    moveRY,
+
+    swayX,
+    swayRX,
+    
+    swayY,
+    swayRY,
+
+
+    // Alert Animations
+    bounce,
+    pulse,
+    beat,
+    blink,
+    flash,
+    stretch,
+    stretchX,
+    stretchY,
+    shake,
+    shakeX,
+    shakeY
+!default;

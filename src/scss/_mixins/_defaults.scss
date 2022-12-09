@@ -1,0 +1,57 @@
+// ----- Default Mixins ----- //
+///
+// @desc Generates auto responsive css font-size for headings 
+//
+// @param {map} $map
+///
+@mixin h-font-size($map) {
+    @each $key-1, $value-1 in $map {
+        // Get inner map
+        $inner: inner-map($map, $key-1);
+
+        // Create breakpoint
+        @include breakpoint($key-1) {
+            @each $key-2, $value-2 in $inner {
+                #{$key-2} {
+                    font-size: $value-2;
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates auto responsive css margin for hr 
+//
+// @param {map} $map
+///
+@mixin hr-margin($map) {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Create breakpoint
+        @include breakpoint($key) {
+            hr {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css content for polaris icons 
+//
+// @param {map} $map
+///
+@mixin polaris-icons($map, $name: "si") {
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key}::before {
+                content: #{'"\\' + $value + '"'}; 
+            }
+        }
+    }
+}

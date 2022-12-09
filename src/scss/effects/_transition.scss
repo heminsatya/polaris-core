@@ -1,0 +1,18 @@
+/* ---------- Transition ---------- */
+// -- Component Classes -- //
+/*
+*  transition
+*/
+@include component-class($transitions, $name-transition, "transition", $strict-transition);
+
+
+/*
+*  timing-function
+*/
+@include component-class($transition-time-funcs, $name-time-func,  "transition-timing-function", $strict-transition);
+
+
+/*
+* transition negator
+*/
+@include transition-negator($name-transition, $name-negator, $strict-transition);

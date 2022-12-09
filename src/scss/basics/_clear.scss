@@ -1,0 +1,6 @@
+/* ---------- Clear ---------- */
+// -- Clear Component Classe -- //
+@include component-class($clears, $name-clear, "clear", $strict-clear);
+
+// -- clear-fix Component -- //
+@include clear-fix($clearfix-styles, $name-clearfix, $strict-clear);

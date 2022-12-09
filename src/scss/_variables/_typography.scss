@@ -1,0 +1,403 @@
+// ----- Typography Variables ----- //
+// -- Links -- //
+$active-styles: (
+    color:           $app,
+    font-weight:     600,
+    text-decoration: none
+) !default;
+
+$inactive-styles: (
+    text-decoration: none,
+    pointer-events:  none
+) !default;
+
+$disabled-styles: (
+    color:           "#{$gray} !important",
+    text-decoration: none,
+    pointer-events:  none
+) !default;
+
+
+// -- Font Formatting -- //
+$responsive-font-formating: true !default;      // true | false
+$strict-font-formating:     true !default;      // true | false
+
+
+// -- Text Formatting -- //
+$responsive-text-formating: true !default;      // true | false
+$strict-text-formating:     true !default;      // true | false
+
+
+// -- Lists -- //
+// ul alignment
+$ul-aligns: (
+    "x": (
+        display: inline-block
+    ),
+
+    "y": (
+        display: list-item
+    )
+) !default;
+
+// ul list styles
+$list-styles: (
+    position:       relative,
+    vertical-align: middle,
+    font-size:      50%
+) !default;
+
+// LTR
+$list-styles-ltr: (
+    margin-right: 0.75rem
+) !default;
+
+// RTL
+$list-styles-rtl: (
+    margin-left:  0.75rem
+) !default;
+
+// ul list styles
+$list-icons: circle, circle-solid, square, square-solid, diamond, diamond-solid !default;
+
+
+// -- Highlights -- //
+// kbd //
+// Modifiers
+// Colors
+$kbd-colors: (
+    "light": (
+        color:            $dark,
+        background-color: color(gray-100),
+        text-shadow:      text-shadow("white"),
+        box-shadow:       "0 0 0 0.0625rem #{color(gray-100)}, inset 0 0 0 0.125rem #{$doc-light-bg}"
+    ),
+
+    "dark": (
+        color:            $light,
+        background-color: color(gray-800),
+        text-shadow:      text-shadow("black"),
+        box-shadow:       "0 0 0 0.0625rem #{color(gray-800)}, inset 0 0 0 0.125rem #{$doc-dark-bg}",
+    )
+) !default;
+
+// mark //
+// Modifiers
+// Colors
+$mark-colors-light: (
+    "notice": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(notice-200)
+    ),
+
+    "warning": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(warning-200)
+    ),
+
+    "danger": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(danger-200)
+    ),
+
+    "success": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(success-200)
+    )
+) !default;
+
+
+$mark-colors-dark: (
+    "notice": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: colora(notice, 0.5)
+    ),
+
+    "warning": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: colora(warning, 0.5)
+    ),
+
+    "danger": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: colora(danger, 0.5)
+    ),
+
+    "success": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: colora(success, 0.5)
+    )
+) !default;
+
+
+// -- Codes -- //
+// code //
+// Component
+// Styles
+$code-styles: (
+    display:        inline-block,
+    padding:        padding-component(xs),
+    font-family:    font-family(mono),
+    font-size:      $font-code,
+    font-weight:    400,
+    line-height:    1.25,
+    white-space:    nowrap,
+    vertical-align: baseline,
+    border-radius:  border-radius(xs),
+) !default;
+
+// Modifiers
+// Colors
+$code-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(gray-100)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(gray-800)
+    )
+) !default;
+
+// ide //
+// Component
+// Styles
+$ide-styles: (
+    display:        block,
+    padding:        padding-container(md),
+    font-family:    font-family(mono),
+    font-size:      $font-code,
+    font-weight:    400,
+    line-height:    1.5,
+    white-space:    nowrap,
+    border-radius:  border-radius(sm),
+) !default;
+
+// Modifiers
+// Colors
+$ide-colors: (
+    "light": (
+        color:            rgba(0, 0, 0, 0.9),
+        background-color: color(gray-100)
+    ),
+
+    "dark": (
+        color:            rgba(255, 255, 255, 0.9),
+        background-color: color(gray-800)
+    )
+) !default;
+
+
+// -- Images -- //
+// Component //
+$img-component-styles: append-map($img-styles, "border-radius", border-radius(sm)) !default;
+
+// Parent //
+// Styles
+$img-frame-styles: (
+    border-radius:       border-radius(sm),
+    padding:             padding(xs),
+    border: solid 1px color(gray-200)
+) !default;
+
+// Colors
+$img-frame-colors: (
+    "light": (
+        border: solid 1px color(gray-200)
+    ),
+
+    "dark": (
+        border: solid 1px color(gray-750)
+    )
+) !default;
+
+// Sibling //
+// Styles
+$img-cap-styles: (
+    position:      absolute,
+    bottom:        1rem,
+    z-index:       20,
+    overflow:      visible,
+    padding:       padding-container(sm),
+    border-radius: border-radius(sm)
+) !default;
+
+// LTR
+$img-caption-ltr: (
+    left:          1rem,
+    margin-right:  1rem,
+) !default;
+
+// RTL
+$img-caption-rtl: (
+    right:        1rem,
+    margin-left:  1rem,
+) !default;
+
+// Hidden caption
+$img-cap-h: (
+    opacity:    0,
+    visibility: hidden,
+    transition: 0.17s
+) !default;
+
+// Visible caption (on hover)
+$img-cap-v: (
+    opacity: 1,
+    visibility: visible
+) !default;
+
+// Colors
+$img-cap-colors: (
+    "white": (
+        color:      rgba($black, 0.9),
+        background: $white
+    ),
+
+    "light": (
+        color:      rgba($black, 0.9),
+        background: $light
+    ),
+
+    "dark": (
+        color:      rgba($white, 0.9),
+        background: $dark
+    ),
+
+    "black": (
+        color:      rgba($white, 0.9),
+        background: $black
+    )
+) !default;
+
+
+// -- Tables -- //
+// Component //
+// font-weight
+$table-th-font-weight: 600 !default;
+$table-td-font-weight: 400 !default;
+
+// Colors
+$table-colors: (
+    "light": (
+        color:            $doc-light-color,
+        background-color: $doc-light-bg,
+        border-color:     color(gray-150),
+        "stripped":       color(gray-50),
+        "hoverable":      color(gray-50)
+    ),
+
+    "dark": (
+        color:            $doc-dark-color,
+        background-color: $doc-dark-bg,
+        border-color:     color(gray-750),
+        "stripped":       color(gray-850),
+        "hoverable":      color(gray-850)
+    )
+) !default;
+
+
+// -- Dividers -- //
+// Component //
+// Styles
+$divider-styles: $hr-styles !default;
+
+// Modifiers //
+// Colors
+$divider-colors: (
+    "light": (
+        border-color: $hr-light
+    ),
+
+    "dark": (
+        border-color: $hr-dark
+    )
+) !default;
+
+$divider-margins: $hr-margins !default;
+
+$divider-g-styles: (
+    height:           1px,
+    border:           "none !important",
+    background-image: linear-gradient(to left, transparent, #{$hr-light}, transparent)
+) !default;
+
+$divider-g-colors: (
+    "light": (
+        background-image: linear-gradient(to left, transparent, #{$hr-light}, transparent)
+    ),
+
+    "dark": (
+        background-image: linear-gradient(to left, transparent, #{$hr-dark}, transparent)
+    )
+) !default;
+
+$divider-gl-styles: (
+    height:           1px,
+    border:           "none !important",
+    margin-left:      auto,
+    margin-right:     0,
+    background-image: linear-gradient(to left, #{$hr-light}, transparent),
+    text-align:       right
+) !default;
+
+$divider-gl-colors: (
+    "light": (
+        background-image: linear-gradient(to left, #{$hr-light}, transparent)
+    ),
+
+    "dark": (
+        background-image: linear-gradient(to left, #{$hr-dark}, transparent)
+    )
+) !default;
+
+$divider-gr-styles: (
+    height:           1px,
+    border:           "none !important",
+    margin-right:     auto,
+    margin-left:      0,
+    background-image: linear-gradient(to right, #{$hr-light}, transparent),
+    text-align:       left
+) !default;
+
+$divider-gr-colors: (
+    "light": (
+        background-image: linear-gradient(to right, #{$hr-light}, transparent)
+    ),
+
+    "dark": (
+        background-image: linear-gradient(to right, #{$hr-dark}, transparent)
+    )
+) !default;
+
+// Children //
+$divider-icon-styles: (
+    display:  inline-block,
+    position: absolute,
+    top:      -0.5rem,
+    padding:  0 1rem
+) !default;
+
+$divider-gl-icon: (
+    right: 0,
+    padding-right: "0 !important"
+) !default;
+
+$divider-gr-icon: (
+    left: 0,
+    padding-left: "0 !important"
+) !default;
+
+
+$divider-icon-colors: (
+    "light": (
+        background-color: $doc-light-bg,
+        color:            $gray
+    ),
+
+    "dark": (
+        background-color: $doc-dark-bg,
+        color:            $gray
+    )
+) !default;

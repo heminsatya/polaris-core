@@ -1,0 +1,39 @@
+/* ---------- Alerts ---------- */
+// -- Parents -- //
+// alert__container
+// Styles
+@include parent-styles($alert-container-styles, $name-alert, $name-container, false, true, $alert-container-ltr, $alert-container-rtl);
+
+// positions
+@include alert-container-positions($alert-container-positions, $name-alert, $name-container);
+
+// alert__control
+@include parent-styles($alert-control-styles, $name-alert, $name-control);
+
+
+// -- Component -- //
+@include component-styles($alert-styles, $name-alert);
+
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors($alert-colors, $name-alert, true);
+
+// Icon
+@include component-styles($alert-icon-styles, $name-alert + $mod + $name-icon, false, true, $alert-icon-ltr, $alert-icon-rtl);
+
+// Closable
+@include component-styles($alert-close-styles, $name-alert + $mod + $name-closable, false, true);
+
+
+// -- Children -- //
+// Icon
+@include child-styles($alert-icon-child, $name-alert, $name-icon, false, true, $alert-icon-child-ltr, $alert-icon-child-rtl);
+
+// Content
+@include child-styles($alert-content-styles, $name-alert, $name-content, false, true, $alert-content-ltr, $alert-content-rtl);
+
+// Closable
+@include child-styles($alert-close-child, $name-alert, $name-closable, false, true, $alert-close-child-ltr, $alert-close-child-rtl);
+@include child-colors($alert-close-colors, $name-alert, $name-closable, true);
+@include child-colors-hover($alert-close-colors-hover, $name-alert, $name-closable, true);

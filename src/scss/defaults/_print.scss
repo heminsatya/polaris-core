@@ -1,0 +1,25 @@
+/* ---------- Print ---------- */
+/*
+ * Print Breakpoint Defaults
+ */
+ @include breakpoint(print)  {
+    *, *::before, *::after {
+        text-shadow: $print-text-shadow;
+        box-shadow:  $print-box-shadow;
+    }
+    @page {
+        size: $print-size;
+    }
+    a {
+        text-decoration: $print-a-text-decoration;
+    }
+    abbr[title]::after {
+        content: #{$print-abbr-content};
+    }
+    pre {
+        white-space: $print-pre-white-space;
+    }
+    pre, blockquote {
+        page-break-inside: avoid;
+    }
+}

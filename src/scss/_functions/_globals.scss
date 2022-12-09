@@ -1,0 +1,386 @@
+// ----- Global Functions ----- //
+///
+// @desc Checks if a list has a value
+//
+// @param {list} $list
+// @param {any}  $value
+//
+// @return {boolean}
+///
+@function list-has-value($list, $value) {
+    @if index($list, $value) {
+        @return true;
+    }
+    @else {
+        @return false;
+    }
+}
+
+
+///
+// @desc Checks the strict styling (!important)
+// 
+// @param {boolean} $strict
+// 
+// @return {string}
+///
+@function check-strict($strict) {
+    @if $strict == true {
+        @return " !important";
+    } 
+    @else {
+        @return "";
+    }
+}
+
+
+///
+// @desc Converts a string to uppercase
+// 
+// @param {string} $str
+// 
+// @return {string}
+///
+@function to-upper($str) {
+
+    @if $str == null {
+        @return null;
+    }
+
+    @return to-upper-case(#{$str});
+}
+
+
+///
+// @desc Converts a string to lowercase
+// 
+// @param {string} $str
+// 
+// @return {string}
+///
+@function to-lower($str) {
+
+    @if $str == null {
+        @return null;
+    }
+
+    @return to-lower-case(#{$str});
+}
+
+
+///
+// @desc Converts a numeric value to number if possible
+// 
+// @param {string|number} $value
+// 
+// @var {number}  result  -- The final result placeholder
+// @var {number}  digits
+// @var {boolean} minus   -- Check for negative number
+// @var {map}     numbers -- 0-9 numbers placeholder
+// 
+// @return {number}
+///
+@function to-number($value) {
+    @if type-of($value) == 'number' {
+        @return $value;
+
+    }
+    @else if type-of($value) != 'string' {
+        @error 'Value for `to-number` should be a number or a string.';
+    }
+  
+    $result: 0;
+    $digits: 0;
+    $minus: str-slice($value, 1, 1) == '-';
+    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+  
+    @for $i from if($minus, 2, 1) through str-length($value) {
+        $character: str-slice($value, $i, $i);
+        @if (index(map-keys($numbers), $character) or $character == '.') {
+            @if $character == '.' {
+                $digits: 1; 
+
+            } 
+            @else if $digits == 0 {
+                $result: $result * 10 + map-get($numbers, $character);  
+
+            } 
+            @else {
+                $digits: $digits * 10;
+                $result: $result + map-get($numbers, $character) / $digits;
+            }
+        }
+    }
+  
+    @return if($minus, -$result, $result);
+}
+
+
+///
+// @desc Converts hex to decimal
+// 
+// @param {string} $hex -- hex number
+// 
+// @var {list}   hex -- The hex characters
+// @var {number} len -- The $hex length
+// @var {number} dec -- The decimal result
+// 
+// @return {number}
+///
+@function hex-to-dec($hex) {
+    $list: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F";
+    $len: str-length($hex);
+    $dec: 0;
+
+    // Loop the $hex characters
+    @for $i from 1 through $len {
+      $factor: 1 + (15 * ($len - $i));
+      $index: index($list, str-slice($hex, $i, $i));
+      $dec: $dec + $factor * ($index - 1);
+    }
+  
+    // Return the result
+    @return $dec;
+}
+
+
+///
+// @desc Converts string color to hex color
+// 
+// @param {string} $hex -- hex number
+// 
+// @var {list}   hex -- The hex characters
+// @var {number} len -- The $hex length
+// @var {number} dec -- The decimal result
+// 
+// @return {color} -- hex rgb color
+///
+@function str-to-hex($str) {
+    $hex: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F";
+    $str: to-upper($str);
+    $len: str-length($str);
+    $max: if($len == 4, 1, 2);
+    $red: ""; 
+    $green: "";
+    $blue: "";
+  
+    // Check the length (count #)
+    @if $len != 4 and $len != 7 {
+        // Incorrect color
+        @debug "The 'color: #{$str}' is not a color!";
+        @return $str;
+    }
+  
+    // Loop the color characters (omit #)
+    @for $i from 2 through $len {
+        // Fetch the character
+        $char: str-slice($str, $i, $i);
+  
+        // Incorrect color
+        @if index($hex, $char) == null {
+            // Incorrect color
+            @debug "The 'color: #{$str}' is not a color!";
+            @return $str;
+        }
+  
+        // Extract RGB params
+        @if str-length($red) < $max {
+            $red: $red + $char;
+        }
+        @else if str-length($green) < $max {
+            $green: $green + $char;
+        }
+        @else if str-length($blue) < $max {
+            $blue: $blue + $char;
+        }
+    }
+    
+    // Double characters shorthand color
+    @if $len == 4 {
+        $red: $red + $red;
+        $green: $green + $green;
+        $blue: $blue + $blue;
+    }
+  
+    // Produce and return the result
+    @return rgb(hex-to-dec($red), hex-to-dec($green), hex-to-dec($blue));
+}
+
+
+///
+// @desc Splits a string based on a character
+// 
+// @param {string} $str  -- The string to split
+// @param {string} $char -- The splitter character
+// 
+// @var {list}   $list  -- The list placeholder
+// @var {number} $index -- The splitter index
+// @var {string} $item: -- The list item
+// 
+// @return {list}
+///
+@function str-split($str, $char) {
+    $list: ();
+    $index: str-index($str, $char);
+
+    @while $index != null {
+        $item: str-slice($str, 1, $index - 1);
+        $list: append($list, $item);
+        $str: str-slice($str, $index + str-length($char));
+        $index : str-index($str, $char);
+    }
+
+    $list: append($list, $str);
+    @return $list;
+}
+
+
+///
+// @desc Gets the child map inside the parent map
+// 
+// @param {map} $map   -- The parent map
+// @param {list} $keys -- The child map key refrences
+// 
+// @var {map} $inner-map -- The child map placeholder
+// 
+// @return {map}
+///
+@function inner-map($map, $keys...) {
+    $inner-map: ();    // Define inner map
+
+    // Create inner map
+    @each $key in $keys {
+        $inner-map: map-get($map, $key);
+    }
+
+    // Return inner map
+    @return $inner-map;
+}
+
+
+///
+// @desc Append to a map
+// 
+// @param {map} $map   -- The parent map
+// @param {any} $key   -- The new key
+// @param {any} $value -- The new value
+// 
+// @return {map}
+///
+@function append-map($map, $key, $value) {
+    // Return new map
+    @return map.set($map, $key, $value);
+}
+
+
+///
+// @desc Sorts a color map
+// 
+// @param {map} $map         -- The color map
+// @param {boolean} $reverse -- Reverse color name
+// 
+// @return {map}
+///
+@function sort-color-map($map, $reverse: false) {
+    $light-color: null;
+    $dark-color:  null;
+    $other-map:   ();
+    $new-map:     ();
+
+    // Set document colors & other map
+    @each $key, $value in $map {
+        @if $key == "light" {
+            $light-color: $value;
+        }
+
+        @else if $key == "dark" {
+            $dark-color: $value;
+        }
+    
+        @else {
+            $other-map: append-map($other-map, $key, $value);
+        }
+    }
+
+    // Set the new map with document colors
+    @if $doc-color == "light" and $light-color != null {
+        @if $reverse {
+            $new-map: append-map($new-map, "light", $light-color);
+            $new-map: append-map($new-map, "dark", $dark-color);
+        }
+        @else {
+            $new-map: append-map($new-map, "dark", $dark-color);
+            $new-map: append-map($new-map, "light", $light-color);
+        }
+    }
+
+    @else if $doc-color == "dark" and $dark-color != null {
+        @if $reverse {
+            $new-map: append-map($new-map, "dark", $dark-color);
+            $new-map: append-map($new-map, "light", $light-color);
+        }
+        @else {
+            $new-map: append-map($new-map, "light", $light-color);
+            $new-map: append-map($new-map, "dark", $dark-color);
+        }
+    }
+
+    // Update the new map with other map
+    @each $key, $value in $other-map {
+        $new-map: append-map($new-map, $key, $value);
+    }
+
+    // Return new map
+    @return $new-map;
+}
+
+
+///
+// @desc Checks the document color
+// 
+// @param {string}  $name    -- The color name
+// @param {boolean} $reverse -- Reverse color name?
+// 
+// @return {boolean}
+///
+@function check-doc-color($name, $reverse: false) {
+    @if $reverse {
+        @if to-lower($name) != to-lower($doc-color) {
+            @return true;
+        }
+        @else {
+            @return false;
+        }
+    }
+    @else {
+        @if to-lower($name) == to-lower($doc-color) {
+            @return true;
+        }
+        @else {
+            @return false;
+        }
+    }
+}
+
+
+///
+// @desc Reverses a document color
+// 
+// @param {string} $name     -- The color name
+// @param {boolean} $reverse -- Reverse color name?
+// 
+// @return {string}
+///
+@function reverse-doc-color($name, $reverse: false) {
+    @if $reverse {
+        @if to-lower($name) == "light" {
+            @return "dark";
+        }
+        @else if to-lower($name) == "dark" {
+            @return "light";
+        }
+    }
+    @else {
+        @return $name;
+    }
+}

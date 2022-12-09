@@ -1,0 +1,5 @@
+/* ---------- Wrapper ---------- */
+// -- Component -- //
+@include component-styles($wrapper-styles, $name-wrapper);
+@include auto-component-styles($responsive-wrappers, $name-wrapper, $responsive-wrapper);
+

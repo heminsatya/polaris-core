@@ -1,0 +1,17 @@
+// ----- Vendor Functions ----- //
+///
+// @desc - Checks Checks if a CSS property has vendor
+//
+// @param {object} $property -- CSS properties
+//
+// @return {boolen}
+///
+@function check-vendor($property) {
+    @if list-has-value($vendors, $property) {
+        @return true;
+    }
+    @else {
+        @return false;
+    }
+}
+

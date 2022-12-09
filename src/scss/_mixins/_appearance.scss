@@ -1,0 +1,370 @@
+// ----- Appearance Mixins ----- /////
+///
+// @desc The blueprint for opacity classes
+//
+// @param {map}    $map
+// @param {string} $property -- The optional property name
+// @param {string} $strict   -- The !important CSS value placeholder
+// 
+// @NOTICE If you omit the property, you have to provide a nested map
+///
+@mixin opacity-class-blueprint($map, $property: null, $strict: false) {
+    @each $key, $value in $map {
+        &#{$sep + $key},
+        &#{$sep + $key + $mod + $hoverable}:hover {
+            // Single CSS property
+            @if $property and $property != "" {
+                @include generate-vendor($property, $value, $strict);
+            }
+            // Multiple CSS properties
+            @else {
+                // Get inner map
+                $inner: inner-map($map, $key);
+
+                @include generate-styles($inner, $strict);
+            }
+        }
+    }
+}
+
+
+// @desc Generates css styles for opacity component class
+//
+// @param {map}    $map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The optional property name
+// @param {string} $strict   -- The !important CSS value placeholder
+// 
+// @NOTICE If you omit the property, you have to provide a nested map
+///
+@mixin opacity-class($map, $name, $property: null, $strict: false) {
+    .#{$name} {
+        @include opacity-class-blueprint($map, $property, $strict);
+    }
+}
+
+
+///
+// @desc Generates responsive css styles for opacitycomponent class
+//
+// @param {map}     $map
+// @param {string}  $name        -- The name key
+// @param {string}  $property    -- The optional property name
+// @param {boolean} $responsive  -- The responsive value
+// @param {string}  $strict      -- The !important CSS value placeholder
+// 
+// @NOTICE If you omit the property, you have to provide a nested map
+///
+@mixin responsive-opacity-class($map, $name, $property: null, $responsive: true, $strict: true) {
+    @include responsive-blueprint($name, $responsive) {
+        @include opacity-class-blueprint($map, $property, $strict);
+    }
+}
+
+
+///
+// @desc Generates css styles for a scroll component 
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin scroll-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        @if $key == "container" {
+            .#{$name}::-webkit-scrollbar {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+        @else if $key == "track" {
+            .#{$name}::-webkit-scrollbar-track {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+        @else if $key == "track-hover" {
+            .#{$name}::-webkit-scrollbar-track:hover {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+        @else if $key == "thumb" {
+            .#{$name}::-webkit-scrollbar-thumb {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+        @else if $key == "thumb-hover" {
+            .#{$name}::-webkit-scrollbar-thumb:hover {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+        @else if $key == "thumb-active" {
+            .#{$name}::-webkit-scrollbar-thumb:active {
+                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for scrollbar
+//
+// @param {map}    $map  -- The modifier map
+// @param {string} $name -- The name key
+///
+@mixin scroll-colors($map, $name, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+    
+    @each $key, $value in $map {
+        // Get inner map
+        $key-map: inner-map($map, $key);
+
+        @each $inner-key, $inner-value in $key-map {
+            // -webkit-scrollbar-track
+            @if $inner-key == "track" {
+                $inner: inner-map($key-map, $inner-key);
+
+                // Document colors
+                @if $key == "light" or $key == "dark" {
+                    @if check-doc-color($key, $reverse) {
+                        .#{$name}::-webkit-scrollbar-track,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track {
+                            @include generate-styles($inner);
+                        }
+                    }
+                    @else {
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)}.#{$name}::-webkit-scrollbar-track,
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::-webkit-scrollbar-track,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track {
+                            @include generate-styles($inner);
+                        }
+                    }
+                }
+        
+                // Other colors
+                @else{
+                    .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track {
+                        @include generate-styles($inner);
+                    }
+                }
+            }
+            // -webkit-scrollbar-track:hover
+            @if $inner-key == "track-hover" {
+                $inner: inner-map($key-map, $inner-key);
+
+                // Document colors
+                @if $key == "light" or $key == "dark" {
+                    @if check-doc-color($key, $reverse) {
+                        .#{$name}::-webkit-scrollbar-track:hover,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track:hover {
+                            @include generate-styles($inner);
+                        }
+                    }
+                    @else {
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)}.#{$name}::-webkit-scrollbar-track:hover,
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::-webkit-scrollbar-track:hover,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track:hover {
+                            @include generate-styles($inner);
+                        }
+                    }
+                }
+        
+                // Other colors
+                @else{
+                    .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-track:hover {
+                        @include generate-styles($inner);
+                    }
+                }
+            }
+            // ::-webkit-scrollbar-thumb
+            @else if $inner-key == "thumb" {
+                $inner: inner-map($key-map, $inner-key);
+
+                // Document colors
+                @if $key == "light" or $key == "dark" {
+                    @if check-doc-color($key, $reverse) {
+                        .#{$name}::-webkit-scrollbar-thumb,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb {
+                            @include generate-styles($inner);
+                        }
+                    }
+                    @else {
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)}.#{$name}::-webkit-scrollbar-thumb,
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::-webkit-scrollbar-thumb,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb {
+                            @include generate-styles($inner);
+                        }
+                    }
+                }
+        
+                // Other colors
+                @else{
+                    .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb {
+                        @include generate-styles($inner);
+                    }
+                }  
+            }
+            // ::-webkit-scrollbar-thumb:hover
+            @else if $inner-key == "thumb-hover" {
+                $inner: inner-map($key-map, $inner-key);
+
+                // Document colors
+                @if $key == "light" or $key == "dark" {
+                    @if check-doc-color($key, $reverse) {
+                        .#{$name}::-webkit-scrollbar-thumb:hover,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:hover {
+                            @include generate-styles($inner);
+                        }
+                    }
+                    @else {
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)}.#{$name}::-webkit-scrollbar-thumb:hover,
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::-webkit-scrollbar-thumb:hover,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:hover {
+                            @include generate-styles($inner);
+                        }
+                    }
+                }
+        
+                // Other colors
+                @else{
+                    .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:hover {
+                        @include generate-styles($inner);
+                    }
+                }  
+            }
+            // ::-webkit-scrollbar-thumb:active
+            @else if $inner-key == "thumb-active" {
+                $inner: inner-map($key-map, $inner-key);
+
+                // Document colors
+                @if $key == "light" or $key == "dark" {
+                    @if check-doc-color($key, $reverse) {
+                        .#{$name}::-webkit-scrollbar-thumb:active,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:active {
+                            @include generate-styles($inner);
+                        }
+                    }
+                    @else {
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)}.#{$name}::-webkit-scrollbar-thumb:active,
+                        .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::-webkit-scrollbar-thumb:active,
+                        .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:active {
+                            @include generate-styles($inner);
+                        }
+                    }
+                }
+        
+                // Other colors
+                @else{
+                    .#{$name}.#{$name + $mod + $key}::-webkit-scrollbar-thumb:active {
+                        @include generate-styles($inner);
+                    }
+                }  
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates sizes for scrollbar
+//
+// @param {map}    $map    -- The modifier map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin scroll-sizes($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Generate styles
+        .#{$name + $mod + $key}::-webkit-scrollbar {
+            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        }
+    }
+}
+
+
+///
+// @desc Generates border-radius for a scrollbar
+//
+// @param {map}    $map      -- The modifier map
+// @param {string} $name     -- The name key
+// @param {string} $property -- The optional property name
+// @param {string} $strict   -- The !important CSS value placeholder
+// 
+// @NOTICE If you omit the property, you have to provide a nested map
+///
+@mixin scroll-radius($map, $name-1, $name-2, $strict: false) {
+    @each $key, $value in $map {
+        @if $key == 'md' {
+            .#{$name-1 + $mod + $name-2}.#{$name-1} {
+                &::-webkit-scrollbar-track,
+                &::-webkit-scrollbar-thumb {
+                    // Single CSS property
+                    @include generate-vendor("border-radius", $value, $strict);
+                }
+            }
+        }
+    }
+
+    @each $key, $value in $map {
+        .#{$name-1 + $mod + $name-2}.#{$name-1} {
+            &#{$mod + $key}::-webkit-scrollbar-track,
+            &#{$mod + $key}::-webkit-scrollbar-thumb {
+                // Single CSS property
+                @include generate-vendor("border-radius", $value, $strict);
+            }
+        }
+    }
+
+}
+
+
+///
+// @desc The blueprint for flex-fill classes
+//
+// @param {map}    $map
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-fill-blueprint($map, $strict: false) {
+    $strict: check-strict($strict);
+
+    @each $key, $value in $map {
+        &#{$mod + $key + $mod + $children} > * {
+            @include flex(#{$value + $strict});
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for flex-fill-c class
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin flex-fill($map, $name: "flex", $strict: false) {
+    .#{$name} {
+        @include flex-fill-blueprint($map, $strict);
+    }
+}
+
+
+///
+// @desc Generates responsive css styles for flex-fill-c class
+//
+// @param {map}     $map
+// @param {string}  $name       -- The name key
+// @param {boolean} $responsive -- The responsive value
+// @param {string}  $strict     -- The !important CSS value placeholder
+///
+@mixin responsive-flex-fill($map, $name: "flex", $responsive: true, $strict: false) {
+    @include responsive-blueprint($name, $responsive) {
+        @include flex-fill-blueprint($map, $strict);
+    }
+}

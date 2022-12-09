@@ -1,0 +1,422 @@
+// ----- Effect Mixins ----- //
+///
+// @desc Generates css styles for radius positions
+//
+// @param {map}     $map-1
+// @param {map}     $map-2           -- The positions map
+// @param {string}  $name            -- The name key
+// @param {boolean} $position-radius -- The $position-radius value
+// @param {string}  $strict          -- The !important CSS value placeholder
+///
+@mixin radius-positions($map-1, $map-2, $name: "radius", $position-radius:true, $strict: true) {
+    $strict: check-strict($strict);
+
+    @if $position-radius {
+        .#{$name} {
+            @each $key-1, $value-1 in $map-1 {
+                // left, right, top, and bottom border-radius
+                @each $key-2, $value-2 in $map-2 {
+                    &#{$sep + $key-2+ $sep + $key-1} {
+                        @if $value-2 == left {
+                            border-top-left-radius:    #{$value-1 + $strict};
+                            border-bottom-left-radius: #{$value-1 + $strict};
+                        }
+                        @else if $value-2 == right {
+                            border-top-right-radius:    #{$value-1 + $strict};
+                            border-bottom-right-radius: #{$value-1 + $strict};
+                        }
+                        @else if $value-2 == top {
+                            border-top-left-radius:  #{$value-1 + $strict};
+                            border-top-right-radius: #{$value-1 + $strict};
+                        }
+                        @else if $value-2 == bottom {
+                            border-bottom-left-radius:  #{$value-1 + $strict};
+                            border-bottom-right-radius: #{$value-1 + $strict};
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for text-shadow class
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin text-shadow-class($map, $name: "shadow", $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key}, 
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                text-shadow: #{$value + $strict};
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for box-shadow classes
+//
+// @param {map}    $map
+// @param {string} $name   -- The name key
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin box-shadow-class($map, $name: "shadow", $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key},
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                @include box-shadow($value, $strict);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for filter classes
+//
+// @param $map: map
+// @param {string} $name   -- The name key
+// @param {string} $filter -- The filter name
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin filter-class($map, $name, $filter, $strict: false) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key},
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                // Check filter type
+                @if $filter == "blur" {
+                    @include filter(blur($value), $strict);
+                }
+                @else if $filter == "brightness" {
+                    @include filter(brightness($value), $strict);
+                }
+                @else if $filter == "grayscale" {
+                    @include filter(grayscale($value), $strict);
+                }
+                @else if $filter == "sepia" {
+                    @include filter(sepia($value), $strict);
+                }
+                @else if $filter == "invert" {
+                    @include filter(invert($value), $strict);
+                }
+                @else if $filter == "hue-rotate" {
+                    @include filter(hue-rotate($value), $strict);
+                }
+                @else if $filter == "saturate" {
+                    @include filter(saturate($value), $strict);
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for filter negator
+//
+// @param {string} $name-1 -- The name key
+// @param {string} $name-2 -- The 2nd name
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin filter-negator($name-1, $name-2, $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name-1 + $sep + $name-2},
+    .#{$name-1 + $sep + $name-2 + $mod + $hoverable}:hover {
+        @include filter(none, $strict);
+    }
+}
+
+
+///
+// @desc Generates css styles for transform classes
+//
+// @param {map}    $map
+// @param {string} $name      -- The name key
+// @param {string} $transform -- The transform name
+// @param {string} $strict    -- The !important CSS value placeholder
+///
+@mixin transform-class($map, $name, $transform, $strict: false) {
+    $strict: check-strict($strict);
+
+    .#{$name} {
+        @each $key, $value in $map {
+            &#{$sep + $key},
+            &#{$sep + $key + $mod + $hoverable}:hover {
+                // Check transform type
+                @if $transform == "scale" {
+                    @include transform(scale($value), $strict);
+                }
+                @else if $transform == "scaleX" {
+                    @include transform(scaleX($value), $strict);
+                }
+                @else if $transform == "scaleY" {
+                    @include transform(scaleY($value), $strict);
+                }
+                @else if $transform == "rotate" {
+                    @include transform(rotate($value), $strict);
+                }
+                @else if $transform == "rotateX" {
+                    @include transform(rotateX($value), $strict);
+                }
+                @else if $transform == "rotateY" {
+                    @include transform(rotateY($value), $strict);
+                }
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for transform negator
+//
+// @param {string} $name-1 -- The name key
+// @param {string} $name-2 -- The 2nd name
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin transform-negator($name-1, $name-2, $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name-1 + $sep + $name-2},
+    .#{$name-1 + $sep + $name-2 + $mod + $hoverable}:hover {
+        @include transform(none#{$strict});
+    }
+}
+
+
+///
+// @desc Generates css styles for transition negator
+//
+// @param {string} $name-1 -- The name key
+// @param {string} $name-2 -- The 2nd name
+// @param {string} $strict -- The !important CSS value placeholder
+///
+@mixin transition-negator($name-1, $name-2, $strict: true) {
+    $strict: check-strict($strict);
+
+    .#{$name-1 + $sep + $name-2} {
+        @include transition(none, $strict);
+    }
+}
+
+
+///
+// @desc Generates css styles for ripple component
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ripple-styles($map, $name: "ripple") {
+    .#{$name} {
+        @include generate-styles($map);
+
+        &::before {
+            animation-delay: 0s;
+        }
+        
+        &::after {
+            animation-delay: 0.5s;
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for data-animation=ripple
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ripple($map, $name: "ripple") {
+    [data-animation=#{$name}] {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates css styles for data-animation=ripple
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ripple-before($map, $name: "ripple") {
+    [data-animation=#{$name}]::before {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates css styles for data-animation=rippleAuto before & after 
+//
+// @param {map}    $map
+// @param {string} $name -- The name key
+///
+@mixin ripple-pseudo($map, $name: "rippleAuto") {
+    [data-animation=#{$name}]::before,
+    [data-animation=#{$name}]::after {
+        @include generate-styles($map);
+    }
+}
+
+
+///
+// @desc Generates ripple component colors
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The name key
+// @param {string} $name-2 -- The data-ripple name
+///
+@mixin ripple-colors($map, $name-1: "ripple", $name-2: "ripple", $reverse: true) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1}[data-animation=#{$name-2}]::before,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1}[data-animation=#{$name-2}]::before,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates ripple-auto component colors
+//
+// @param {map}    $map
+// @param {string} $name-1 -- The name key
+// @param {string} $name-2 -- The data-ripple name
+///
+@mixin ripple-auto-colors($map, $name-1: "ripple", $name-2: "rippleAuto", $reverse: true) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+    
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1}[data-animation=#{$name-2}]::before,
+                .#{$name-1}[data-animation=#{$name-2}]::after,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::after {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1}[data-animation=#{$name-2}]::before,
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1}[data-animation=#{$name-2}]::after,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before,
+                .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::after {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1}.#{$name-1 + $mod + $key}[data-animation=#{$name-2}]::before {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates ripple animation keyframes
+//
+// @param $map: map - The ripple animation map
+// @param animation: string - The ripple animation name
+///
+@mixin ripple-generator($map, $animation) {
+    @if list-has-value($ripples, $animation) {
+
+        @keyframes #{$animation} {
+            @each $key, $value in $map {
+                // Get inner map
+                $inner: inner-map($map, $key);
+
+                // Generate animation
+                #{$key} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$animation}` in `$ripples` map.";
+    }
+}
+
+
+///
+// @desc Generates ripple animation keyframes
+//
+// @param {map}    $map      -- The animation map
+// @param {string} animation -- The animation name
+///
+@mixin animation-generator($map, $animation) {
+    @if list-has-value($animations, $animation) {
+
+        @keyframes #{$animation} {
+            @each $key, $value in $map {
+                // Get inner map
+                $inner: inner-map($map, $key);
+
+                // Generate animation
+                #{$key} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+
+        // [data-animation=#{$animation}] {
+            // @include generate-vendor("animation-name", $animation);
+            // --animation: #{$animation};
+        // }
+    }
+    // Handle error
+    @else {
+        @warn "Unknown `#{$animation}` in `$animations` map.";
+    }
+}

@@ -1,0 +1,20 @@
+/* ---------- Document ---------- */
+// -- Component -- //
+// Styles
+@include component-styles($body-styles, $name-doc, false, true);
+
+
+// -- Modifiers -- //
+// Colors
+@include doc-colors($doc-colors, $name-doc);
+
+// Smooth scrolling
+@include modifier-styles($doc-smooth, $name-doc, $name-doc-smooth);
+
+
+// -- Children -- //
+// a
+@include doc-a($doc-a, $doc-a-hover, $name-doc);
+
+// hr
+@include doc-hr($doc-hr, $name-doc);

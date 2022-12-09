@@ -1,0 +1,50 @@
+/* ---------- Sizing ---------- */
+// -- Component Classes -- //
+/*
+ * 1. Width
+*/
+/*
+* 1.1 width
+*/
+@include component-class($widths, $name-width, "width", $strict-sizing);
+@include responsive-component-class($widths, $name-width, "width", $responsive-sizing, $strict-sizing);
+
+/*
+* 1.2 min-width
+*/
+@include component-class($min-widths, $name-min-width, "min-width", $strict-sizing);
+@include responsive-component-class($min-widths, $name-min-width, "min-width", $responsive-sizing, $strict-sizing);
+
+/*
+* 1.3 max-with
+*/
+@include component-class($max-widths, $name-max-width, "max-width", $strict-sizing);
+@include responsive-component-class($max-widths, $name-max-width, "max-width", $responsive-sizing, $strict-sizing);
+
+/*
+* 1.4 rest width
+*/
+@include component-styles($rest-widths, $name-rest-width, false);
+@include responsive-component-styles($rest-widths, $name-rest-width, $responsive-sizing, false);
+
+
+/*
+* 2. Height
+*/
+/*
+* 2.1 height
+*/
+@include component-class($heights, $name-height, "height", $strict-sizing);
+@include responsive-component-class($heights, $name-height, "height", $responsive-sizing, $strict-sizing);
+
+/*
+* 2.2 min-height
+*/
+@include component-class($min-heights, $name-min-height, "min-height", $strict-sizing);
+@include responsive-component-class($min-heights, $name-min-height, "min-height", $responsive-sizing, $strict-sizing);
+
+/*
+* 2.3 max-height
+*/
+@include component-class($max-heights, $name-max-height, "max-height", $strict-sizing);
+@include responsive-component-class($max-heights, $name-max-height, "max-height", $responsive-sizing, $strict-sizing);
