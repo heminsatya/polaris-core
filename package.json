@@ -12,15 +12,16 @@
   "types": "/dist/js/polaris.d.ts",
   "module": "/dist/js/modules/Core.js",
   "keywords": [
-    "responsive",
-    "front-end",
-    "web",
-    "framework",
     "CSS",
     "Sass",
     "JavaScript",
     "TypeScript",
-    "webpack"
+    "webpack",
+    "html",
+    "responsive-design",
+    "front-end",
+    "web",
+    "framework"
   ],
   "homepage": "https://github.com/heminsatya/polaris-core#readme",
   "repository": {
