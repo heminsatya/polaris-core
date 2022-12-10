@@ -1,69 +1,83 @@
 /* ---------- Colors ---------- */
 // -- Component & Modifier Classes -- //
-/*
-* color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-color, "color", $strict-colors);
-
-/* Color Palettes */
-@include color-palette($color-palettes, $palettes, $name-color, "color", $strict-colors);
-
-/* Color Alphas */
-@include color-alpha($color-alphas, $alphas, $name-color, $name-alpha, "color", $strict-colors);
-
-
-/*
-* background-color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-bg-color, "background-color", $strict-colors);
-
-/* Color Palettes */
-@include color-palette($color-palettes, $palettes, $name-bg-color, "background-color", $strict-colors);
-
-/* Color Alphas */
-@include color-alpha($color-alphas, $alphas, $name-bg-color, $name-alpha, "background-color", $strict-colors);
+@if $has-color {
+    /*
+    * color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-color, "color", $strict-colors);
+    
+    /* Color Palettes */
+    @include color-palette($color-palettes, $palettes, $name-color, "color", $strict-colors);
+    
+    /* Color Alphas */
+    @include color-alpha($color-alphas, $alphas, $name-color, $name-alpha, "color", $strict-colors);
+}
 
 
-/*
-* border-color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-border-color, "border-color", $strict-colors);
+@if $has-background-color {
+    /*
+    * background-color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-bg-color, "background-color", $strict-colors);
 
-/* Color Palettes */
-@include color-palette($color-palettes, $palettes, $name-border-color, "border-color", $strict-colors);
+    /* Color Palettes */
+    @include color-palette($color-palettes, $palettes, $name-bg-color, "background-color", $strict-colors);
 
-/* Color Alphas */
-@include color-alpha($color-alphas, $alphas, $name-border-color, $name-alpha, "border-color", $strict-colors);
-
-
-/*
-* outline-color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-outline-color, "outline-color", $strict-colors);
-
-/* Color Palettes */
-@include color-palette($color-palettes, $palettes, $name-outline-color, "outline-color", $strict-colors);
-
-// Color Alphas
-@include color-alpha($color-alphas, $alphas, $name-outline-color, $name-alpha, "outline-color", $strict-colors);
+    /* Color Alphas */
+    @include color-alpha($color-alphas, $alphas, $name-bg-color, $name-alpha, "background-color", $strict-colors);
+}
 
 
-/*
-* ::placeholder color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-placeholder-color, "placeholder", $strict-colors);
+@if $has-border-color {
+    /*
+    * border-color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-border-color, "border-color", $strict-colors);
 
-/* Color Palettes */
-@include color-palette($color-palettes, $palettes, $name-placeholder-color, "placeholder", $strict-colors);
+    /* Color Palettes */
+    @include color-palette($color-palettes, $palettes, $name-border-color, "border-color", $strict-colors);
+
+    /* Color Alphas */
+    @include color-alpha($color-alphas, $alphas, $name-border-color, $name-alpha, "border-color", $strict-colors);
+}
 
 
-/*
-* ::selection color & background-color
-*/
-/* Core Colors */
-@include color-class($core-vars, $name-selection, "selection", $strict-colors);
+
+@if $has-outline-color {
+    /*
+    * outline-color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-outline-color, "outline-color", $strict-colors);
+
+    /* Color Palettes */
+    @include color-palette($color-palettes, $palettes, $name-outline-color, "outline-color", $strict-colors);
+
+    // Color Alphas
+    @include color-alpha($color-alphas, $alphas, $name-outline-color, $name-alpha, "outline-color", $strict-colors);
+}
+
+
+
+@if $has-placeholder-color {
+    /*
+    * ::placeholder color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-placeholder-color, "placeholder", $strict-colors);
+
+    /* Color Palettes */
+    @include color-palette($color-palettes, $palettes, $name-placeholder-color, "placeholder", $strict-colors);
+}
+
+
+@if $has-selection-color {
+    /*
+    * ::selection color & background-color
+    */
+    /* Core Colors */
+    @include color-class($core-vars, $name-selection, "selection", $strict-colors);
+}

@@ -1,6 +1,12 @@
 // ----- Basic Variables ----- //
 // -- Colors -- //
-$strict-colors: true !default;           // true | false (for !important)
+$strict-colors:         true !default;           // true | false (for !important)
+$has-color:             true !default;           // true | false
+$has-background-color:  true !default;           // true | false
+$has-border-color:      false !default;          // true | false
+$has-outline-color:     false !default;          // true | false
+$has-placeholder-color: false !default;          // true | false
+$has-selection-color:   false !default;          // true | false
 
 
 // -- Backgrounds -- //

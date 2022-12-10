@@ -5,7 +5,7 @@ Polaris is a front-end web framework for creating responsive UI components, with
 Polaris framework is divided into two parts: **Core** & **Plugins**
 
 
-## Polaris Core v0.9.0-beta
+## Polaris Core v0.9.1-beta
 
 Polaris Core consists of generic components and features that almost every web application needs.
 
