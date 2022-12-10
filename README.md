@@ -59,7 +59,7 @@ npm install polaris-core
 
 ### Download Polaris
 
-[Download Polaris Core](https://github.com/heminsatya/polaris-core/releases/)
+[Download Polaris Core](https://github.com/heminsatya/polaris-core/releases)
 
 
 ### Clone Polaris
