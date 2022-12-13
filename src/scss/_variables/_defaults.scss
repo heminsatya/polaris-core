@@ -18,6 +18,11 @@ $html-styles: (
     text-size-adjust: auto
 ) !default;
 
+$html-body-styles: (
+    min-height: 100vh,
+    display:    grid
+) !default;
+
 $body-styles: (
     font-family:      $main-font-family,
     font-size:        $main-font-size,
@@ -32,8 +37,6 @@ $body-styles: (
     outline:          0,   
     overflow-x:       hidden
 ) !default;
-
-$html-body-height: 100vh !default;
 
 
 // -- Paragraphs -- //

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v0.9.2-beta
+ * Polaris Framework v0.9.3 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -41,6 +41,12 @@ html {
   box-sizing: inherit;
 }
 
+html,
+body {
+  min-height: 100vh;
+  display: grid;
+}
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif;
   font-size: 1rem;
@@ -54,18 +60,6 @@ body {
   border: 0;
   outline: 0;
   overflow-x: hidden;
-}
-
-html,
-body {
-  min-height: 100vh;
-}
-
-body:before,
-body:after {
-  content: "" !important;
-  display: table !important;
-  clear: both !important;
 }
 
 /* ---------- Sections ---------- */

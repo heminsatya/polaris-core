@@ -30,20 +30,13 @@ html {
     @include box-sizing(inherit);
 }
 
-body {
-    @include generate-styles($body-styles);
-}
-
 html, 
 body {
-    min-height: #{$html-body-height};
+    @include generate-styles($html-body-styles);
 }
 
-body:before,
-body:after {
-    content: "" !important;
-    display: table !important;
-    clear: both !important;
+body {
+    @include generate-styles($body-styles);
 }
 
 
