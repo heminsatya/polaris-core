@@ -15,12 +15,12 @@ $html-styles: (
     font-family:      sans-serif,
     font-size:        100%,
     box-sizing:       border-box,
-    text-size-adjust: auto
+    text-size-adjust: auto,
+    display:          grid
 ) !default;
 
 $html-body-styles: (
-    min-height: 100vh,
-    display:    grid
+    min-height: 100vh
 ) !default;
 
 $body-styles: (
