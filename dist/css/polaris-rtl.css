@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v0.9.3 Beta
+ * Polaris Framework v0.9.4 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -33,6 +33,7 @@ html {
   font-size: 100%;
   box-sizing: border-box;
   text-size-adjust: auto;
+  display: grid;
 }
 
 *,
@@ -44,7 +45,6 @@ html {
 html,
 body {
   min-height: 100vh;
-  display: grid;
 }
 
 body {
