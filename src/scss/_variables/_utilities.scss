@@ -474,7 +474,7 @@ $btn-colors-focus: (
     ),
 
     "app": (
-        box-shadow: 0 0 0 0.25rem rgba($app, 0.4)
+        box-shadow: 0 0 0 0.25rem var(--app-a400, rgba($app, 0.4))
     ),
 
     "notice": (
@@ -1214,7 +1214,7 @@ $pagination-active-colors-hoverable: (
     
     "dark": (
         color:            "#{rgba(255, 255, 255, 1)} !important",
-        background-color: "#{colora(app, 0.7)} !important"
+        background-color: "#{var(app-a700, colora(app, 0.7))} !important"
     )
 ) !default;
 

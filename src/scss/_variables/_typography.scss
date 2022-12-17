@@ -1,7 +1,7 @@
 // ----- Typography Variables ----- //
 // -- Links -- //
 $active-styles: (
-    color:           $app,
+    color:           var(--app, $app),
     font-weight:     600,
     text-decoration: none
 ) !default;

@@ -93,12 +93,12 @@ $field-colors-focus: (
 $field-colors-focusable: (
     "light": (
         border-color: color(app-300),
-        box-shadow:   0 0 0 0.25rem rgba($app, 0.25)
+        box-shadow:   0 0 0 0.25rem var(--app-a250, rgba($app, 0.25))
     ),
 
     "dark": (
         border-color: color(app-500),
-        box-shadow:   0 0 0 0.25rem rgba($app, 0.25)
+        box-shadow:   0 0 0 0.25rem var(--app-a250, rgba($app, 0.25))
     )
 ) !default;
 
