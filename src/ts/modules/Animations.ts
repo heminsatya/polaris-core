@@ -31,7 +31,7 @@ export class Animations extends Helpers {
         let node: any = null;
         
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -40,7 +40,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Check animation
@@ -193,7 +193,7 @@ export class Animations extends Helpers {
         let nodes: any = null;
         
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 nodes = document.querySelectorAll(selector);
     
@@ -202,7 +202,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         nodes.forEach((node: any) => {
@@ -251,7 +251,7 @@ export class Animations extends Helpers {
         let node: any = null;
         
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -260,7 +260,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Check element visibility
@@ -295,7 +295,7 @@ export class Animations extends Helpers {
         let navigators: any = null;
         
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 selectors = document.querySelectorAll(selector);
     
@@ -304,11 +304,11 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
         
         // Check the navigators
-        if (this.check(navigator)['status']) {
+        if (this.exist(navigator)['status']) {
             if (typeof(navigator) === "string") {
                 navigators = document.querySelectorAll(navigator);
     
@@ -317,7 +317,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(navigator)['message'];
+            throw this.exist(navigator)['message'];
         }
 
         // Navigation links

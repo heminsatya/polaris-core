@@ -25,7 +25,7 @@ export class Animations extends Helpers {
     animation(selector, animation = "", clear = false) {
         let node = null;
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof (selector) === "string") {
                 node = document.querySelector(selector);
             }
@@ -34,7 +34,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
         // Check animation
         if (animation == "") {
@@ -157,7 +157,7 @@ export class Animations extends Helpers {
     animated(selector, mod = 'bottom') {
         let nodes = null;
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof (selector) === "string") {
                 nodes = document.querySelectorAll(selector);
             }
@@ -166,7 +166,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
         nodes.forEach((node) => {
             let tolerance = node.dataset.tolerance;
@@ -207,7 +207,7 @@ export class Animations extends Helpers {
     animating(selector, duration = 1000, count = Infinity) {
         let node = null;
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof (selector) === "string") {
                 node = document.querySelector(selector);
             }
@@ -216,7 +216,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
         // Check element visibility
         if (this.visible(node, "both", 0)) {
@@ -244,7 +244,7 @@ export class Animations extends Helpers {
         let selectors = null;
         let navigators = null;
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof (selector) === "string") {
                 selectors = document.querySelectorAll(selector);
             }
@@ -253,10 +253,10 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
         // Check the navigators
-        if (this.check(navigator)['status']) {
+        if (this.exist(navigator)['status']) {
             if (typeof (navigator) === "string") {
                 navigators = document.querySelectorAll(navigator);
             }
@@ -265,7 +265,7 @@ export class Animations extends Helpers {
             }
         }
         else {
-            throw this.check(navigator)['message'];
+            throw this.exist(navigator)['message'];
         }
         // Navigation links
         selectors.forEach((node) => {

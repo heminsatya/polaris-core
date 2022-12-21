@@ -1,5 +1,5 @@
 /**
- * Polaris Framework v0.9.6 Beta
+ * Polaris Framework v0.9.7 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

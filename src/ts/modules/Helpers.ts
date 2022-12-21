@@ -25,7 +25,7 @@ export class Helpers extends Config {
      * 
      * @return {object}
      */
-    public check(selector: any = null): any {
+    public exist(selector: any = null): any {
         // Default variables
         let result: object = {};
 
@@ -80,12 +80,12 @@ export class Helpers extends Config {
         if (typeof(selector) !== "string") {
             throw `The selector must be of type "string".`;
         }
-        else if (this.check(selector)['status']) {
+        else if (this.exist(selector)['status']) {
             // Return the result
             return document.querySelector(selector);
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
     }
 
@@ -102,12 +102,12 @@ export class Helpers extends Config {
         if (typeof(selector) !== "string") {
             throw `The selector must be of type "string".`;
         }
-        else if (this.check(selector)['status']) {
+        else if (this.exist(selector)['status']) {
             // Return the result
             return document.querySelectorAll(selector);
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
     }
 
@@ -128,7 +128,7 @@ export class Helpers extends Config {
         let viewHeight = Math.max(document.documentElement.clientHeight, windowHeight);
 
         // Check the selector
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 rect = document.querySelector(selector);
                 rect = rect.getBoundingClientRect();
@@ -138,7 +138,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Scroll top & bottom
@@ -183,7 +183,7 @@ export class Helpers extends Config {
         }
 
         // Check the parent
-        if (this.check(parent)['status']) {
+        if (this.exist(parent)['status']) {
             if (typeof(parent) === "string") {
                 parentNode = document.querySelector(parent);
     
@@ -192,7 +192,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(parent)['message'];
+            throw this.exist(parent)['message'];
         }
 
         // Create the node
@@ -251,7 +251,7 @@ export class Helpers extends Config {
         }
 
         // Check the parent
-        if (this.check(parent)['status']) {
+        if (this.exist(parent)['status']) {
             if (typeof(parent) === "string") {
                 parentNode = document.querySelector(parent);
     
@@ -260,7 +260,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(parent)['message'];
+            throw this.exist(parent)['message'];
         }
 
         // Create the node
@@ -308,7 +308,7 @@ export class Helpers extends Config {
         let node: any = null;
         
         // Check the selectors
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -317,7 +317,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Remove the node
@@ -483,7 +483,7 @@ export class Helpers extends Config {
      * 
      * @return {boolean}
      */
-    public exist(file:string):boolean {
+    public fileExist(file:string):boolean {
         // Create a new XML HTTP Request
         let xhr:any = new XMLHttpRequest();
 
@@ -513,7 +513,7 @@ export class Helpers extends Config {
         // Check strict mod
         if (strict) {
             // Check file existence
-            if (!this.exist(file)) {
+            if (!this.fileExist(file)) {
                 return false;
             }
         }
@@ -550,7 +550,7 @@ export class Helpers extends Config {
         // Check strict mod
         if (strict) {
             // Check file existence
-            if (!this.exist(file)) {
+            if (!this.fileExist(file)) {
                 return false;
             }
         }
@@ -615,7 +615,7 @@ export class Helpers extends Config {
         let node: any = null;
         
         // Check the selector
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -624,7 +624,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Add the class
@@ -646,7 +646,7 @@ export class Helpers extends Config {
         let node: any = null;
         
         // Check the selector
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -655,7 +655,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Remove the class
@@ -669,16 +669,16 @@ export class Helpers extends Config {
      * @desc Toggles an old class with a new class for a selector
      * 
      * @param {string|object} selector -- The selector name (object)
-     * @param {string} clsOld          -- The old class name
-     * @param {string} clsNew          -- The new class name
+     * @param {string}        oldCls   -- The old class name
+     * @param {string}        newCls   -- The new class name
      * 
      * @return {void}
      */
-    public toggleClass(selector:any, clsOld:string, clsNew:string):void {
+    public toggleClass(selector:any, oldCls:string, newCls:string):void {
         let node: any = null;
         
         // Check the selector
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -687,17 +687,17 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Remove the old class
-        if (node.classList.contains(clsOld)) {
-            node.classList.remove(clsOld);
+        if (node.classList.contains(oldCls)) {
+            node.classList.remove(oldCls);
         }
 
         // Add the new class
-        if (!node.classList.contains(clsNew)) {
-            node.classList.add(clsNew);
+        if (!node.classList.contains(newCls)) {
+            node.classList.add(newCls);
         }
     }
 
@@ -714,7 +714,7 @@ export class Helpers extends Config {
         let node: any = null;
         
         // Check the selector
-        if (this.check(selector)['status']) {
+        if (this.exist(selector)['status']) {
             if (typeof(selector) === "string") {
                 node = document.querySelector(selector);
     
@@ -723,7 +723,7 @@ export class Helpers extends Config {
             }
         }
         else {
-            throw this.check(selector)['message'];
+            throw this.exist(selector)['message'];
         }
 
         // Loop classes
@@ -794,11 +794,11 @@ export class Helpers extends Config {
 
 
     /**
-     * @desc Checks if the browser is full screen
+     * @desc Checks if the browser is fullscreen
      * 
      * @return {boolean}
      */
-    public isMaximize(): boolean {
+    public isFullscreen(): boolean {
         if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
             return true;
         }
@@ -809,14 +809,14 @@ export class Helpers extends Config {
 
 
     /**
-     * @desc Request an element to be full screen
+     * @desc Request an element to be fullscreen
      * 
      * @var {any} method -- The request method
      * 
      * @return {void}
      */
-    public maximize(elem: any): void {
-        if (!this.isMaximize()) {
+    public fullscreen(elem: any): void {
+        if (!this.isFullscreen()) {
             const method: any = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen || elem.msRequestFullScreen;
             return method.call(elem);
         }
@@ -824,15 +824,15 @@ export class Helpers extends Config {
 
 
     /**
-     * @desc Exits browser full screen
+     * @desc Exits browser fullscreen
      * 
      * @var {any} elem -- The document object
      * 
      * @return {void}
      */
-    public minimize(): void {
+    public exitFullscreen(): void {
         const elem: any = document;
-        if (this.isMaximize()) {
+        if (this.isFullscreen()) {
             return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
         }
     }

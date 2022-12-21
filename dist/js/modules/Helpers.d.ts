@@ -17,7 +17,7 @@ export declare class Helpers extends Config {
      *
      * @return {object}
      */
-    check(selector?: any): any;
+    exist(selector?: any): any;
     /**
      * @desc Produces the querySelector object
      *
@@ -171,7 +171,7 @@ export declare class Helpers extends Config {
      *
      * @return {boolean}
      */
-    exist(file: string): boolean;
+    fileExist(file: string): boolean;
     /**
      * @desc Reads and returns a file content as a promise in JSON format
      *
@@ -218,12 +218,12 @@ export declare class Helpers extends Config {
      * @desc Toggles an old class with a new class for a selector
      *
      * @param {string|object} selector -- The selector name (object)
-     * @param {string} clsOld          -- The old class name
-     * @param {string} clsNew          -- The new class name
+     * @param {string}        oldCls   -- The old class name
+     * @param {string}        newCls   -- The new class name
      *
      * @return {void}
      */
-    toggleClass(selector: any, clsOld: string, clsNew: string): void;
+    toggleClass(selector: any, oldCls: string, newCls: string): void;
     /**
      * @desc Adds a class list(array) to a selector
      *
@@ -258,25 +258,25 @@ export declare class Helpers extends Config {
      */
     getStyle(selector: any, property: string): string | undefined;
     /**
-     * @desc Checks if the browser is full screen
+     * @desc Checks if the browser is fullscreen
      *
      * @return {boolean}
      */
-    isMaximize(): boolean;
+    isFullscreen(): boolean;
     /**
-     * @desc Request an element to be full screen
+     * @desc Request an element to be fullscreen
      *
      * @var {any} method -- The request method
      *
      * @return {void}
      */
-    maximize(elem: any): void;
+    fullscreen(elem: any): void;
     /**
-     * @desc Exits browser full screen
+     * @desc Exits browser fullscreen
      *
      * @var {any} elem -- The document object
      *
      * @return {void}
      */
-    minimize(): void;
+    exitFullscreen(): void;
 }
