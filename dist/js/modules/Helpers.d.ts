@@ -256,5 +256,27 @@ export declare class Helpers extends Config {
      *
      * @return {string}
      */
-    getStyle(selector: any, property: string): any;
+    getStyle(selector: any, property: string): string | undefined;
+    /**
+     * @desc Checks if the browser is full screen
+     *
+     * @return {boolean}
+     */
+    isMaximize(): boolean;
+    /**
+     * @desc Request an element to be full screen
+     *
+     * @var {any} method -- The request method
+     *
+     * @return {void}
+     */
+    maximize(elem: any): void;
+    /**
+     * @desc Exits browser full screen
+     *
+     * @var {any} elem -- The document object
+     *
+     * @return {void}
+     */
+    minimize(): void;
 }

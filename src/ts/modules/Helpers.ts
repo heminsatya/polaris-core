@@ -767,7 +767,7 @@ export class Helpers extends Config {
      * 
      * @return {string}
      */
-    public getStyle(selector: any, property:string) {
+    public getStyle(selector: any, property:string): string | undefined {
         let node, result;
 
         // String type
@@ -791,5 +791,49 @@ export class Helpers extends Config {
         // Return result
         return result;
     }
-    
+
+
+    /**
+     * @desc Checks if the browser is full screen
+     * 
+     * @return {boolean}
+     */
+    public isMaximize(): boolean {
+        if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    /**
+     * @desc Request an element to be full screen
+     * 
+     * @var {any} method -- The request method
+     * 
+     * @return {void}
+     */
+    public maximize(elem: any): void {
+        if (!this.isMaximize()) {
+            const method: any = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen || elem.msRequestFullScreen;
+            return method.call(elem);
+        }
+    }
+
+
+    /**
+     * @desc Exits browser full screen
+     * 
+     * @var {any} elem -- The document object
+     * 
+     * @return {void}
+     */
+    public minimize(): void {
+        const elem: any = document;
+        if (this.isMaximize()) {
+            return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
+        }
+    }
 }

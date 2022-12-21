@@ -1719,6 +1719,45 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
         // Return result
         return result;
     }
+    /**
+     * @desc Checks if the browser is full screen
+     *
+     * @return {boolean}
+     */
+    isMaximize() {
+        if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    /**
+     * @desc Request an element to be full screen
+     *
+     * @var {any} method -- The request method
+     *
+     * @return {void}
+     */
+    maximize(elem) {
+        if (!this.isMaximize()) {
+            const method = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen || elem.msRequestFullScreen;
+            return method.call(elem);
+        }
+    }
+    /**
+     * @desc Exits browser full screen
+     *
+     * @var {any} elem -- The document object
+     *
+     * @return {void}
+     */
+    minimize() {
+        const elem = document;
+        if (this.isMaximize()) {
+            return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
+        }
+    }
 }
 
 
@@ -1975,7 +2014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.5 Beta
+ * Polaris Framework v0.9.6 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

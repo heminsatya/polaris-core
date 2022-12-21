@@ -678,5 +678,44 @@ export class Helpers extends Config {
         // Return result
         return result;
     }
+    /**
+     * @desc Checks if the browser is full screen
+     *
+     * @return {boolean}
+     */
+    isMaximize() {
+        if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    /**
+     * @desc Request an element to be full screen
+     *
+     * @var {any} method -- The request method
+     *
+     * @return {void}
+     */
+    maximize(elem) {
+        if (!this.isMaximize()) {
+            const method = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen || elem.msRequestFullScreen;
+            return method.call(elem);
+        }
+    }
+    /**
+     * @desc Exits browser full screen
+     *
+     * @var {any} elem -- The document object
+     *
+     * @return {void}
+     */
+    minimize() {
+        const elem = document;
+        if (this.isMaximize()) {
+            return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
+        }
+    }
 }
 //# sourceMappingURL=Helpers.js.map
