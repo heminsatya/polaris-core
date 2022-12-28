@@ -11,8 +11,8 @@
         @if $property == "color" or $property == "background-color" or $property == "border-color" {
             &#{$sep + $key}, 
             &#{$sep + $key + $mod + $hoverable}:hover {
-                @if $key == app {
-                    @include generate-vendor($property, var(--app, $value), $strict);
+                @if $key == 'app' or $key == 'gray' {
+                    @include generate-vendor($property, var(--#{$key}, $value), $strict);
                 }
                 @else {
                     @include generate-vendor($property, $value, $strict);
@@ -23,8 +23,8 @@
             &#{$sep + $key}, 
             &#{$sep + $key + $mod + $hoverable}:hover,
             &#{$sep + $key + $mod + $focusable}:focus {
-                @if $key == app {
-                    @include generate-vendor($property, var(--app, $value), $strict);
+                @if $key == 'app' or $key == 'gray' {
+                    @include generate-vendor($property, var(--#{$key}, $value), $strict);
                 }
                 @else {
                     @include generate-vendor($property, $value, $strict);
@@ -33,17 +33,17 @@
         }
         @else if $property == "placeholder" {
             &#{$sep + $key}::placeholder  {
-                color: #{var(--app, $value) + $strict};
+                color: #{var(--#{$key}, $value) + $strict};
                 @if $cross-browser == true {
                     opacity: 1; // Legacy Firefox 
                 }
             }
             @if $cross-browser == true {
                 &#{$sep + $key}:-ms-input-placeholder  { // IE 10-11
-                    color: #{var(--app, $value) + $strict};
+                    color: #{var(--#{$key}, $value) + $strict};
                 }
                 &#{$sep + $key}::-ms-input-placeholder  { // Legacy Edge
-                    color: #{var(--app, $value) + $strict};
+                    color: #{var(--#{$key}, $value) + $strict};
                 }
             }
         }
@@ -60,12 +60,12 @@
             @if $cross-browser == true {
                 &#{$sep + $key}::-moz-selection { // Legacy Firefox
                     color: #{$color + $strict};
-                    background-color: #{var(--app, $value) + $strict};
+                    background-color: #{var(--#{$key}, $value) + $strict};
                 }
             }
             &#{$sep + $key}::selection{
                 color: #{$color + $strict};
-                background-color: #{var(--app, $value) + $strict};
+                background-color: #{var(--#{$key}, $value) + $strict};
             }
         }
     }
@@ -190,8 +190,8 @@
                     &#{$sep + $name-2 + $j}, 
                     &#{$sep + $name-2 + $j + $mod + $hoverable}:hover {// Produce color list
                         $l: str-split($i, '-');
-                        @if nth($l, 1) == 'app' {
-                            @include generate-vendor($property, var(--app-a#{$j}, rgba(color($i, $type, true), math.div($j, 1000))), $strict);
+                        @if nth($l, 1) == 'app' or nth($l, 1) == 'gray' {
+                            @include generate-vendor($property, var(--#{nth($l, 1)}-a#{$j}, rgba(color($i, $type, true), math.div($j, 1000))), $strict);
                         }
                         @else {
                             @include generate-vendor($property, rgba(color($i, $type, true), math.div($j, 1000)), $strict);
@@ -203,8 +203,8 @@
                     &#{$sep + $name-2 + $j + $mod + $hoverable}:hover,
                     &#{$sep + $name-2 + $j + $mod + $focusable}:focus {
                         $l: str-split($i, '-');
-                        @if nth($l, 1) == 'app' {
-                            @include generate-vendor($property, var(--app-a#{$j}, rgba(color($i, $type, true), math.div($j, 1000))), $strict);
+                        @if nth($l, 1) == 'app' or nth($l, 1) == 'gray' {
+                            @include generate-vendor($property, var(--#{nth($l, 1)}-a#{$j}, rgba(color($i, $type, true), math.div($j, 1000))), $strict);
                         }
                         @else {
                             @include generate-vendor($property, rgba(color($i, $type, true), math.div($j, 1000)), $strict);

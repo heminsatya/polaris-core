@@ -85,10 +85,8 @@
 
     // Check color list length
     @if length($list) == 1 {
-        @if nth($list, 1) == app and $alpha == false {
-            @return var(--app, map-get($color-vars, $color));
-            // @return map-get($color-vars, $color);
-            // @return #000;
+        @if (nth($list, 1) == 'app' or nth($list, 1) == 'gray') and $alpha == false {
+            @return var(--#{nth($list, 1)}, map-get($color-vars, $color));
         }
         @else {
             @return map-get($color-vars, $color);
@@ -128,56 +126,56 @@
         @return to-upper($white);
     }
     @else if ($intensity < 100) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-#{$intensity}, to-upper(mix($color-100, $white, $intensity * 1%)));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-#{$intensity}, to-upper(mix($color-100, $white, $intensity * 1%)));
         }
         @else {
             @return to-upper(mix($color-100, $white, $intensity * 1%));
         }
     }
     @else if ($intensity == 100) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-100, to-upper($color-100));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-100, to-upper($color-100));
         }
         @else {
             @return to-upper($color-100);
         }
     }
     @else if ($intensity > 100 and $intensity < 500) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-#{$intensity}, to-upper(mix($color-100, $color-500, (100 - math.div($intensity - 100, 4)) * 1%)));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-#{$intensity}, to-upper(mix($color-100, $color-500, (100 - math.div($intensity - 100, 4)) * 1%)));
         }
         @else {
             @return to-upper(mix($color-100, $color-500, (100 - math.div($intensity - 100, 4)) * 1%));
         }
     }
     @else if ($intensity == 500) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-500, to-upper($color-500));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-500, to-upper($color-500));
         }
         @else {
             @return to-upper($color-500);
         }
     }
     @else if ($intensity > 500 and $intensity < 900) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-#{$intensity}, to-upper(mix($color-900, $color-500, (math.div($intensity - 100, 4) - 100) * 1%)));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-#{$intensity}, to-upper(mix($color-900, $color-500, (math.div($intensity - 100, 4) - 100) * 1%)));
         }
         @else {
             @return to-upper(mix($color-900, $color-500, (math.div($intensity - 100, 4) - 100) * 1%));
         }
     }
     @else if ($intensity == 900) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-900, to-upper($color-900));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-900, to-upper($color-900));
         }
         @else {
             @return to-upper($color-900);
         }
     }
     @else if ($intensity > 900 and $intensity < 1000) {
-        @if nth($list, 1) == 'app' {
-            @return var(--app-#{$intensity}, to-upper(mix($color-900, $black, (1000 - $intensity) * 1%)));
+        @if nth($list, 1) == 'app' or nth($list, 1) == 'gray' {
+            @return var(--#{nth($list, 1)}-#{$intensity}, to-upper(mix($color-900, $black, (1000 - $intensity) * 1%)));
         }
         @else {
             @return to-upper(mix($color-900, $black, (1000 - $intensity) * 1%));
