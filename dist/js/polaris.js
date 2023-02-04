@@ -1758,6 +1758,27 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
             return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
         }
     }
+    /**
+     * @desc Calls a function on class change for an elemnent
+     *
+     * @param {any}      elem -- The element to listen
+     * @param {Function} fn   -- The callback function
+     *
+     * @var {object} listener -- The event listener
+     *
+     * @return {void}
+     */
+    onClassChange(elem, fn) {
+        const listener = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    fn(mutation.target);
+                }
+            });
+        });
+        listener.observe(elem, { attributes: true });
+        return listener.disconnect;
+    }
 }
 
 
@@ -2014,7 +2035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.8 Beta
+ * Polaris Framework v0.9.9 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

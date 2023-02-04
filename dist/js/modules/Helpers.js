@@ -717,5 +717,26 @@ export class Helpers extends Config {
             return elem.exitFullscreen() || elem.webkitExitFullscreen() || elem.mozCancelFullScreen() || elem.msExitFullscreen();
         }
     }
+    /**
+     * @desc Calls a function on class change for an elemnent
+     *
+     * @param {any}      elem -- The element to listen
+     * @param {Function} fn   -- The callback function
+     *
+     * @var {object} listener -- The event listener
+     *
+     * @return {void}
+     */
+    onClassChange(elem, fn) {
+        const listener = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    fn(mutation.target);
+                }
+            });
+        });
+        listener.observe(elem, { attributes: true });
+        return listener.disconnect;
+    }
 }
 //# sourceMappingURL=Helpers.js.map

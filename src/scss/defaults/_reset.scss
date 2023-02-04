@@ -1,9 +1,9 @@
 /* ---------- Root ---------- */
 :root {
     --light:                #{$light};
-    --gray:                 var(--gray, #{$gray});
+    --gray:                 #{$gray};
     --dark:                 #{$dark};
-    --app:                  var(--app, #{$app});
+    --app:                  #{$app};
     --notice:               #{$notice};
     --warning:              #{$warning};
     --danger:               #{$danger};

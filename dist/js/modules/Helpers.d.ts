@@ -279,4 +279,15 @@ export declare class Helpers extends Config {
      * @return {void}
      */
     exitFullscreen(): void;
+    /**
+     * @desc Calls a function on class change for an elemnent
+     *
+     * @param {any}      elem -- The element to listen
+     * @param {Function} fn   -- The callback function
+     *
+     * @var {object} listener -- The event listener
+     *
+     * @return {void}
+     */
+    onClassChange(elem: any, fn: Function): Function;
 }

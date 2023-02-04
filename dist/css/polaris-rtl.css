@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v0.9.8 Beta
+ * Polaris Framework v0.9.9 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -9,9 +9,9 @@
 /* ---------- Root ---------- */
 :root {
   --light: #F4F4F4;
-  --gray: var(--gray, #8E8E8E);
+  --gray: #8E8E8E;
   --dark: #242424;
-  --app: var(--app, #4283F2);
+  --app: #4283F2;
   --notice: #31AAF6;
   --warning: #FFC002;
   --danger: #F23838;
