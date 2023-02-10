@@ -290,4 +290,15 @@ export declare class Helpers extends Config {
      * @return {void}
      */
     onClassChange(elem: any, fn: Function): Function;
+    /**
+     * @desc For swaping two nodes from the same flow
+     *
+     * @param {HTMLElement} nodeA -- The first node
+     * @param {HTMLElement} nodeB -- The second node
+     *
+     * @var {HTMLElement} siblingA -- The sibling of first node
+     *
+     * @return {void}
+     */
+    swap(nodeA: any, nodeB: any): void;
 }

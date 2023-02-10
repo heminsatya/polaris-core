@@ -859,4 +859,26 @@ export class Helpers extends Config {
         listener.observe(elem, {attributes: true});
         return listener.disconnect;
     }
+    
+
+    /**
+     * @desc For swaping two nodes from the same flow 
+     * 
+     * @param {HTMLElement} nodeA -- The first node
+     * @param {HTMLElement} nodeB -- The second node
+     * 
+     * @var {HTMLElement} siblingA -- The sibling of first node
+     * 
+     * @return {void}
+     */
+    public swap(nodeA: any, nodeB: any): void {
+        // Find the next sibling of nodeA
+        const siblingA = (nodeA.nextSibling === nodeB) ? nodeA : nodeA.nextSibling;
+    
+        // Move nodeA before the nodeB
+        nodeB.parentNode.insertBefore(nodeA, nodeB);
+    
+        // Move nodeB before the next sibling of nodeA
+        nodeA.parentNode.insertBefore(nodeB, siblingA);
+    };
 }

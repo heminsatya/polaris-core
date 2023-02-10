@@ -1,13 +1,13 @@
 /**
  * Import the parent Class
  */ 
-import {Modal} from "./Modal";
+import {Draggable} from "./Draggable";
 
 
 /**
  * @desc Used for handling components default behaviors
  */ 
-export class Defaults extends Modal {
+export class Defaults extends Draggable {
 
     /**
      * @desc Constructor method
@@ -316,6 +316,21 @@ export class Defaults extends Modal {
                         this.animation(submenu, animationOut);
                     };
                 }
+            });
+        }
+    }
+    
+
+    /**
+     * @desc Handles auto draggable items
+     * 
+     * @return {void}
+     */
+    public draggableDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).length) {
+            document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).forEach((elem: any) => {
+                // Set CSS properties and variables
+                this.draggable(elem);
             });
         }
     }

@@ -337,3 +337,12 @@ $name-menu-arrow: "arrow" !default;                 // 2nd name key for menu--ar
 
 // -- Modal -- //
 $name-modal: "modal" !default;                      // Name key for modal
+
+
+// -- Draggable -- //
+$name-draggable: "draggable" !default;              // Name key for draggable
+$name-dragging:  "dragging" !default;               // 2nd name key for draggable-dragging
+$name-swapping:  "swapping" !default;               // 2nd name key for draggable-swapping
+$name-drag-auto: "auto" !default;                   // 2nd name key for draggable__auto
+$name-drag-x:    "x" !default;                      // 2nd name key for draggable__x
+$name-drag-y:    "y" !default;                      // 2nd name key for draggable__y

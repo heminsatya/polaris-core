@@ -175,6 +175,12 @@ export class Core extends Blueprints {
          */
         this.menuDefaults();
 
+
+        /**
+         *  Auto draggable items
+         */
+        this.draggableDefaults();
+
         
         /**
          *  Load Blueprints

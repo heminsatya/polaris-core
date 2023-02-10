@@ -2081,3 +2081,47 @@ $modal-close-colors-hover: (
         background-color: colora('white', 0.05)
     )
 ) !default;
+
+
+// -- Draggable -- //
+// Parent //
+$draggable-container: (
+    position:  relative,
+    max-width: 100%
+) !default;
+
+// Component //
+// Styles
+$draggable-styles: (
+    font-size:     1rem,
+    font-weight:   400,
+    padding:       1rem 1.5rem,
+    margin:        0.25rem,
+    border-radius: border-radius(sm),
+    cursor:        move,
+    transition:    transform transition(sm) ease
+) !default;
+
+
+// Modifiers //
+// Colors
+$draggable-colors: (
+    "light": (
+        background-color: colora('black', 0.05),
+        color:            color(dark),
+    ),
+    
+    "dark": (
+        background-color: colora('white', 0.05),
+        color:            color(light),
+    )
+) !default;
+
+// Dragging
+$dragging-styles: (
+    background: colora('app', 0.25)
+) !default;
+
+// Swapping
+$swappingX: 0.75rem !default;
+$swappingY: 0.5rem !default;

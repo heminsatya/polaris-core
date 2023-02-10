@@ -35,6 +35,10 @@ export declare class Config {
     nameHeight: string;
     nameRadius: string;
     namePosition: string;
+    nameDraggable: string;
+    nameDragging: string;
+    nameSwapping: string;
+    nameDragAuto: string;
     fadeInAnimation: string;
     fadeOutAnimation: string;
     hideYAnimation: string;

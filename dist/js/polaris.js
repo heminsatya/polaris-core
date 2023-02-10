@@ -542,6 +542,10 @@ class Config {
         this.nameHeight = "h"; // Name key for css height classes
         this.nameRadius = "round"; // Name key for border-radius & component roundness
         this.namePosition = "position"; // Name key for position classes
+        this.nameDraggable = "draggable"; // Name key for draggable
+        this.nameDragging = "dragging"; // 2nd name key for draggable-dragging
+        this.nameSwapping = "swapping"; // 2nd name key for draggable-swapping
+        this.nameDragAuto = "auto"; // 2nd name key for draggable__auto
         this.fadeInAnimation = "fadeIn"; // fadeIn animation
         this.fadeOutAnimation = "fadeOut"; // fadeOut animation
         this.hideYAnimation = "hideY"; // hideY animation
@@ -713,6 +717,10 @@ class Core extends _Blueprints__WEBPACK_IMPORTED_MODULE_0__.Blueprints {
          */
         this.menuDefaults();
         /**
+         *  Auto draggable items
+         */
+        this.draggableDefaults();
+        /**
          *  Load Blueprints
          */
         /**
@@ -743,7 +751,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Defaults": () => (/* binding */ Defaults)
 /* harmony export */ });
-/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal */ "./src/ts/modules/Modal.ts");
+/* harmony import */ var _Draggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Draggable */ "./src/ts/modules/Draggable.ts");
 /**
  * Import the parent Class
  */
@@ -751,7 +759,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @desc Used for handling components default behaviors
  */
-class Defaults extends _Modal__WEBPACK_IMPORTED_MODULE_0__.Modal {
+class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
     /**
      * @desc Constructor method
      */
@@ -1022,6 +1030,153 @@ class Defaults extends _Modal__WEBPACK_IMPORTED_MODULE_0__.Modal {
                 }
             });
         }
+    }
+    /**
+     * @desc Handles auto draggable items
+     *
+     * @return {void}
+     */
+    draggableDefaults() {
+        if (document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).length) {
+            document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).forEach((elem) => {
+                // Set CSS properties and variables
+                this.draggable(elem);
+            });
+        }
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/ts/modules/Draggable.ts":
+/*!*************************************!*\
+  !*** ./src/ts/modules/Draggable.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Draggable": () => (/* binding */ Draggable)
+/* harmony export */ });
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal */ "./src/ts/modules/Modal.ts");
+/**
+ * Import the parent Class
+ */
+
+/**
+ * @desc Used for handling draggable items
+ */
+class Draggable extends _Modal__WEBPACK_IMPORTED_MODULE_0__.Modal {
+    /**
+     * @desc Constructor method
+     */
+    constructor() {
+        // Inherit the parent class
+        super();
+    }
+    /**
+     * @desc Hadnles the dragable items on drag
+     *
+     * @param {HTMLElement} container -- The dragable container
+     *
+     * @return {Promise}
+     */
+    draggable(container) {
+        let selector = null;
+        // Check the container
+        if (this.exist(container)['status']) {
+            if (typeof (container) === "string") {
+                selector = document.querySelector(container);
+            }
+            else if (typeof (container) === "object") {
+                selector = container;
+            }
+        }
+        else {
+            throw this.exist(container)['message'];
+        }
+        // Animation promise
+        const promise = new Promise((resolve, reject) => {
+            const draggables = Array.from(selector.children);
+            // Items
+            let counter = 1;
+            draggables.forEach((draggable) => {
+                // Check the data-order
+                if (!draggable.dataset.order) {
+                    draggable.dataset.order = counter;
+                }
+                // Drag start
+                draggable.ondragstart = (e) => {
+                    if (e.target === draggable) {
+                        draggable.classList.add(this.nameDraggable + this.modSep + this.nameDragging);
+                    }
+                };
+                // Drag enter
+                draggable.ondragenter = (e) => {
+                    if (e.target === draggable) {
+                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
+                        if (draggable != dragging && dragging) {
+                            if (dragging.parentNode === draggable.parentNode) {
+                                const draggingOrder = dragging.dataset.order;
+                                const draggableOrder = draggable.dataset.order;
+                                // Swap orders
+                                dragging.dataset.order = draggableOrder;
+                                draggable.dataset.order = draggingOrder;
+                                // Swap items
+                                this.swap(dragging, draggable);
+                                // Swaping
+                                draggable.classList.add(this.nameDraggable + this.modSep + this.nameSwapping);
+                                dragging.classList.add(this.nameDraggable + this.modSep + this.nameSwapping);
+                            }
+                        }
+                    }
+                };
+                // Drag leave
+                draggable.ondragleave = (e) => {
+                    if (e.target === draggable) {
+                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
+                        if (draggable != dragging && dragging) {
+                            if (dragging.parentNode === draggable.parentNode) {
+                                // Swaping
+                                draggable.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
+                                dragging.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
+                            }
+                        }
+                    }
+                };
+                // Drag over
+                draggable.ondragover = (e) => {
+                    const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
+                    if (dragging) {
+                        if (dragging.parentNode === draggable.parentNode) {
+                            e.preventDefault();
+                        }
+                    }
+                };
+                // Drag end
+                draggable.ondragend = (e) => {
+                    if (e.target === draggable) {
+                        // Swaping
+                        const swaping = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameSwapping}`);
+                        if (swaping)
+                            swaping.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
+                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
+                        if (dragging)
+                            dragging.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
+                        draggable.classList.remove(this.nameDraggable + this.modSep + this.nameDragging);
+                    }
+                    // Promise on resolve
+                    resolve('Dragabble ended!');
+                    // Promise on reject
+                    reject('Dragabble crashed!');
+                };
+                // Increase counter
+                counter++;
+            });
+        });
+        // Return the promise
+        return promise;
     }
 }
 
@@ -1779,6 +1934,25 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
         listener.observe(elem, { attributes: true });
         return listener.disconnect;
     }
+    /**
+     * @desc For swaping two nodes from the same flow
+     *
+     * @param {HTMLElement} nodeA -- The first node
+     * @param {HTMLElement} nodeB -- The second node
+     *
+     * @var {HTMLElement} siblingA -- The sibling of first node
+     *
+     * @return {void}
+     */
+    swap(nodeA, nodeB) {
+        // Find the next sibling of nodeA
+        const siblingA = (nodeA.nextSibling === nodeB) ? nodeA : nodeA.nextSibling;
+        // Move nodeA before the nodeB
+        nodeB.parentNode.insertBefore(nodeA, nodeB);
+        // Move nodeB before the next sibling of nodeA
+        nodeA.parentNode.insertBefore(nodeB, siblingA);
+    }
+    ;
 }
 
 
@@ -2035,7 +2209,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.9 Beta
+ * Polaris Framework v0.9.10 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

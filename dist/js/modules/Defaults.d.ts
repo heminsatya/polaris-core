@@ -1,11 +1,11 @@
 /**
  * Import the parent Class
  */
-import { Modal } from "./Modal";
+import { Draggable } from "./Draggable";
 /**
  * @desc Used for handling components default behaviors
  */
-export declare class Defaults extends Modal {
+export declare class Defaults extends Draggable {
     /**
      * @desc Constructor method
      */
@@ -52,4 +52,10 @@ export declare class Defaults extends Modal {
      * @return {void}
      */
     menuDefaults(): void;
+    /**
+     * @desc Handles auto draggable items
+     *
+     * @return {void}
+     */
+    draggableDefaults(): void;
 }

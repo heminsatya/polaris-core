@@ -169,3 +169,33 @@
     //     @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     // }
 }
+
+
+///
+// @desc Used for swapping draggable items
+//
+// @param {string} $name-draggable -- The name key
+// @param {string} $name-swapping -- The second name key for draggable-swapping
+// @param {string} $name-dragging -- The second name key for draggable-dragging
+// @param {string} $name-x -- The second name key for draggable__x
+// @param {string} $name-y -- The second name key for draggable__y
+// @param {string} $x -- The CSS translateX for swapping
+// @param {string} $y -- The CSS translateY for swapping
+///
+@mixin swapping($name-draggable, $name-swapping, $name-dragging, $name-x, $name-y, $x, $y) {
+    .#{$name-draggable + $par + $name-x} .#{$name-draggable + $mod + $name-swapping}:not(.#{$name-draggable + $mod + $name-dragging}) {
+        transform: translateX($x);
+    }
+    
+    .#{$name-draggable + $par + $name-x} .#{$name-draggable + $mod + $name-swapping}.#{$name-draggable + $mod + $name-dragging} {
+        transform: translateX(-$x);
+    }
+    
+    .#{$name-draggable + $par + $name-y} .#{$name-draggable + $mod + $name-swapping}:not(.#{$name-draggable + $mod + $name-dragging}) {
+        transform: translateY($y);
+    }
+    
+    .#{$name-draggable + $par + $name-y} .#{$name-draggable + $mod + $name-swapping}.#{$name-draggable + $mod + $name-dragging} {
+        transform: translateY(-$y);
+    }
+}

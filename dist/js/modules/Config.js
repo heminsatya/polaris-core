@@ -36,6 +36,10 @@ export class Config {
         this.nameHeight = "h"; // Name key for css height classes
         this.nameRadius = "round"; // Name key for border-radius & component roundness
         this.namePosition = "position"; // Name key for position classes
+        this.nameDraggable = "draggable"; // Name key for draggable
+        this.nameDragging = "dragging"; // 2nd name key for draggable-dragging
+        this.nameSwapping = "swapping"; // 2nd name key for draggable-swapping
+        this.nameDragAuto = "auto"; // 2nd name key for draggable__auto
         this.fadeInAnimation = "fadeIn"; // fadeIn animation
         this.fadeOutAnimation = "fadeOut"; // fadeOut animation
         this.hideYAnimation = "hideY"; // hideY animation

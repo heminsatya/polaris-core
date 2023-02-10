@@ -37,6 +37,11 @@ export class Config {
     public nameHeight:          string = "h";                                   // Name key for css height classes
     public nameRadius:          string = "round";                               // Name key for border-radius & component roundness
     public namePosition:        string = "position";                            // Name key for position classes
+
+    public nameDraggable:       string ="draggable";                            // Name key for draggable
+    public nameDragging:        string ="dragging";                             // 2nd name key for draggable-dragging
+    public nameSwapping:        string ="swapping";                             // 2nd name key for draggable-swapping
+    public nameDragAuto:        string ="auto";                                 // 2nd name key for draggable__auto
     
     public fadeInAnimation:     string = "fadeIn";                              // fadeIn animation
     public fadeOutAnimation:    string = "fadeOut";                             // fadeOut animation
