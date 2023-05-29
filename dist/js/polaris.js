@@ -20,7 +20,7 @@ return /******/ (() => { // webpackBootstrap
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Alerts": () => (/* binding */ Alerts)
+/* harmony export */   Alerts: () => (/* binding */ Alerts)
 /* harmony export */ });
 /* harmony import */ var _Animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Animations */ "./src/ts/modules/Animations.ts");
 /**
@@ -135,7 +135,7 @@ class Alerts extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Animations": () => (/* binding */ Animations)
+/* harmony export */   Animations: () => (/* binding */ Animations)
 /* harmony export */ });
 /* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Helpers */ "./src/ts/modules/Helpers.ts");
 /**
@@ -435,7 +435,7 @@ class Animations extends _Helpers__WEBPACK_IMPORTED_MODULE_0__.Helpers {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Blueprints": () => (/* binding */ Blueprints)
+/* harmony export */   Blueprints: () => (/* binding */ Blueprints)
 /* harmony export */ });
 /* harmony import */ var _Defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Defaults */ "./src/ts/modules/Defaults.ts");
 /**
@@ -502,7 +502,7 @@ class Blueprints extends _Defaults__WEBPACK_IMPORTED_MODULE_0__.Defaults {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Config": () => (/* binding */ Config)
+/* harmony export */   Config: () => (/* binding */ Config)
 /* harmony export */ });
 /**
  * @desc Used for the configuration of Polaris JS library
@@ -575,7 +575,7 @@ class Config {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Core": () => (/* binding */ Core)
+/* harmony export */   Core: () => (/* binding */ Core)
 /* harmony export */ });
 /* harmony import */ var _Blueprints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blueprints */ "./src/ts/modules/Blueprints.ts");
 /**
@@ -749,7 +749,7 @@ class Core extends _Blueprints__WEBPACK_IMPORTED_MODULE_0__.Blueprints {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Defaults": () => (/* binding */ Defaults)
+/* harmony export */   Defaults: () => (/* binding */ Defaults)
 /* harmony export */ });
 /* harmony import */ var _Draggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Draggable */ "./src/ts/modules/Draggable.ts");
 /**
@@ -1057,7 +1057,7 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Draggable": () => (/* binding */ Draggable)
+/* harmony export */   Draggable: () => (/* binding */ Draggable)
 /* harmony export */ });
 /* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal */ "./src/ts/modules/Modal.ts");
 /**
@@ -1191,7 +1191,7 @@ class Draggable extends _Modal__WEBPACK_IMPORTED_MODULE_0__.Modal {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Helpers": () => (/* binding */ Helpers)
+/* harmony export */   Helpers: () => (/* binding */ Helpers)
 /* harmony export */ });
 /* harmony import */ var _Config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Config */ "./src/ts/modules/Config.ts");
 /**
@@ -1966,7 +1966,7 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Modal": () => (/* binding */ Modal)
+/* harmony export */   Modal: () => (/* binding */ Modal)
 /* harmony export */ });
 /* harmony import */ var _Alerts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alerts */ "./src/ts/modules/Alerts.ts");
 /**
@@ -2209,7 +2209,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.10 Beta
+ * Polaris Framework v0.9.11 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

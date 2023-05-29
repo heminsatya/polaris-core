@@ -1,8 +1,5 @@
 /* ---------- Messages ---------- */
 // -- Parents -- //
-// msg__container
-@include parent-styles($msg-container-styles, $name-msg, $name-container);
-
 // msg-control
 @include parent-styles($msg-control-styles, $name-msg, $name-control);
 

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v0.9.10 Beta
+ * Polaris Framework v0.9.11 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -7317,6 +7317,180 @@ a.disabled {
   font-weight: 900 !important;
 }
 
+@media (min-width: 0) {
+  .s-font-100 {
+    font-weight: 100 !important;
+  }
+  .s-font-200 {
+    font-weight: 200 !important;
+  }
+  .s-font-300 {
+    font-weight: 300 !important;
+  }
+  .s-font-400 {
+    font-weight: 400 !important;
+  }
+  .s-font-500 {
+    font-weight: 500 !important;
+  }
+  .s-font-600 {
+    font-weight: 600 !important;
+  }
+  .s-font-700 {
+    font-weight: 700 !important;
+  }
+  .s-font-800 {
+    font-weight: 800 !important;
+  }
+  .s-font-900 {
+    font-weight: 900 !important;
+  }
+}
+@media (min-width: 480px) {
+  .ls-font-100 {
+    font-weight: 100 !important;
+  }
+  .ls-font-200 {
+    font-weight: 200 !important;
+  }
+  .ls-font-300 {
+    font-weight: 300 !important;
+  }
+  .ls-font-400 {
+    font-weight: 400 !important;
+  }
+  .ls-font-500 {
+    font-weight: 500 !important;
+  }
+  .ls-font-600 {
+    font-weight: 600 !important;
+  }
+  .ls-font-700 {
+    font-weight: 700 !important;
+  }
+  .ls-font-800 {
+    font-weight: 800 !important;
+  }
+  .ls-font-900 {
+    font-weight: 900 !important;
+  }
+}
+@media (min-width: 768px) {
+  .t-font-100 {
+    font-weight: 100 !important;
+  }
+  .t-font-200 {
+    font-weight: 200 !important;
+  }
+  .t-font-300 {
+    font-weight: 300 !important;
+  }
+  .t-font-400 {
+    font-weight: 400 !important;
+  }
+  .t-font-500 {
+    font-weight: 500 !important;
+  }
+  .t-font-600 {
+    font-weight: 600 !important;
+  }
+  .t-font-700 {
+    font-weight: 700 !important;
+  }
+  .t-font-800 {
+    font-weight: 800 !important;
+  }
+  .t-font-900 {
+    font-weight: 900 !important;
+  }
+}
+@media (min-width: 1024px) {
+  .lt-font-100 {
+    font-weight: 100 !important;
+  }
+  .lt-font-200 {
+    font-weight: 200 !important;
+  }
+  .lt-font-300 {
+    font-weight: 300 !important;
+  }
+  .lt-font-400 {
+    font-weight: 400 !important;
+  }
+  .lt-font-500 {
+    font-weight: 500 !important;
+  }
+  .lt-font-600 {
+    font-weight: 600 !important;
+  }
+  .lt-font-700 {
+    font-weight: 700 !important;
+  }
+  .lt-font-800 {
+    font-weight: 800 !important;
+  }
+  .lt-font-900 {
+    font-weight: 900 !important;
+  }
+}
+@media (min-width: 1280px) {
+  .d-font-100 {
+    font-weight: 100 !important;
+  }
+  .d-font-200 {
+    font-weight: 200 !important;
+  }
+  .d-font-300 {
+    font-weight: 300 !important;
+  }
+  .d-font-400 {
+    font-weight: 400 !important;
+  }
+  .d-font-500 {
+    font-weight: 500 !important;
+  }
+  .d-font-600 {
+    font-weight: 600 !important;
+  }
+  .d-font-700 {
+    font-weight: 700 !important;
+  }
+  .d-font-800 {
+    font-weight: 800 !important;
+  }
+  .d-font-900 {
+    font-weight: 900 !important;
+  }
+}
+@media (min-width: 1440px) {
+  .ld-font-100 {
+    font-weight: 100 !important;
+  }
+  .ld-font-200 {
+    font-weight: 200 !important;
+  }
+  .ld-font-300 {
+    font-weight: 300 !important;
+  }
+  .ld-font-400 {
+    font-weight: 400 !important;
+  }
+  .ld-font-500 {
+    font-weight: 500 !important;
+  }
+  .ld-font-600 {
+    font-weight: 600 !important;
+  }
+  .ld-font-700 {
+    font-weight: 700 !important;
+  }
+  .ld-font-800 {
+    font-weight: 800 !important;
+  }
+  .ld-font-900 {
+    font-weight: 900 !important;
+  }
+}
 /*
 * font-style
 */
@@ -13266,22 +13440,22 @@ hr,
   filter: blur(0) !important;
 }
 .blur-xs, .blur-xs-hover:hover {
-  filter: blur(2px) !important;
+  filter: blur(1px) !important;
 }
 .blur-sm, .blur-sm-hover:hover {
-  filter: blur(4px) !important;
+  filter: blur(2px) !important;
 }
 .blur-md, .blur-md-hover:hover {
-  filter: blur(8px) !important;
+  filter: blur(3px) !important;
 }
 .blur-lg, .blur-lg-hover:hover {
-  filter: blur(16px) !important;
+  filter: blur(4px) !important;
 }
 .blur-xl, .blur-xl-hover:hover {
-  filter: blur(24px) !important;
+  filter: blur(5px) !important;
 }
 .blur-max, .blur-max-hover:hover {
-  filter: blur(32px) !important;
+  filter: blur(6px) !important;
 }
 
 /*
@@ -16893,13 +17067,9 @@ input:checked[type=radio].field:focus {
 }
 
 /* ---------- Messages ---------- */
-.msg__container {
-  position: relative;
-  z-index: 10;
-}
-
 .msg__control {
   position: relative;
+  z-index: 10;
 }
 
 .msg {

@@ -20,7 +20,7 @@ $clickable: "click" !default;
 // Name Seperators //
 $sep: "-";      // Name seperator (Please do not change this variable)
 
-// KMC naming rule
+// Naming rules (PNR by default)
 $mod: "-" !default;         // Modifier Separator
 $chi: "--" !default;        // Child Separator
 $sib: "_" !default;         // Sibling Separator
@@ -924,16 +924,6 @@ $flex-flows: (
 
 ) !default;
 
-// justify-content
-$justify-contents: (
-    justify-start:   flex-start,
-    justify-end:     flex-end,
-    justify-center:  center,
-    justify-between: space-between,
-    justify-around:  space-around,
-    justify-evenly:  space-evenly
-) !default;
-
 // align-content
 $align-contents: (
     content-start:   flex-start,
@@ -943,6 +933,16 @@ $align-contents: (
     content-around:  space-around,
     content-evenly:  space-evenly,
     content-stretch: stretch
+) !default;
+
+// justify-content
+$justify-contents: (
+    justify-start:   flex-start,
+    justify-end:     flex-end,
+    justify-center:  center,
+    justify-between: space-between,
+    justify-around:  space-around,
+    justify-evenly:  space-evenly
 ) !default;
 
 // align-items
@@ -1052,12 +1052,12 @@ $opacities: (
 // blur
 $blurs: (
     min: 0,
-    xs:  2px,
-    sm:  4px,
-    md:  8px,
-    lg:  16px,
-    xl:  24px,
-    max: 32px
+    xs:  1px,
+    sm:  2px,
+    md:  3px,
+    lg:  4px,
+    xl:  5px,
+    max: 6px
 ) !default;
 
 // brightness
@@ -1385,13 +1385,13 @@ $animations:
     // Flip Animations
     flipInLeft,
     flipOutLeft,
-    
+
     flipInRight,
     flipOutRight,
-    
+
     flipInTop,
     flipOutTop,
-    
+
     flipInBottom,
     flipOutBottom,
 
@@ -1452,7 +1452,7 @@ $animations:
 
     swayX,
     swayRX,
-    
+
     swayY,
     swayRY,
 

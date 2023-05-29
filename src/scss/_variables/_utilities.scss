@@ -497,16 +497,10 @@ $btn-colors-focus: (
 
 // -- Messages -- //
 //  Parent //
-// msg__container
-$msg-container-styles: (
-    position: relative,
-    z-index:  10
-) !default;
-
-
 // msg__control
 $msg-control-styles: (
-    position: relative
+    position: relative,
+    z-index:  10
 ) !default;
 
 

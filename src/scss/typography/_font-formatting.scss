@@ -17,6 +17,7 @@
 * font-weight
 */
 @include component-class($font-weights, $name-font-weight, "font-weight", $strict-font-formating);
+@include responsive-component-class($font-weights, $name-font-weight, "font-weight",  $responsive-font-formating, $strict-font-formating);
 
 
 /*
