@@ -1,26 +1,25 @@
-# Polaris Framework
+# Polaris Core (v0.9.11 Beta)
 
 Polaris is a front-end web framework for creating responsive UI components, with a focus on simplicity.
 
 Polaris framework is divided into two parts: **Core** & **Plugins**
 
-
-## Polaris Core (v0.9.11 Beta)
-
 Polaris Core consists of generic components and features that almost every web application needs.
 
+> Notice! This repository belongs to **Polaris Core** only. For more details please check the [Main Repository](https://github.com/heminsatya/polaris).
 
-### Documentation
+
+## Documentation
 
 > Coming soon...
 
 
-### Audiences
+## Audiences
 
 Polaris framework is built for front-end web app developers and designers.
 
 
-### Prerequisites
+## Prerequisites
 
 * A basic knowledge about HTML, CSS, and JavaScript.
 * A basic knowledge about Sass*.
@@ -30,7 +29,7 @@ Polaris framework is built for front-end web app developers and designers.
 > *These prerequisites are only required for developers.
 
 
-### Dependencies
+## Dependencies
 
 In order to use Polaris framework in production you don't need to use any other packages or libraries.
 
@@ -45,6 +44,7 @@ However, to use it in a development environment, it depends on:
 * [inspectpack](https://www.npmjs.com/package/inspectpack) as an npm developement package.
 
 
+## Get Started
 ### Install via npm
 
 ```
@@ -129,18 +129,6 @@ npm run js-mod
 npm run js
 npm run js-dev
 ```
-
-
-## Polaris Plugins
-
-Polaris Core only contains necessary features and components. However, for a real world project you may need more features and components.
-
-You can use [Polaris Plugins](https://github.com/heminsatya/polaris-plugins) alongside the Polaris Core to get more features and components, if you like.
-
-
-## Licence
-
-Polaris framework is free and open-source with [MIT Licence](https://github.com/heminsatya/polaris-core/blob/main/LICENSE). You can use it for any personal or commercial purpose you want.
 
 
 ## About The Author
