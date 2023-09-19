@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v0.9.13 Beta
+ * Polaris Framework v0.9.14 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -2364,36 +2364,43 @@ button::-moz-focus-inner,
 */
 .w-rest {
   flex: 1 0 !important;
+  width: 1% !important;
 }
 
 @media (min-width: 0) {
   .s-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 @media (min-width: 480px) {
   .ls-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 @media (min-width: 768px) {
   .t-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 @media (min-width: 1024px) {
   .lt-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 @media (min-width: 1280px) {
   .d-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 @media (min-width: 1440px) {
   .ld-w-rest {
     flex: 1 0 !important;
+    width: 1% !important;
   }
 }
 /*

@@ -17,8 +17,8 @@ $strict-bgs: true !default;              // true | false (for !important)
 $responsive-sizing: true !default;      // true | false
 $strict-sizing:     true !default;      // true | false (for !important)
 $rest-widths: (
-    flex:     "1 0 !important",
-    // overflow: hidden
+    flex:  "1 0 !important",
+    width: "1% !important"
 ) !default;
 
 
