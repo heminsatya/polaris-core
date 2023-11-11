@@ -608,9 +608,9 @@ $cursors: (
 // Font Formatting //
 // font-family
 $font-families: (
-    serif:   'Georgia, "Times New Roman", Times, serif',
-    sans:    'system-ui, -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif',
-    mono:    'Consolas, "Lucida Console", "Courier New", Monaco, monospace',
+    serif:   '"Times New Roman", Times, serif',
+    sans:    'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif',
+    mono:    'ui-monospace, "SF Mono", "DejaVu Sans Mono", "Ubuntu Mono", "Roboto Mono", Consolas, monospace',
     inherit: inherit
 ) !default;
 
