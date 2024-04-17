@@ -281,57 +281,54 @@ export class Animations extends Helpers {
 
 
     /**
-     * @desc For navigation active class on page scroll
+     * @desc For navigation active class (for page scroll)
      * 
-     * @param {string | object} selector  -- The selector name (object)
-     * @param {string | object} navigator -- The navigator selector name (object)
-     * @param {string}          active    -- The navigator active class
-     * @param {number}          tolerance -- The scroll tolerance
+     * @param {string | object} navigators -- The navigators selector name (object)
+     * @param {string | object} navigateds -- The navigateds selector name (object)
+     * @param {string}          active     -- The navigator active class
+     * @param {number}          tolerance  -- The scroll tolerance
      * 
      * @return {void | boolean}
      */
-    public navigated(selector: string | object, navigator: string | object, active: string = 'active', tolerance:number = 0): void | boolean {
-        let selectors: any = null;
-        let navigators: any = null;
+    public navigated(navigators: string | object | any, navigateds: string | object | any, active: string = 'active', tolerance:number = 0): void | boolean {
         
-        // Check the selectors
-        if (this.exist(selector)['status']) {
-            if (typeof(selector) === "string") {
-                selectors = document.querySelectorAll(selector);
-    
-            } else if (typeof(selector) === "object") {
-                selectors = selector;
-            }
-        }
-        else {
-            throw this.exist(selector)['message'];
-        }
-        
-        // Check the navigators
-        if (this.exist(navigator)['status']) {
-            if (typeof(navigator) === "string") {
-                navigators = document.querySelectorAll(navigator);
+        // Check the navigator selectors
+        if (this.exist(navigators)['status']) {
+            if (typeof(navigators) === "string") {
+                navigators = document.querySelectorAll(navigators);
     
             } else if (typeof(navigator) === "object") {
-                navigators = navigator;
+                navigators = navigators;
             }
         }
         else {
-            throw this.exist(navigator)['message'];
+            throw this.exist(navigators)['message'];
+        }
+        
+        // Check the navigated selectors
+        if (this.exist(navigateds)['status']) {
+            if (typeof(navigateds) === "string") {
+                navigateds = document.querySelectorAll(navigateds);
+    
+            } else if (typeof(navigateds) === "object") {
+                navigateds = navigateds;
+            }
+        }
+        else {
+            throw this.exist(navigateds)['message'];
         }
 
-        // Navigation links
-        selectors.forEach((node: any) => {
-            let top = window.scrollY;
-            let height = node.offsetHeight;
-            let offset = node.offsetTop - tolerance;
-            let id = node.getAttribute("id");
+        // Handle navigators active class
+        navigateds.forEach((node: any) => {
+            const scroll = window.scrollY;
+            const height = node.offsetHeight;
+            const offset = node.getBoundingClientRect().top + window.scrollY - tolerance;  // node.offsetTop - tolerance;
+            const id     = node.getAttribute("id");
 
             // Set the active class
-            if (top >= offset && top < offset + height) {
+            if (scroll >= offset && scroll < offset + height) {
                 navigators.forEach((link: any) => {
-                    link.classList.remove(active);
-                    document.querySelector(`${navigator}[href*=${id}`)!.classList.add(active);
+                    (link.getAttribute("href") == '#' + id) ? link.classList.add(active) : link.classList.remove(active);
                 });
             }
         });

@@ -371,53 +371,50 @@ class Animations extends _Helpers__WEBPACK_IMPORTED_MODULE_0__.Helpers {
         }
     }
     /**
-     * @desc For navigation active class on page scroll
+     * @desc For navigation active class (for page scroll)
      *
-     * @param {string | object} selector  -- The selector name (object)
-     * @param {string | object} navigator -- The navigator selector name (object)
-     * @param {string}          active    -- The navigator active class
-     * @param {number}          tolerance -- The scroll tolerance
+     * @param {string | object} navigators -- The navigators selector name (object)
+     * @param {string | object} navigateds -- The navigateds selector name (object)
+     * @param {string}          active     -- The navigator active class
+     * @param {number}          tolerance  -- The scroll tolerance
      *
      * @return {void | boolean}
      */
-    navigated(selector, navigator, active = 'active', tolerance = 0) {
-        let selectors = null;
-        let navigators = null;
-        // Check the selectors
-        if (this.exist(selector)['status']) {
-            if (typeof (selector) === "string") {
-                selectors = document.querySelectorAll(selector);
-            }
-            else if (typeof (selector) === "object") {
-                selectors = selector;
-            }
-        }
-        else {
-            throw this.exist(selector)['message'];
-        }
-        // Check the navigators
-        if (this.exist(navigator)['status']) {
-            if (typeof (navigator) === "string") {
-                navigators = document.querySelectorAll(navigator);
+    navigated(navigators, navigateds, active = 'active', tolerance = 0) {
+        // Check the navigator selectors
+        if (this.exist(navigators)['status']) {
+            if (typeof (navigators) === "string") {
+                navigators = document.querySelectorAll(navigators);
             }
             else if (typeof (navigator) === "object") {
-                navigators = navigator;
+                navigators = navigators;
             }
         }
         else {
-            throw this.exist(navigator)['message'];
+            throw this.exist(navigators)['message'];
         }
-        // Navigation links
-        selectors.forEach((node) => {
-            let top = window.scrollY;
-            let height = node.offsetHeight;
-            let offset = node.offsetTop - tolerance;
-            let id = node.getAttribute("id");
+        // Check the navigated selectors
+        if (this.exist(navigateds)['status']) {
+            if (typeof (navigateds) === "string") {
+                navigateds = document.querySelectorAll(navigateds);
+            }
+            else if (typeof (navigateds) === "object") {
+                navigateds = navigateds;
+            }
+        }
+        else {
+            throw this.exist(navigateds)['message'];
+        }
+        // Handle navigators active class
+        navigateds.forEach((node) => {
+            const scroll = window.scrollY;
+            const height = node.offsetHeight;
+            const offset = node.getBoundingClientRect().top + window.scrollY - tolerance; // node.offsetTop - tolerance;
+            const id = node.getAttribute("id");
             // Set the active class
-            if (top >= offset && top < offset + height) {
+            if (scroll >= offset && scroll < offset + height) {
                 navigators.forEach((link) => {
-                    link.classList.remove(active);
-                    document.querySelector(`${navigator}[href*=${id}`).classList.add(active);
+                    (link.getAttribute("href") == '#' + id) ? link.classList.add(active) : link.classList.remove(active);
                 });
             }
         });
@@ -2209,7 +2206,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.15 Beta
+ * Polaris Framework v0.9.16 Beta
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

@@ -48,14 +48,14 @@ export declare class Animations extends Helpers {
      */
     animating(selector: string | object, duration?: number, count?: number): void | boolean;
     /**
-     * @desc For navigation active class on page scroll
+     * @desc For navigation active class (for page scroll)
      *
-     * @param {string | object} selector  -- The selector name (object)
-     * @param {string | object} navigator -- The navigator selector name (object)
-     * @param {string}          active    -- The navigator active class
-     * @param {number}          tolerance -- The scroll tolerance
+     * @param {string | object} navigators -- The navigators selector name (object)
+     * @param {string | object} navigateds -- The navigateds selector name (object)
+     * @param {string}          active     -- The navigator active class
+     * @param {number}          tolerance  -- The scroll tolerance
      *
      * @return {void | boolean}
      */
-    navigated(selector: string | object, navigator: string | object, active?: string, tolerance?: number): void | boolean;
+    navigated(navigators: string | object | any, navigateds: string | object | any, active?: string, tolerance?: number): void | boolean;
 }

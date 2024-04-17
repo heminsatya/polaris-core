@@ -1,6 +1,6 @@
 {
   "name": "polaris-core",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "description": "Polaris is a front-end web framework for creating responsive UI components.",
   "author": "Hemin Satya",
   "license": "MIT",
@@ -41,9 +41,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "css": "sass src/scss/polaris.scss dist/css/polaris.min.css --style compressed --load-path=node_modules",
+    "css": "sass src/scss/polaris.scss dist/css/polaris.min.css --style compressed --load-path=node_modules --no-source-map",
     "css-dev": "sass src/scss/polaris.scss dist/css/polaris.css --watch --load-path=node_modules",
-    "css-rtl": "sass src/scss/polaris-rtl.scss dist/css/polaris-rtl.min.css --style compressed --load-path=node_modules",
+    "css-rtl": "sass src/scss/polaris-rtl.scss dist/css/polaris-rtl.min.css --style compressed --load-path=node_modules --no-source-map",
     "css-rtl-dev": "sass src/scss/polaris-rtl.scss dist/css/polaris-rtl.css --watch --load-path=node_modules",
     "js-mod": "tsc --watch",
     "js": "webpack",

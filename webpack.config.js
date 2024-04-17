@@ -27,5 +27,5 @@ module.exports = {
         extensions: [".ts", ".js"],
     },
     mode: "production",
-    devtool: "source-map",
+    // devtool: "source-map",
 };
