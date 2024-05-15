@@ -9,6 +9,9 @@ $b-4: "lt" !default;        // Landscape Tablet
 $b-5: "d" !default;         // Desktop
 $b-6: "ld" !default;        // Large Desktop
 
+// Static files path
+$path: "../" !default;
+
 
 // Polaris Suffixes //
 $children:  "c" !default;

@@ -251,7 +251,7 @@
     $strict: check-strict($strict);
 
     .#{$name} {
-        background-image:  #{"url('../images/bg-alpha.png')" + $strict};
+        background-image:  #{"url('#{$path}images/bg-alpha.png')" + $strict};
         background-repeat: repeat#{$strict};
     }
 }

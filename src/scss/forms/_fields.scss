@@ -55,11 +55,11 @@ input:checked[type=radio].#{$name-field}:focus {
 
 input:checked[type=checkbox].#{$name-field},
 input:checked[type=checkbox].#{$name-field}:focus {
-    background-image:  url(../images/checkbox.svg);
+    background-image:  url(#{$path}images/checkbox.svg);
 }
 
 input:checked[type=radio].#{$name-field},
 input:checked[type=radio].#{$name-field}:focus {
-    background-image:  url(../images/radio.svg);
+    background-image:  url(#{$path}images/radio.svg);
 }
 

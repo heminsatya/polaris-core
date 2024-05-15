@@ -142,7 +142,7 @@
         // Generate Colors
         .#{$name + $par + $key} .#{$name} {
             @include generate-styles($inner, true);
-            background-image: url(../images/alert-#{$key}.svg);
+            background-image: url(#{$path}images/alert-#{$key}.svg);
             margin-bottom:    0.5rem;
             box-shadow:       none !important;
         }
