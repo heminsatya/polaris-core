@@ -4,28 +4,28 @@
 @include component-styles($pagination-styles, $name-pagination);
 
 // li styles
-@include component-item-styles($pagination-li-styles, $name-pagination, "li");
+@include component-styles-items($pagination-li-styles, $name-pagination, "li");
 
 // a styles
-@include component-item-styles($pagination-a-styles, $name-pagination, "li a");
+@include component-styles-items($pagination-a-styles, $name-pagination, "li a");
 
 
 // -- Modifiers -- //
 // Colors
-@include modifier-item-colors($pagination-colors, $name-pagination, "li a");
-@include modifier-item-colors-hover($pagination-colors-hover, $name-pagination, "li a");
+@include modifier-colors-items($pagination-colors, $name-pagination, "li a");
+@include modifier-colors-items-hover($pagination-colors-hover, $name-pagination, "li a");
 
 // Hoverable
 @include pagination-hoverable($pagination-hoverable-styles, $name-pagination, $hoverable);
-@include modifier-item-colors-hoverable($pagination-colors-hoverable, $name-pagination, "li a");
-@include modifier-item-colors-hoverable-hover($pagination-colors-hoverable-hover, $name-pagination, "li a");
+@include modifier-colors-items-hoverable($pagination-colors-hoverable, $name-pagination, "li a");
+@include modifier-colors-items-hovered($pagination-colors-hoverable-hover, $name-pagination, "li a");
 
 // Sizes
-@include modifiers-item-styles($pagination-sizes, $name-pagination, "li a");
-@include modifiers-item-styles-hoverable($pagination-sizes-hoverable, $name-pagination, "li a");
+@include modifiers-styles-items($pagination-sizes, $name-pagination, "li a");
+@include modifiers-styles-items-hoverable($pagination-sizes-hoverable, $name-pagination, "li a");
 
 
 // -- Children -- //
 // Active colors
-@include child-colors($pagination-active-colors, $name-pagination, $name-active);
-@include child-colors-hoverable($pagination-active-colors-hoverable, $name-pagination, $name-active);
+@include modifier-colors-items($pagination-active-colors, $name-pagination, "." + $name-pagination + $chi + $name-active, true);
+@include modifier-colors-items-hoverable($pagination-active-colors-hoverable, $name-pagination, "." + $name-pagination + $chi + $name-active, true);

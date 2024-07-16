@@ -4,14 +4,14 @@
 
 // -- Component -- //
 @include component-styles($popup-styles, $name-popup);
-@include component-after-styles($popup-after, $name-popup);
+@include component-styles-after($popup-after, $name-popup);
 @include popup-hover($popup-hover, $name-popup);
 
 
 // -- Modifiers -- //
 // Colors
 @include modifier-colors($popup-colors, $name-popup);
-@include modifier-after-colors($popup-after-colors, $name-popup);
+@include modifier-colors-after($popup-after-colors, $name-popup);
 
 // ::after border-color
 .#{$name-popup}:not(.#{$name-popup + $mod + 'top'}):not(.#{$name-popup + $mod + 'bottom'}):not(.#{$name-popup + $mod + 'left'}):not(.#{$name-popup + $mod + 'right'})::after {
@@ -25,4 +25,4 @@
 
 // Positions
 @include modifiers-styles($popup-positions, $name-popup);
-@include modifiers-after-styles($popup-after-positions, $name-popup);
+@include modifiers-styles-after($popup-after-positions, $name-popup);

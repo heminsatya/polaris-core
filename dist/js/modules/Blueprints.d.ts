@@ -1,11 +1,11 @@
 /**
  * Import the parent Class
  */
-import { Defaults } from "./Defaults";
+import { Components } from "./Components";
 /**
  * @desc Used for loading component blueprints
  */
-export declare class Blueprints extends Defaults {
+export declare class Blueprints extends Components {
     /**
      * @desc Constructor method
      */

@@ -1,0 +1,93 @@
+/* ---------- Tab ---------- */
+// -- Component -- //
+// Styles
+@include component-styles($tab-styles, $name-tab);
+
+
+// -- Modifiers -- //
+// tab-vertical
+@include modifier-styles($tab-vertical, $name-tab, $name-tab-vertical);
+
+
+// Children //
+// links
+@include child-styles($tab-links, $name-tab, $name-tab-links);
+
+// link
+@include child-styles($tab-link, $name-tab, $name-tab-link);
+@include child-styles($tab-link-hover, $name-tab, $name-tab-link + ':hover');
+@include child-styles($tab-active, $name-tab, $name-active);
+
+// contents
+@include child-styles($tab-contents, $name-tab, $name-tab-contents);
+
+// content
+@include child-styles($tab-content, $name-tab, $name-tab-content);
+@include child-styles($tab-open, $name-tab, $name-open);
+
+
+// Children Modifiers //
+// Colors
+@include modifier-colors-items($tab-colors-link, $name-tab, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-colors-items-hover($tab-colors-link-hover, $name-tab, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-colors-items($tab-colors-active, $name-tab, '.' + $name-tab + $chi + $name-active, true);
+@include modifier-colors-items($tab-colors-contents, $name-tab, '.' + $name-tab + $chi + $name-tab-contents, true);
+
+// Themes
+@include modifier-themes-items($tab-themes-link-light, $tab-themes-link-dark, $name-tab, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-themes-items-hover($tab-themes-link-light-hover, $tab-themes-link-dark-hover, $name-tab, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-themes-items($tab-themes-light-active, $tab-themes-dark-active, $name-tab, '.' + $name-tab + $chi + $name-active, true);
+@include modifier-themes-items($tab-themes-contents-light, $tab-themes-contents-dark, $name-tab, '.' + $name-tab + $chi + $name-tab-contents, true);
+
+// Vertical tab
+#{'.' + $name-tab + ':not(.#{$name-tab + $mod + $name-tab-vertical})'} #{'.' + $name-tab + $chi + $name-tab-link}:first-child {
+    @if $ltr {
+        margin-left: 0;
+    } @else {
+        margin-right: 0;
+    }
+}
+
+#{'.' + $name-tab + ':not(.#{$name-tab + $mod + $name-tab-vertical})'} #{'.' + $name-tab + $chi + $name-tab-link}:last-child {
+    @if $ltr {
+        margin-right: 0;
+    } @else {
+        margin-left: 0;
+    }
+}
+
+@include modifier-styles-items($tab-vertical-links, $name-tab, $name-tab-vertical, '.' + $name-tab + $chi + $name-tab-links, true);
+@include modifier-styles-items($tab-vertical-link, $name-tab, $name-tab-vertical, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-styles-items($tab-vertical-active, $name-tab, $name-tab-vertical, '.' + $name-tab + $chi + $name-active, true);
+
+#{'.' + $name-tab + $mod + $name-tab-vertical} #{'.' + $name-tab + $chi + $name-tab-link}:first-child {
+    margin-top: 0;
+}
+
+#{'.' + $name-tab + $mod + $name-tab-vertical} #{'.' + $name-tab + $chi + $name-tab-link}:last-child {
+    margin-bottom: 0;
+}
+
+#{'.' + $name-tab + $mod + $name-tab-vertical} #{'.' + $name-tab + $chi + $name-active} {
+    @if $ltr {
+        margin-right: 0;
+        border-right-style:  solid;
+        border-right-color:  transparent;
+        border-top-right-radius:  0;
+        border-bottom-right-radius: 0;
+    } @else {
+        margin-left: 0;
+        border-top-left-radius:  0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+
+// Collapse
+@include modifier-styles-items($tab-collapse-links, $name-tab, $name-collapse, '.' + $name-tab + $chi + $name-tab-links, true);
+@include modifier-styles-items($tab-collapse-link, $name-tab, $name-collapse, '.' + $name-tab + $chi + $name-tab-link, true);
+@include modifier-styles-items($tab-collapse-contents, $name-tab, $name-collapse, '.' + $name-tab + $chi + $name-tab-contents, true);
+
+#{'.' + $name-tab + $mod + $name-collapse + '.' + $name-tab + $mod + $name-tab-vertical} #{'.' + $name-tab + $chi + $name-tab-link} {
+    padding: padding-component(lg);
+}

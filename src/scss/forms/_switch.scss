@@ -17,7 +17,7 @@
 @include child-styles($switch-slider-styles, $name-switch, $name-switch-slider);
 
 // Colors
-@include child-colors($switch-slider-colors, $name-switch, $name-switch-slider);
+@include modifier-colors-items($switch-slider-colors, $name-switch, "." + $name-switch + $chi + $name-switch-slider, true);
 
 // Checked //
 // Styles

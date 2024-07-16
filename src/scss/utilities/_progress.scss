@@ -13,4 +13,4 @@
 @include child-styles($progress-child-styles, $name-progress, $name-progress-bar);
 
 // Colors
-@include child-colors($progress-colors-child, $name-progress, $name-progress-bar);
+@include modifier-colors-items($progress-colors-child, $name-progress, "." + $name-progress + $chi + $name-progress-bar, true);

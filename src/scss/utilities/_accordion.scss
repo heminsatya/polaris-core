@@ -1,0 +1,46 @@
+/* ---------- Accordion ---------- */
+// -- Component -- //
+// styles
+@include component-styles($accord-styles, $name-accord);
+
+
+// Children //
+// accord--item
+@include child-styles($accord-item, $name-accord, $name-accord-item);
+
+// accord--link
+@include child-styles($accord-link, $name-accord, $name-accord-link);
+
+// accord--content
+@include child-styles($accord-content, $name-accord, $name-accord-content);
+@include child-styles($accord-inner, $name-accord, $name-inner);
+@include modifiers-styles-items($accord-size-inner, $name-accord, " ." + $name-accord + $chi + $name-inner , true);
+
+// accord--active
+@include child-styles-items($accord-active-link, $name-accord, $name-active, '.' + $name-accord + $chi + $name-accord-link, true);
+@include child-styles-items($accord-active-content, $name-accord, $name-active, '.' + $name-accord + $chi + $name-accord-content, true);
+@include child-styles-items($accord-active-inner, $name-accord, $name-active, '.' + $name-accord + $chi + $name-inner, true);
+
+// Color
+@include modifier-colors-items($accord-colors-item, $name-accord, '.' + $name-accord + $chi + $name-accord-item, true);
+@include modifier-colors-items($accord-colors-link, $name-accord, '.' + $name-accord + $chi + $name-accord-link, true);
+@include modifier-colors-items-hover($accord-colors-link-hover, $name-accord, '.' + $name-accord + $chi + $name-accord-link, true);
+@include modifier-colors-items($accord-colors-link-active, $name-accord + $chi + $name-active , '.' + $name-accord + $chi + $name-accord-link, true);
+
+// Themes
+@include child-themes($accord-theme-item-light, $accord-theme-item-dark, $name-accord, $name-accord-item);
+@include child-themes-items($accord-theme-link-light, $accord-theme-link-dark, $name-accord, $name-accord-item, "." + $name-accord + $chi + $name-accord-link , true);
+@include child-themes-items-hover($accord-theme-link-light-hover, $accord-theme-link-dark-hover, $name-accord, $name-accord-item, "." + $name-accord + $chi + $name-accord-link , true);
+@include generate-themes($accord-theme-link-light-hover, $accord-theme-link-dark-hover, $name-accord + $chi + $name-accord-item, false, "." + $name-accord + $chi + $name-active, " ." + $name-accord + $chi + $name-accord-link);
+
+// Collapse
+@include modifier-styles-items($accord-collapse-item, $name-accord, $name-collapse, "." + $name-accord + $chi + $name-accord-item, true);
+
+// Icon
+@include child-styles-pseudo($accord-link-icon, $name-accord, $name-accord-link, false, true, $accord-link-icon-ltr, $accord-link-icon-rtl);
+@include accord-icon($name-accord, $name-accord-link, $name-accord-arrow);
+
+// Size
+@include modifiers-styles-items($accord-size-link, $name-accord, '.' + $name-accord + $chi + $name-accord-link, true);
+@include modifiers-styles-items($accord-size-content, $name-accord, '.' + $name-accord + $chi + $name-accord-content + " ." + $name-accord + $chi + $name-inner , true);
+@include modifiers-styles-items-pseudo($accord-size-icon, $name-accord, '.' + $name-accord + $chi + $name-accord-link, true, false, true, $accord-size-icon-ltr, $accord-size-icon-rtl);

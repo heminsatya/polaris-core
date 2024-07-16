@@ -1,11 +1,11 @@
 /**
  * Import the parent Class
  */
-import { Blueprints } from "./Blueprints";
+import { Defaults } from "./Defaults";
 /**
  * @desc Used for method chaining & initializing defaults & loading Blueprints
  */
-export class Core extends Blueprints {
+export class Core extends Defaults {
     /**
      * @desc Constructor method
      */
@@ -106,55 +106,96 @@ export class Core extends Blueprints {
      */
     init() {
         /**
-         *  Load Defaults
-         */
-        /**
-         *  Document default classes
-         */
-        this.docDefaults();
-        /**
-         *  Void links
-         */
-        this.linkDefaults();
-        /**
-         *  Ripple animations
-         */
-        this.rippleDefaults();
-        /**
-         *  Animation datasets
-         */
-        this.animationDefaults();
-        /**
-         *  Closable messages
-         */
-        this.messageDefaults();
-        /**
-         *  Clickable & animated popups
-         */
-        this.popupDefaults();
-        /**
-         *  Clickable & animated menus
-         */
-        this.menuDefaults();
-        /**
-         *  Auto draggable items
-         */
-        this.draggableDefaults();
-        /**
          *  Load Blueprints
          */
         /**
          *  Backdrop blueprint
          */
-        this.backdropBlueprint();
+        if (this.hasBackdropBlueprint)
+            this.backdropBlueprint();
         /**
          *  Alert blueprint
          */
-        this.alertBlueprint();
+        if (this.hasAlertBlueprint)
+            this.alertBlueprint();
         /**
          *  Modal blueprint
          */
-        this.modalBlueprint();
+        if (this.hasModalBlueprint)
+            this.modalBlueprint();
+        /**
+         *  Load Defaults
+         */
+        /**
+         *  Document default classes
+         */
+        if (this.hasDocDefaults)
+            this.docDefaults();
+        /**
+         *  Void links defaults
+         */
+        if (this.hasLinkDefaults)
+            this.linkDefaults();
+        /**
+         *  Ripple default animations
+         */
+        if (this.hasRippleDefaults)
+            this.rippleDefaults();
+        /**
+         *  Animation default datasets
+         */
+        if (this.hasAnimationDefaults)
+            this.animationDefaults();
+        /**
+         *  Range slider defaults
+         */
+        if (this.hasRangeDefaults)
+            this.rangeDefaults();
+        /**
+         *  Chips defaults
+         */
+        if (this.hasChipDefaults)
+            this.chipDefaults();
+        /**
+         *  Autocomplete defaults
+         */
+        if (this.hasAutoDefaults)
+            this.autoDefaults();
+        /**
+         *  Closable messages defaults
+         */
+        if (this.hasMessageDefaults)
+            this.messageDefaults();
+        /**
+         *  Clickable & animated popups defaults
+         */
+        if (this.hasPopupDefaults)
+            this.popupDefaults();
+        /**
+         *  Clickable & animated menus defaults
+         */
+        if (this.hasMenuDefaults)
+            this.menuDefaults();
+        /**
+         *  Auto draggable items
+         */
+        if (this.hasDragDefaults)
+            this.dragDefaults();
+        /**
+         *  Tabs defaults
+         */
+        if (this.hasTabDefaults)
+            this.tabDefaults();
+        /**
+         *  Accordions defaults
+         */
+        if (this.hasAccordDefaults)
+            this.accordDefaults();
+        /**
+         *  Counters defaults
+         */
+        if (this.hasCounterDefaults)
+            this.counterDefaults();
     }
 }
 //# sourceMappingURL=Core.js.map

@@ -1,0 +1,31 @@
+/* ---------- Range ---------- */
+// -- Parent -- //
+// range__control
+@include parent-styles($range-control, $name-range, $name-control);
+@include parent-styles-pseudo($range-control-pseudo, $name-range, $name-control, true, true, $range-control-pseudo-ltr, $range-control-pseudo-rtl);
+
+// range__vertical
+@include parent-styles($range-vertical, $name-range, $name-range-vertical, false, true, $range-vertical-ltr, $range-vertical-rtl);
+@include custom-styles($range-vertical-span, "." + $name-range + $par + $name-range-vertical + " span", false, true, $range-vertical-span-ltr, $range-vertical-span-rtl);
+
+
+// -- Component -- //
+@include component-styles($range-styles, $name-range, false, true, $range-styles-ltr, $range-styles-rtl);
+@include custom-styles($range-thumb-styles, "." + $name-range + "::-webkit-slider-thumb");
+@include custom-styles($range-thumb-styles, "." + $name-range + "::-moz-range-thumb");
+
+
+// -- Modifiers -- //
+// Disabled
+@include modifier-styles($range-disabled, $name-range, $name-disabled);
+
+// Sizes
+@include modifiers-styles($range-sizes, $name-range);
+@include modifiers-styles-append($range-thumb-sizes, $name-range, "::-webkit-slider-thumb");
+@include modifiers-styles-append($range-thumb-sizes, $name-range, "::-moz-range-thumb");
+
+// Colors
+@include modifier-colors($range-colors, $name-range);
+@include switch-size-slim($range-sizes-slim, $name-range, $name-range-slim);
+@include generate-colors($range-thumb-colors, $name-range, false, "", "::-webkit-slider-thumb");
+@include generate-colors($range-thumb-colors, $name-range, false, "", "::-moz-range-thumb");

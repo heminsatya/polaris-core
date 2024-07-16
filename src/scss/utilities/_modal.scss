@@ -22,11 +22,11 @@
 @include child-styles($modal-header, $name-modal, $name-header);
 
 // After styles
-@include child-after-styles($modal-header-after, $name-modal, $name-header);
-@include child-after-colors($modal-header-after-colors, $name-modal, $name-header);
+@include child-styles-after($modal-header-after, $name-modal, $name-header);
+@include modifier-colors-items-after($modal-header-after-colors, $name-modal, "." + $name-modal + $chi + $name-header, true);
 
 // h1 styles
-@include child-item-styles($modal-header-h1, $name-modal, $name-header, "h1");
+@include child-styles-items($modal-header-h1, $name-modal, $name-header, "h1");
 
 // Body
 // Styles
@@ -37,9 +37,9 @@
 @include child-styles($modal-footer, $name-modal, $name-footer);
 
 // Colors
-@include child-colors($modal-footer-colors, $name-modal, $name-footer);
+@include modifier-colors-items($modal-footer-colors, $name-modal, "." + $name-modal + $chi + $name-footer, true);
 
 // Modal close
 @include child-styles($modal-close, $name-modal, $name-closable, false, true, $modal-close-ltr, $modal-close-rtl);
-@include child-colors($modal-close-colors, $name-modal, $name-closable);
-@include child-colors-hover($modal-close-colors-hover, $name-modal, $name-closable);
+@include modifier-colors-items($modal-close-colors, $name-modal, "." + $name-modal + $chi + $name-closable, true);
+@include modifier-colors-items-hover($modal-close-colors-hover, $name-modal, "." + $name-modal + $chi + $name-closable, true);

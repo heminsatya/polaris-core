@@ -174,28 +174,134 @@
 ///
 // @desc Used for swapping draggable items
 //
-// @param {string} $name-draggable -- The name key
-// @param {string} $name-swapping -- The second name key for draggable-swapping
-// @param {string} $name-dragging -- The second name key for draggable-dragging
-// @param {string} $name-x -- The second name key for draggable__x
-// @param {string} $name-y -- The second name key for draggable__y
-// @param {string} $x -- The CSS translateX for swapping
-// @param {string} $y -- The CSS translateY for swapping
+// @param {string} $name-drag     -- The draggable name key
+// @param {string} $name-swapping -- The second name key for drag--swapping
+// @param {string} $name-dragging -- The second name key for drag--dragging
+// @param {string} $name-x        -- The second name key for drag-x
+// @param {string} $name-y        -- The second name key for drag-y
+// @param {string} $x             -- The CSS translateX for swapping
+// @param {string} $y             -- The CSS translateY for swapping
 ///
-@mixin swapping($name-draggable, $name-swapping, $name-dragging, $name-x, $name-y, $x, $y) {
-    .#{$name-draggable + $par + $name-x} .#{$name-draggable + $mod + $name-swapping}:not(.#{$name-draggable + $mod + $name-dragging}) {
+@mixin swapping($name-drag, $name-swapping, $name-dragging, $name-x, $name-y, $x, $y) {
+    .#{$name-drag + $mod + $name-x} .#{$name-drag + $chi + $name-swapping}:not(.#{$name-drag + $chi + $name-dragging}) {
         transform: translateX($x);
     }
     
-    .#{$name-draggable + $par + $name-x} .#{$name-draggable + $mod + $name-swapping}.#{$name-draggable + $mod + $name-dragging} {
+    .#{$name-drag + $mod + $name-x} .#{$name-drag + $chi + $name-swapping}.#{$name-drag + $chi + $name-dragging} {
         transform: translateX(-$x);
     }
     
-    .#{$name-draggable + $par + $name-y} .#{$name-draggable + $mod + $name-swapping}:not(.#{$name-draggable + $mod + $name-dragging}) {
+    .#{$name-drag + $mod + $name-y} .#{$name-drag + $chi + $name-swapping}:not(.#{$name-drag + $chi + $name-dragging}) {
         transform: translateY($y);
     }
     
-    .#{$name-draggable + $par + $name-y} .#{$name-draggable + $mod + $name-swapping}.#{$name-draggable + $mod + $name-dragging} {
+    .#{$name-drag + $mod + $name-y} .#{$name-drag + $chi + $name-swapping}.#{$name-drag + $chi + $name-dragging} {
         transform: translateY(-$y);
+    }
+}
+
+
+///
+// @desc Used for accordion icon
+///
+@mixin accord-icon($name-accord, $name-accord-link, $name-accord-arrow) {
+    #{'.' + $name-accord}:not(#{'.' + $name-accord + $mod + $name-accord-arrow}) #{'.' + $name-accord + $chi + $name-accord-link}::before,
+    #{'.' + $name-accord}:not(#{'.' + $name-accord + $mod + $name-accord-arrow}) #{'.' + $name-accord + $chi + $name-accord-link}::after {
+        content: "\e909";
+
+        @if $ltr {
+            transform: translate(0%, -50%) rotate(90deg);
+        } @else {
+            transform: translate(0%, -50%) rotate(-90deg);
+        }
+    }
+
+    #{'.' + $name-accord}:not(#{'.' + $name-accord + $mod + $name-accord-arrow}) #{'.' + $name-accord + $chi + $name-active} #{'.' + $name-accord + $chi + $name-accord-link}::before,
+    #{'.' + $name-accord}:not(#{'.' + $name-accord + $mod + $name-accord-arrow}) #{'.' + $name-accord + $chi + $name-active} #{'.' + $name-accord + $chi + $name-accord-link}::after {
+        content: "\e908";
+        transform: translate(0%, -50%) rotate(0deg);
+    }
+
+    #{'.' + $name-accord + $mod + $name-accord-arrow} #{'.' + $name-accord + $chi + $name-accord-link}::after {
+        @if $ltr {
+            content: "\e911";
+            transform: translate(0%, -50%) rotate(0deg);
+        } @else {
+            content: "\e910";
+            transform: translate(0%, -50%) rotate(0deg);
+        }
+    }
+
+    #{'.' + $name-accord + $mod + $name-accord-arrow} #{'.' + $name-accord + $chi + $name-active} #{'.' + $name-accord + $chi + $name-accord-link}::after {
+        @if $ltr {
+            content: "\e911";
+            transform: translate(0%, -50%) rotate(90deg);
+        } @else {
+            content: "\e910";
+            transform: translate(0%, -50%) rotate(-90deg);
+        }
+    }
+}
+
+
+///
+// @desc Used for responsive timeline ::after
+///
+@mixin responsive-timeline-after($map, $selector, $key) {
+    @include breakpoint($key) {
+        #{$selector}::after {
+            @include generate-styles($map);
+        }
+    }
+}
+
+
+///
+// @desc Used for responsive timeline--item
+///
+@mixin responsive-timeline-item($map-1, $map-2, $selector, $key) {
+    @include breakpoint($key) {
+        #{$selector}:nth-child(odd) {
+            @include generate-styles($map-1);
+        }
+        #{$selector}:nth-child(even) {
+            @include generate-styles($map-2);
+        }
+    }
+}
+
+
+///
+// @desc Used for responsive timeline--content
+///
+@mixin responsive-timeline-content($map, $selector, $key) {
+    @include breakpoint($key) {
+        #{$selector} {
+            @include generate-styles($map);
+        }
+    }
+}
+
+
+///
+// @desc Used for responsive timeline--content ::before
+///
+@mixin responsive-timeline-content-before($map, $selector, $key) {
+    @include breakpoint($key) {
+        #{$selector}::before {
+            @include generate-styles($map);
+        }
+    }
+}
+
+
+///
+// @desc Used for responsive timeline--content ::after
+///
+@mixin responsive-timeline-content-after($map, $selector, $key) {
+    @include breakpoint($key) {
+        #{$selector}::after {
+            @include generate-styles($map);
+        }
     }
 }

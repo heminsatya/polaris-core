@@ -19,7 +19,7 @@
 @include modifier-colors-focus($field-colors-focus, $name-field);
 
 // Focusable colors
-@include modifier-colors-focusable($field-colors-focusable, $name-field);
+@include modifier-colors-focused($field-colors-focusable, $name-field);
 
 // Checkbox & radio
 input[type=checkbox].#{$name-field}, 

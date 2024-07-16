@@ -1,0 +1,343 @@
+// ------------------- //
+//   Temporary Mixins  //
+// ------------------- //
+///
+// @desc Generates colors for a child items -- not used?!
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-colors-items($map, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $chi + $name-2} #{$nest + $item},
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nest + $item} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nest + $item},
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2} #{$nest + $item} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nest + $item} {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for a child::after -- Replace with custom modifier-colors-items-after() -- watch modal
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-colors-after($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $chi + $name-2}::after,
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after,
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2}::after {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for a hoverable child -- Replace with modifier-colors-items-hoverable()
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-colors-hoverable($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2},
+                .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2},
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates light & dark color sets for a child -- Replaced with modifier-themes-items()
+//
+// @param {map}    $map-1  -- The light colors map
+// @param {map}    $map-2  -- The dark colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-themes($map-1, $map-2, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map-1: sort-color-map($map-1, $reverse);
+    $map-2: sort-color-map($map-2, $reverse);
+
+    // Light colors
+    @each $key, $value in $map-1 {
+        // Get inner map
+        $inner: inner-map($map-1, $key);
+
+        .#{$name-doc + $mod}light .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
+            @include generate-styles($inner);
+        }
+    }
+
+    // Dark colors
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-2, $key);
+
+        .#{$name-doc + $mod}dark .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+///
+// @desc Generates light & dark color sets for a child on hover -- Replaced with modifier-themes-items-hover()
+//
+// @param {map}    $map-1  -- The light colors map
+// @param {map}    $map-2  -- The dark colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-themes-hover($map-1, $map-2, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map-1: sort-color-map($map-1, $reverse);
+    $map-2: sort-color-map($map-2, $reverse);
+
+    // Light colors
+    @each $key, $value in $map-1 {
+        // Get inner map
+        $inner: inner-map($map-1, $key);
+
+        .#{$name-doc + $mod}light .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
+            @include generate-styles($inner);
+        }
+    }
+
+    // Dark colors
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-2, $key);
+
+        .#{$name-doc + $mod}dark .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for a child -- Replaced with modifier-colors-items()
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-colors($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    // Generate selector name
+    $name: $name-1 + $chi + $name-2;
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $chi + $name-2},
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2},
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2} {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates colors for a child on hover -- Replaced with modifier-colors-items-hover()
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-colors-hover($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Document colors
+        @if $key == "light" or $key == "dark" {
+            @if check-doc-color($key, $reverse) {
+                .#{$name-1 + $chi + $name-2}:hover,
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
+                    @include generate-styles($inner);
+                }
+            }
+            @else {
+                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover,
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2}:hover {
+                    @include generate-styles($inner);
+                }
+            }
+        }
+        // Other colors
+        @else{
+            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
+                @include generate-styles($inner);
+            }
+        }
+    }
+}
+
+
+///
+// @desc Generates theme colors for a child -- replace with child-colors()
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-theme($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        .#{$name-1 + $chi + $key}.#{$name-1 + $chi + $name-2} {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+///
+// @desc Generates theme colors for a child -- replace with child-colors-items()
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-theme-items($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        .#{$name-1 + $chi + $key} .#{$name-1 + $chi + $name-2} {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+///
+// @desc Generates theme colors for a child
+//
+// @param {map}    $map    -- The colors map
+// @param {string} $name-1 -- 1st name key
+// @param {string} $name-2 -- 2nd name key
+///
+@mixin child-theme-items-hover($map, $name-1, $name-2, $reverse: false) {
+    // Sort color map
+    $map: sort-color-map($map, $reverse);
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        .#{$name-1 + $chi + $key} .#{$name-1 + $chi + $name-2}:hover {
+            @include generate-styles($inner);
+        }
+    }
+}

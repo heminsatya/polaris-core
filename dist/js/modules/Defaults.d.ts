@@ -1,11 +1,11 @@
 /**
  * Import the parent Class
  */
-import { Draggable } from "./Draggable";
+import { Blueprints } from "./Blueprints";
 /**
  * @desc Used for handling components default behaviors
  */
-export declare class Defaults extends Draggable {
+export declare class Defaults extends Blueprints {
     /**
      * @desc Constructor method
      */
@@ -35,6 +35,24 @@ export declare class Defaults extends Draggable {
      */
     animationDefaults(): void;
     /**
+     * @desc Handles range sliders automatically
+     *
+     * @return {void}
+     */
+    rangeDefaults(): void;
+    /**
+     * @desc Handles chips automatically
+     *
+     * @return {void}
+     */
+    chipDefaults(): void;
+    /**
+     * @desc Handles autocomplete automatically
+     *
+     * @return {void}
+     */
+    autoDefaults(): void;
+    /**
      * @desc Handles closable messages
      *
      * @return {void}
@@ -57,5 +75,23 @@ export declare class Defaults extends Draggable {
      *
      * @return {void}
      */
-    draggableDefaults(): void;
+    dragDefaults(): void;
+    /**
+     * @desc Handles tabs automatically
+     *
+     * @return {void}
+     */
+    tabDefaults(): void;
+    /**
+     * @desc Handles accordions automatically
+     *
+     * @return {void}
+     */
+    accordDefaults(): void;
+    /**
+     * @desc Handles counters automatically
+     *
+     * @return {void}
+     */
+    counterDefaults(): void;
 }

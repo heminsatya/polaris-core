@@ -1,4 +1,7 @@
 // ----- Global Mixins ----- //
+// ------------------- //
+//    Common Mixins    //
+// ------------------- //
 ///
 // @desc Produces CSS @media breakpoint
 //
@@ -100,20 +103,21 @@
 ///
 // @desc Generates css direction for ltr and rtl support 
 //
-// @param {map} $map $ltr-styles
-// @param {map} $map $rtl-styles
+// @param {map}    $ltr-styles -- LTR styles
+// @param {map}    $rtl-styles -- RTL styles
+// @param {string} $strict     -- The !important CSS value placeholder
 ///
-@mixin direction-styles($ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin direction-styles($ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles, $strict: false) {
     // LTR
     @if $ltr {
         @each $key, $value in $ltr-styles {
-            @include generate-vendor($key, $value);
+            @include generate-vendor($key, $value, $strict);
         }
     }
     // RTL
     @else {
         @each $key, $value in $rtl-styles {
-            @include generate-vendor($key, $value);
+            @include generate-vendor($key, $value, $strict);
         }
     }
 }
@@ -122,43 +126,50 @@
 ///
 // @desc Generates css styles for a map 
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin generate-styles($map, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     @each $key, $value in $map {
         @include generate-vendor($key, $value, $strict);
     }
     @if $direction {
-        @include direction-styles($ltr-styles, $rtl-styles);
+        @include direction-styles($ltr-styles, $rtl-styles, $strict);
     }
 }
 
 
 ///
-// @desc Generates css styles for a parent 
+// @desc Generates css styles for a custom selector
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $selector   -- The custom selector
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin parent-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin custom-styles($map, $selector, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     // Generate styles
-    .#{$name-1 + $par + $name-2} {
+    #{$selector} {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
 }
 
 
 ///
-// @desc Generates colors for a parent
+// @desc Generates colors
 //
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map      -- The colors map
+// @param {string}  $name     -- Selector name
+// @param {boolean} $reverse  -- Reverse default light & dark?
+// @param {string}  $append   -- Addition part
+// @param {string}  $pseudo   -- Pseudo part
 ///
-@mixin parent-colors($map, $name-1, $name-2, $reverse: false) {
+@mixin generate-colors($map, $name, $reverse: false, $append: "", $pseudo: "") {
     // Sort color map
     $map: sort-color-map($map, $reverse);
 
@@ -169,21 +180,21 @@
         // Document colors
         @if $key == "light" or $key == "dark" {
             @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $par + $name-2},
-                .#{$name-1 + $par + $name-2}.#{$name-1 + $par + $name-2 + $mod + $key} {
+                .#{$name + $append + $pseudo},
+                .#{$name + $append}.#{$name + $mod + $key + $pseudo} {
                     @include generate-styles($inner);
                 }
             }
             @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $par + $name-2},
-                .#{$name-1 + $par + $name-2}.#{$name-1 + $par + $name-2 + $mod + $key} {
+                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $append + $pseudo},
+                .#{$name + $append}.#{$name + $mod + $key + $pseudo} {
                     @include generate-styles($inner);
                 }
             }
         }
         // Other colors
         @else{
-            .#{$name-1 + $par + $name-2}.#{$name-1 + $par + $name-2 + $mod + $key} {
+            .#{$name + $append}.#{$name + $mod + $key + $pseudo} {
                 @include generate-styles($inner);
             }
         }
@@ -192,11 +203,110 @@
 
 
 ///
+// @desc Generates light & dark color sets
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse  -- Reverse default light & dark?
+// @param {string}  $append   -- Addition part
+// @param {string}  $pseudo   -- Pseudo part
+///
+@mixin generate-themes($map-1, $map-2, $name, $reverse: false, $append: "", $pseudo: "") {
+    // Sort color map
+    $map-1: sort-color-map($map-1, $reverse);
+    $map-2: sort-color-map($map-2, $reverse);
+
+    // Light color sets
+    @each $key, $value in $map-1 {
+        // Get inner map
+        $inner: inner-map($map-1, $key);
+
+        .#{$name-doc + $mod}light .#{$name + $append}.#{$name + $mod + $key + $pseudo} {
+            @include generate-styles($inner);
+        }
+    }
+
+    // Dark color sets
+    @each $key, $value in $map-2 {
+        // Get inner map
+        $inner: inner-map($map-2, $key);
+
+        .#{$name-doc + $mod}dark .#{$name + $append}.#{$name + $mod + $key + $pseudo} {
+            @include generate-styles($inner);
+        }
+    }
+}
+
+
+// ------------------- //
+//    Parent Mixins    //
+// ------------------- //
+///
+// @desc Generates css styles for a parent
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin parent-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $par + $name-2} {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for a parent ::before & ::after
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin parent-styles-pseudo($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $par + $name-2}::before,
+    .#{$name-1 + $par + $name-2}::after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates colors for a parent
+//
+// @param {map}     $map      -- The colors map
+// @param {string}  $name-1   -- 1st name key
+// @param {string}  $name-2   -- 2nd name key
+// @param {boolean} $reverse  -- Reverse default light & dark?
+///
+@mixin parent-colors($map, $name-1, $name-2, $reverse: false) {
+    $name: $name-1 + $par + $name-2;
+    @include generate-colors($map, $name, $reverse);
+}
+
+
+// ------------------- //
+//   Component Mixins  //
+// ------------------- //
+///
 // @desc Generates css styles for a component 
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin component-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     .#{$name} {
@@ -206,27 +316,16 @@
 
 
 ///
-// @desc Generates css styles for an empty component
+// @desc Generates css styles for a component ::before & ::after
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin component-empty-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    .#{$name}:empty {
-        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
-    }
-}
-
-
-///
-// @desc Generates css styles for a component pseudo
-//
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
-///
-@mixin component-pseudo-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin component-styles-pseudo($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     .#{$name}::before,
     .#{$name}::after {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
@@ -235,13 +334,16 @@
 
 
 ///
-// @desc Generates css styles for a component pseudo on hover
+// @desc Generates css styles for a component ::before & ::after on hover
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin component-pseudo-styles-hover($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin component-styles-pseudo-hover($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     .#{$name}:hover::before,
     .#{$name}:hover::after {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
@@ -252,11 +354,14 @@
 ///
 // @desc Generates css styles for a component before
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin component-before-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin component-styles-before($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     .#{$name}::before {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
@@ -266,12 +371,32 @@
 ///
 // @desc Generates css styles for a component after
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin component-after-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin component-styles-after($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     .#{$name}::after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for an empty component
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin component-styles-empty($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    .#{$name}:empty {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
 }
@@ -280,15 +405,20 @@
 ///
 // @desc Generates css styles for component items
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {string}  $item       -- The item selector name
+// @param {boolean} $nested     -- Is item nested?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin component-item-styles($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin component-styles-items($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
-    .#{$name} #{$nested-sep + $item} {
+    .#{$name} #{$nest + $item} {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
 }
@@ -299,8 +429,8 @@
 //
 // @param {map}     $map        -- The styles map
 // @param {string}  $name       -- The name key
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
 ///
 @mixin responsive-component-styles($map, $name, $responsive: true, $strict: false) {
     @include responsive-blueprint($name, $responsive) {
@@ -314,8 +444,8 @@
 //
 // @param {map}     $map        -- The styles map
 // @param {string}  $name       -- The name key
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
 ///
 @mixin auto-component-styles($map, $name, $responsive: true, $strict: false) {
     @if $responsive == true {
@@ -337,9 +467,9 @@
 ///
 // @desc The blueprint for component classes
 //
-// @param {map}    $map      -- The class map
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -365,10 +495,10 @@
 ///
 // @desc Generates css styles for a component class
 //
-// @param {map}    $map      -- The class map
-// @param {string} $name     -- The name key
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $name     -- The name key
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -385,8 +515,8 @@
 // @param {map}     $map        -- The class map
 // @param {string}  $name       -- The name key
 // @param {string}  $property   -- The optional property name
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -397,13 +527,19 @@
 }
 
 
+// ------------------- //
+//   Modifier Mixins   //
+// ------------------- //
 ///
 // @desc Generates css styles for a modifier 
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin modifier-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     // Generate styles
@@ -416,17 +552,22 @@
 ///
 // @desc Generates css styles for a modifier items
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {string}  $item       -- The item selector name
+// @param {boolean} $nested     -- Is item nested?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin modifier-item-styles($map, $name-1, $name-2, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin modifier-styles-items($map, $name-1, $name-2, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
     
     // Generate styles
-    .#{$name-1 + $mod + $name-2} #{$nested-sep + $item} {
+    .#{$name-1 + $mod + $name-2} #{$nest + $item} {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
 }
@@ -438,8 +579,11 @@
 // @param {map}     $map        -- The styles map
 // @param {string}  $name-1     -- 1st name key
 // @param {string}  $name-2     -- 2nd name key
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin responsive-modifier-styles($map, $name-1, $name-2, $responsive: true, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     @include responsive-blueprint($name-1 + $mod + $name-2, $responsive) {
@@ -451,104 +595,232 @@
 ///
 // @desc Generates css styles for a set of modifiers
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin modifiers-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     @each $key, $value in $map {
         // Get inner map
         $inner: inner-map($map, $key);
 
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
+
         // Generate styles
         .#{$name + $mod + $key} {
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
         }
     }
 }
 
 
 ///
-// @desc Generates css styles for a set of modifiers::before
+// @desc Generates css styles for a set of modifiers ::before
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin modifiers-before-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin modifiers-styles-before($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     @each $key, $value in $map {
         // Get inner map
         $inner: inner-map($map, $key);
+
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
 
         // Generate styles
         .#{$name + $mod + $key}::before {
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
         }
     }
 }
 
 
 ///
-// @desc Generates css styles for a set of modifiers::after
+// @desc Generates css styles for a set of modifiers ::before
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {string}  $append     -- Addition part
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin modifiers-after-styles($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin modifiers-styles-append($map, $name, $append: "", $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     @each $key, $value in $map {
         // Get inner map
         $inner: inner-map($map, $key);
+
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
+
+        // Generate styles
+        .#{$name + $mod + $key + $append} {
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for a set of modifiers ::after
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin modifiers-styles-after($map, $name, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
 
         // Generate styles
         .#{$name + $mod + $key}::after {
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
         }
     }
 }
 
 
 ///
-// @desc Generates css styles for modifier items
+// @desc Generates css styles for modifiers items
 //
-// @param {map}    $map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {string}  $item       -- The item selector name
+// @param {boolean} $nested     -- Is item nested?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin modifiers-item-styles($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin modifiers-styles-items($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
     @each $key, $value in $map {
         // Get inner map
         $inner: inner-map($map, $key);
 
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
+
         // Generate styles
-        .#{$name + $mod + $key} #{$nested-sep + $item} {
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        .#{$name + $mod + $key} #{$nest + $item} {
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
         }
     }
 }
 
 
 ///
-// @desc Generates css styles for hoverable modifier item (child)
+// @desc Generates css styles for modifiers items ::before & ::after
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name   -- The name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {string}  $item       -- The item selector name
+// @param {boolean} $nested     -- Is item nested?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin modifiers-item-styles-hoverable($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin modifiers-styles-items-pseudo($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
     @each $key, $value in $map {
         // Get inner map
         $inner: inner-map($map, $key);
 
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
+
         // Generate styles
-        .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}{
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+        .#{$name + $mod + $key} #{$nest + $item}::before,
+        .#{$name + $mod + $key} #{$nest + $item}::after {
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
+        }
+    }
+}
+
+
+///
+// @desc Generates css styles for hoverable modifiers item (child)
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name       -- The name key
+// @param {string}  $item       -- The item selector name
+// @param {boolean} $nested     -- Is item nested?
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin modifiers-styles-items-hoverable($map, $name, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @each $key, $value in $map {
+        // Get inner map
+        $inner: inner-map($map, $key);
+
+        // Get inner direction maps
+        $inner-ltr: $ltr-styles;
+        $inner-rtl: $rtl-styles;
+        @if ($direction) {
+            $inner-ltr: inner-map($ltr-styles, $key);
+            $inner-rtl: inner-map($rtl-styles, $key);
+        }
+
+        // Generate styles
+        .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nest + $item} {
+            @include generate-styles($inner, $strict, $direction, $inner-ltr, $inner-rtl);
         }
     }
 }
@@ -557,9 +829,9 @@
 ///
 // @desc The blueprint for modifier classes
 //
-// @param {map}    $map      -- The class map
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -585,10 +857,10 @@
 ///
 // @desc Generates css styles for a modifier class
 //
-// @param {map}    $map      -- The class map
-// @param {string} $name     -- The name key
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $name     -- The name key
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -605,8 +877,8 @@
 // @param {map}     $map        -- The class map
 // @param {string}  $name       -- The name key
 // @param {string}  $property   -- The optional property name
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -620,596 +892,321 @@
 ///
 // @desc Generates colors for a modifier
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-    
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name},
-                .#{$name}.#{$name + $mod + $key} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name},
-                .#{$name}.#{$name + $mod + $key} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key} {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-colors($map, $name, $reverse);
 }
 
 
 ///
-// @desc Generates colors for a modifier before
+// @desc Generates colors for a modifier ::before
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin modifier-before-colors($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-    
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name}::before,
-                .#{$name}.#{$name + $mod + $key}::before {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::before,
-                .#{$name}.#{$name + $mod + $key}::before {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key}::before {
-                @include generate-styles($inner);
-            }
-        }
-    }
+@mixin modifier-colors-before($map, $name, $reverse: false) {
+    @include generate-colors($map, $name, $reverse, "", "::before");
 }
 
 
 ///
-// @desc Generates colors for a modifier after
+// @desc Generates colors for a modifier ::after
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin modifier-after-colors($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-    
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name}::after,
-                .#{$name}.#{$name + $mod + $key}::after {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}::after,
-                .#{$name}.#{$name + $mod + $key}::after {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key}::after {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates colors for a modifier items
-//
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
-///
-@mixin modifier-item-colors($map, $name, $item: "*", $nested: false, $reverse: false) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
-
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-    
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name} #{$nested-sep + $item},
-                .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name} #{$nested-sep + $item},
-                .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item} {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates light & dark color sets for a modifier
-//
-// @param {map}    $map-1  -- The light colors map
-// @param {map}    $map-2  -- The dark colors map
-// @param {string} $name   -- The name key
-///
-@mixin modifier-colors-doc($map-1, $map-2, $name, $reverse: false) {
-    // Sort color map
-    $map-1: sort-color-map($map-1, $reverse);
-    $map-2: sort-color-map($map-2, $reverse);
-
-    // Light colors
-    @each $key, $value in $map-1 {
-        // Get inner map
-        $inner: inner-map($map-1, $key);
-
-        .#{$name-doc + $mod}light .#{$name}.#{$name + $mod + $key} {
-            @include generate-styles($inner);
-        }
-    }
-
-    // Dark colors
-    @each $key, $value in $map-2 {
-        // Get inner map
-        $inner: inner-map($map-2, $key);
-
-        .#{$name-doc + $mod}dark .#{$name}.#{$name + $mod + $key} {
-            @include generate-styles($inner);
-        }
-    }
+@mixin modifier-colors-after($map, $name, $reverse: false) {
+    @include generate-colors($map, $name, $reverse, "", "::after");
 }
 
 
 ///
 // @desc Generates colors for a modifier on hover
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors-hover($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name}:not(:disabled):hover,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}:not(:disabled):hover,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key}:not(:disabled):hover {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates colors for a modifier items on hover
-//
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
-///
-@mixin modifier-item-colors-hover($map, $name, $item: "*", $nested: false, $reverse: false) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
-
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name} #{$nested-sep + $item}:not(:disabled):hover,
-                .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name} #{$nested-sep + $item}:not(:disabled):hover,
-                .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key} #{$nested-sep + $item}:not(:disabled):hover {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates colors for a modifier for mouse active event
-//
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
-///
-@mixin modifier-colors-active($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name}:not(:disabled):active,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):active {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}:not(:disabled):active,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):active {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key}:not(:disabled):active {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-colors($map, $name, $reverse, "", ":not(:disabled):hover");
 }
 
 
 ///
 // @desc Generates colors for a modifier for mouse focus event
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors-focus($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+    @include generate-colors($map, $name, $reverse, "", ":not(:disabled):focus");
+}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name}:not(:disabled):focus,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):focus {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name}:not(:disabled):focus,
-                .#{$name}.#{$name + $mod + $key}:not(:disabled):focus {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name}.#{$name + $mod + $key}:not(:disabled):focus {
-                @include generate-styles($inner);
-            }
-        }
-    }
+///
+// @desc Generates colors for a modifier for mouse active event
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-active($map, $name, $reverse: false) {
+    @include generate-colors($map, $name, $reverse, "", ":not(:disabled):active");
 }
 
 
 ///
 // @desc Generates hoverable colors for a modifier
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors-hoverable($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name + $mod + $hoverable}:not(:disabled):hover,
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $mod + $hoverable}:not(:disabled):hover,
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable}:not(:disabled):hover {
-                    @include generate-styles($inner, false);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name + $mod + $key}.#{$name + $mod + $hoverable}:not(:disabled):hover {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-colors($map, $name, $reverse, $mod + $hoverable);
 }
 
 
 ///
-// @desc Generates hoverable colors for modifier items
+// @desc Generates hoverable colors for a modifier on hover
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin modifier-item-colors-hoverable($map, $name, $item: "*", $nested: false, $reverse: false) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
-
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled),
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled) {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled),
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled) {
-                    @include generate-styles($inner, false);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled) {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates hoverable colors for modifier items on hover
-//
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
-///
-@mixin modifier-item-colors-hoverable-hover($map, $name, $item: "*", $nested: false, $reverse: false) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
-
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled):hover,
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled):hover {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled):hover,
-                .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled):hover {
-                    @include generate-styles($inner, false);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name + $mod + $key}.#{$name + $mod + $hoverable} #{$nested-sep + $item}:not(:disabled):hover {
-                @include generate-styles($inner);
-            }
-        }
-    }
+@mixin modifier-colors-hovered($map, $name, $reverse: false) {
+    @include generate-colors($map, $name, $reverse, $mod + $hoverable, ":not(:disabled):hover");
 }
 
 
 ///
 // @desc Generates focusable colors for a modifier
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors-focusable($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+    @include generate-colors($map, $name, $reverse, $mod + $focusable);
+}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name + $mod + $focusable}:not(:disabled):focus,
-                .#{$name + $mod + $key}.#{$name + $mod + $focusable}:not(:disabled):focus {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $mod + $focusable}:not(:disabled):focus,
-                .#{$name + $mod + $key}.#{$name + $mod + $focusable}:not(:disabled):focus {
-                    @include generate-styles($inner, false);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name + $mod + $key}.#{$name + $mod + $focusable}:not(:disabled):focus {
-                @include generate-styles($inner);
-            }
-        }
-    }
+///
+// @desc Generates focusable colors for a modifier on focus
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-focused($map, $name, $reverse: false) {
+    @include generate-colors($map, $name, $reverse, $mod + $focusable, ":not(:disabled):focus");
 }
 
 
 ///
 // @desc Generates bordered colors for a modifier
 //
-// @param {map}    $map  -- The colors map
-// @param {string} $name -- The name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin modifier-colors-bordered($map, $name, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+    @include generate-colors($map, $name, $reverse, $mod + $name-bordered);
+}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name + $mod + $name-bordered},
-                .#{$name + $mod + $key}.#{$name + $mod + $name-bordered} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name + $mod + $name-bordered},
-                .#{$name + $mod + $key}.#{$name + $mod + $name-bordered} {
-                    @include generate-styles($inner, false);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name + $mod + $key}.#{$name + $mod + $name-bordered} {
-                @include generate-styles($inner);
-            }
-        }
-    }
+///
+// @desc Generates colors for a modifier items
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item);
+}
+
+
+///
+// @desc Generates colors for a modifier items ::before
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items-before($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item + "::before");
+}
+
+
+///
+// @desc Generates colors for a modifier items ::after
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items-after($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item + "::after");
+}
+
+
+///
+// @desc Generates colors for a modifier items on hover
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items-hover($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item + ":not(:disabled):hover");
+}
+
+
+///
+// @desc Generates hoverable colors for modifier items
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items-hoverable($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, $mod + $hoverable, " " + $nest + $item + ":not(:disabled)");
+}
+
+
+///
+// @desc Generates hoverable colors for modifier items on hover
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-colors-items-hovered($map, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-colors($map, $name, $reverse, $mod + $hoverable, " " + $nest + $item + ":not(:disabled):hover");
 }
 
 
 ///
 // @desc Generates light & dark color sets for a modifier
 //
-// @param {map}    $map-1  -- The light colors map
-// @param {map}    $map-2  -- The dark colors map
-// @param {string} $name   -- The name key
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin modifier-colors-bordered-doc($map-1, $map-2, $name, $reverse: false) {
-    // Sort color map
-    $map-1: sort-color-map($map-1, $reverse);
-    $map-2: sort-color-map($map-2, $reverse);
-
-    // Light colors
-    @each $key, $value in $map-1 {
-        // Get inner map
-        $inner: inner-map($map-1, $key);
-
-        .#{$name-doc + $mod}light .#{$name + $mod + $key}.#{$name + $mod + $name-bordered} {
-            @include generate-styles($inner, false);
-        }
-    }
-
-    // Dark colors
-    @each $key, $value in $map-2 {
-        // Get inner map
-        $inner: inner-map($map-2, $key);
-
-        .#{$name-doc + $mod}dark .#{$name + $mod + $key}.#{$name + $mod + $name-bordered} {
-            @include generate-styles($inner, false);
-        }
-    }
+@mixin modifier-themes($map-1, $map-2, $name, $reverse: false) {
+    @include generate-themes($map-1, $map-2, $name, $reverse);
 }
 
 
 ///
+// @desc Generates light & dark color sets for a modifier on hover
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-themes-hover($map-1, $map-2, $name, $reverse: false) {
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", ":not(:disabled):hover");
+}
+
+
+///
+// @desc Generates light & dark color sets for a modifier items
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-themes-items($map-1, $map-2, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", " " + $nest + $item);
+}
+
+
+///
+// @desc Generates light & dark color sets for a modifier items on hover
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-themes-items-hover($map-1, $map-2, $name, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", " " + $nest + $item + ":not(:disabled):hover");
+}
+
+
+///
+// @desc Generates light & dark color sets for a modifier
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name    -- The name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin modifier-themes-bordered($map-1, $map-2, $name, $reverse: false) {
+    @include generate-themes($map-1, $map-2, $name, $reverse, $mod + $name-bordered);
+}
+
+
+// ------------------- //
+//     Child Mixins    //
+// ------------------- //
+///
 // @desc The blueprint for child classes
 //
-// @param {map}    $map      -- The class map
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -1235,10 +1232,10 @@
 ///
 // @desc Generates css styles for a child class
 //
-// @param {map}    $map      -- The class map
-// @param {string} $name     -- The name key
-// @param {string} $property -- The optional property name
-// @param {string} $strict   -- The !important CSS value placeholder
+// @param {map}     $map      -- The class map
+// @param {string}  $name     -- The name key
+// @param {string}  $property -- The optional property name
+// @param {boolean} $strict   -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -1255,8 +1252,8 @@
 // @param {map}     $map        -- The class map
 // @param {string}  $name       -- The name key
 // @param {string}  $property   -- The optional property name
-// @param {boolean} $responsive -- The responsive value
-// @param {string}  $strict     -- The !important CSS value placeholder
+// @param {boolean} $responsive -- Is responsive?
+// @param {boolean} $strict     -- Has !important flag?
 // 
 // @NOTICE If you omit the property, you have to provide a nested map
 ///
@@ -1270,10 +1267,13 @@
 ///
 // @desc Generates css styles for a child 
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin child-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     // Generate styles
@@ -1284,14 +1284,36 @@
 
 
 ///
-// @desc Generates css styles for a child::after
+// @desc Generates css styles for a child ::before
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin child-after-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin child-styles-before($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $chi + $name-2}::before {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for a child ::after
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin child-styles-after($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     // Generate styles
     .#{$name-1 + $chi + $name-2}::after {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
@@ -1300,19 +1322,42 @@
 
 
 ///
-// @desc Generates css styles for a child 
+// @desc Generates css styles for a child ::before & ::after
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
-@mixin child-item-styles($map, $name-1, $name-2, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin child-styles-pseudo($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    // Generate styles
+    .#{$name-1 + $chi + $name-2}::before,
+    .#{$name-1 + $chi + $name-2}::after {
+        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
+    }
+}
+
+
+///
+// @desc Generates css styles for a child items
+//
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
+///
+@mixin child-styles-items($map, $name-1, $name-2, $item: "*", $nested: false, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
     // Generate styles
-    .#{$name-1 + $chi + $name-2} #{$nested-sep + $item} {
+    .#{$name-1 + $chi + $name-2} #{$nest + $item} {
         @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
     }
 }
@@ -1321,283 +1366,156 @@
 ///
 // @desc Generates colors for a child
 //
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
 @mixin child-colors($map, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+    $name: $name-1 + $chi + $name-2;
+    @include generate-colors($map, $name, $reverse);
+}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $chi + $name-2},
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2},
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
-                @include generate-styles($inner);
-            }
-        }
-    }
+///
+// @desc Generates colors for a child
+//
+// @param {map}     $map     -- The colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin child-colors-hover($map, $name-1, $name-2, $reverse: false) {
+    $name: $name-1 + $chi + $name-2;
+    @include generate-colors($map, $name, $reverse, "", ":not(:disabled):hover");
 }
 
 
 ///
 // @desc Generates colors for a child items
 //
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin child-item-colors($map, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
-    $nested-sep: "";
-    @if not $nested {$nested-sep: "> ";}
+@mixin child-colors-items($map, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+    $name: $name-1 + $chi + $name-2;
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $chi + $name-2} #{$nested-sep + $item},
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nested-sep + $item} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nested-sep + $item},
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2} #{$nested-sep + $item} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} #{$nested-sep + $item} {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item);
 }
 
 
 ///
-// @desc Generates colors for a child::after
+// @desc Generates colors for a child items on hover
 //
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map     -- The colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin child-after-colors($map, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+@mixin child-colors-items-hover($map, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
+    $name: $name-1 + $chi + $name-2;
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $chi + $name-2}::after,
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after,
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2}::after {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}::after {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-colors($map, $name, $reverse, "", " " + $nest + $item + ":not(:disabled):hover");
 }
 
 
 ///
 // @desc Generates light & dark color sets for a child
 //
-// @param {map}    $map-1  -- The light colors map
-// @param {map}    $map-2  -- The dark colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin child-colors-doc($map-1, $map-2, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map-1: sort-color-map($map-1, $reverse);
-    $map-2: sort-color-map($map-2, $reverse);
-
-    // Light colors
-    @each $key, $value in $map-1 {
-        // Get inner map
-        $inner: inner-map($map-1, $key);
-
-        .#{$name-doc + $mod}light .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
-            @include generate-styles($inner);
-        }
-    }
-
-    // Dark colors
-    @each $key, $value in $map-2 {
-        // Get inner map
-        $inner: inner-map($map-2, $key);
-
-        .#{$name-doc + $mod}dark .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2} {
-            @include generate-styles($inner);
-        }
-    }
-}
-
-
-///
-// @desc Generates colors for a child on hover
-//
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-///
-@mixin child-colors-hover($map, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $chi + $name-2}:hover,
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover,
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $chi + $name-2}:hover {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
-                @include generate-styles($inner);
-            }
-        }
-    }
+@mixin child-themes($map-1, $map-2, $name-1, $name-2, $reverse: false) {
+    $name: $name-1 + $chi + $name-2;
+    @include generate-themes($map-1, $map-2, $name, $reverse);
 }
 
 
 ///
 // @desc Generates light & dark color sets for a child on hover
 //
-// @param {map}    $map-1  -- The light colors map
-// @param {map}    $map-2  -- The dark colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin child-colors-hover-doc($map-1, $map-2, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map-1: sort-color-map($map-1, $reverse);
-    $map-2: sort-color-map($map-2, $reverse);
-
-    // Light colors
-    @each $key, $value in $map-1 {
-        // Get inner map
-        $inner: inner-map($map-1, $key);
-
-        .#{$name-doc + $mod}light .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
-            @include generate-styles($inner);
-        }
-    }
-
-    // Dark colors
-    @each $key, $value in $map-2 {
-        // Get inner map
-        $inner: inner-map($map-2, $key);
-
-        .#{$name-doc + $mod}dark .#{$name-1 + $mod + $key} .#{$name-1 + $chi + $name-2}:hover {
-            @include generate-styles($inner);
-        }
-    }
+@mixin child-themes-hover($map-1, $map-2, $name-1, $name-2, $reverse: false) {
+    $name: $name-1 + $chi + $name-2;
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", ":not(:disabled):hover");
 }
 
 
 ///
-// @desc Generates colors for a hoverable child
+// @desc Generates light & dark color sets for a child items
 //
-// @param {map}    $map    -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
 ///
-@mixin child-colors-hoverable($map, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
+@mixin child-themes-items($map-1, $map-2, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
 
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
+    $name: $name-1 + $chi + $name-2;
 
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2},
-                .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2},
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $hoverable} .#{$name-1 + $chi + $name-2} {
-                @include generate-styles($inner);
-            }
-        }
-    }
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", " " + $nest + $item);
 }
 
 
+///
+// @desc Generates light & dark color sets for a child items on hover
+//
+// @param {map}     $map-1   -- The light colors map
+// @param {map}     $map-2   -- The dark colors map
+// @param {string}  $name-1  -- 1st name key
+// @param {string}  $name-2  -- 2nd name key
+// @param {string}  $item    -- The item selector name
+// @param {boolean} $nested  -- Is item nested?
+// @param {boolean} $reverse -- Reverse default light & dark?
+///
+@mixin child-themes-items-hover($map-1, $map-2, $name-1, $name-2, $item: "*", $nested: false, $reverse: false) {
+    $nest: "";
+    @if not $nested {$nest: "> ";}
+
+    $name: $name-1 + $chi + $name-2;
+
+    @include generate-themes($map-1, $map-2, $name, $reverse, "", " " + $nest + $item + ":not(:disabled):hover");
+}
+
+
+// ------------------- //
+//    Sibling Mixins   //
+// ------------------- //
 ///
 // @desc Generates css styles for a sibling 
 //
-// @param {map}    $map    -- The styles map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
-// @param {string} $strict -- The !important CSS value placeholder
+// @param {map}     $map        -- The styles map
+// @param {string}  $name-1     -- 1st name key
+// @param {string}  $name-2     -- 2nd name key
+// @param {boolean} $strict     -- Has !important flag?
+// @param {boolean} $direction  -- Has LTR & RTL styles?
+// @param {map}     $ltr-styles -- LTR styles
+// @param {map}     $rtl-styles -- RTL styles
 ///
 @mixin sibling-styles($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
     // Generate styles
@@ -1610,53 +1528,13 @@
 ///
 // @desc Generates colors for a sibling
 //
-// @param {map} $map       -- The colors map
-// @param {string} $name-1 -- 1st name key
-// @param {string} $name-2 -- 2nd name key
+// @param {map} $map         -- The colors map
+// @param {string} $name-1   -- 1st name key
+// @param {string} $name-2   -- 2nd name key
+// @param {boolean} $reverse -- Reverse default light & dark?
+// @param {boolean} $short   -- Use shorthand naming?
 ///
-@mixin sibling-colors($map, $name-1, $name-2, $reverse: false) {
-    // Sort color map
-    $map: sort-color-map($map, $reverse);
-
-    @each $key, $value in $map {
-        // Get inner map
-        $inner: inner-map($map, $key);
-
-        // Document colors
-        @if $key == "light" or $key == "dark" {
-            @if check-doc-color($key, $reverse) {
-                .#{$name-1 + $sib + $name-2},
-                .#{$name-1 + $sib + $name-2}.#{$name-1 + $sib + $name-2 + $mod + $key} {
-                    @include generate-styles($inner);
-                }
-            }
-            @else {
-                .#{$name-doc + $mod + reverse-doc-color($key, $reverse)} .#{$name-1 + $sib + $name-2},
-                .#{$name-1 + $sib + $name-2}.#{$name-1 + $sib + $name-2 + $mod + $key} {
-                    @include generate-styles($inner);
-                }
-            }
-        }
-        // Other colors
-        @else{
-            .#{$name-1 + $sib + $name-2}.#{$name-1 + $sib + $name-2 + $mod + $key} {
-                @include generate-styles($inner);
-            }
-        }
-    }
-}
-
-
-///
-// @desc Generates css styles for a custom selector 
-//
-// @param {map}    $map      -- The styles map
-// @param {string} $selector -- The custom selector
-// @param {string} $strict   -- The !important CSS value placeholder
-///
-@mixin custom-styles($map, $selector, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
-    // Generate styles
-    #{$selector} {
-        @include generate-styles($map, $strict, $direction, $ltr-styles, $rtl-styles);
-    }
+@mixin sibling-colors($map, $name-1, $name-2, $reverse: false, $short: false) {
+    $name: $name-1 + $sib + $name-2;
+    @include generate-colors($map, $name, $reverse);
 }

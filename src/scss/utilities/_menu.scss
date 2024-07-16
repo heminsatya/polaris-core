@@ -1,40 +1,40 @@
 /* ---------- Menu ---------- */
 // -- Component -- //
 @include component-styles($menu-styles, $name-menu);
-@include component-item-styles($menu-li-styles, $name-menu, "li");
-@include component-item-styles($menu-ul-styles, $name-menu, "ul", true, false, true, $menu-ul-ltr, $menu-ul-rtl);
-@include component-item-styles($menu-ul-ul, $name-menu, "ul ul", true, false, true, $menu-ul-ul-ltr, $menu-ul-ul-rtl);
-@include component-item-styles($menu-nested-li-styles, $name-menu, "ul li", true);
-@include component-item-styles($menu-a-styles, $name-menu, "a", true);
-@include component-item-styles($menu-nested-a-styles, $name-menu, "ul a", true);
+@include component-styles-items($menu-li-styles, $name-menu, "li");
+@include component-styles-items($menu-ul-styles, $name-menu, "ul", true, false, true, $menu-ul-ltr, $menu-ul-rtl);
+@include component-styles-items($menu-ul-ul, $name-menu, "ul ul", true, false, true, $menu-ul-ul-ltr, $menu-ul-ul-rtl);
+@include component-styles-items($menu-nested-li-styles, $name-menu, "ul li", true);
+@include component-styles-items($menu-a-styles, $name-menu, "a", true);
+@include component-styles-items($menu-nested-a-styles, $name-menu, "ul a", true);
 @include menu-hover($menu-hover, $name-menu);
 
 
 // Modifiers //
 // Colors
 @include modifier-colors($menu-colors, $name-menu);
-@include modifier-item-colors($menu-a-colors, $name-menu, "li a", true);
-@include modifier-item-colors($menu-a-colors-hover, $name-menu, "li:hover > a", true);
-@include modifier-item-colors-hoverable($menu-a-colors-hoverable, $name-menu, "li:hover > a", true);
-@include modifier-item-colors-hoverable($menu-nested-a-colors, $name-menu, "ul li a", true);
-@include modifier-item-colors-hoverable($menu-nested-a-colors-hover, $name-menu, "ul li:hover > a", true);
-@include modifier-item-colors($menu-ul-colors, $name-menu, "ul", true);
+@include modifier-colors-items($menu-a-colors, $name-menu, "li a", true);
+@include modifier-colors-items($menu-a-colors-hover, $name-menu, "li:hover > a", true);
+@include modifier-colors-items-hoverable($menu-a-colors-hoverable, $name-menu, "li:hover > a", true);
+@include modifier-colors-items-hoverable($menu-nested-a-colors, $name-menu, "ul li a", true);
+@include modifier-colors-items-hoverable($menu-nested-a-colors-hover, $name-menu, "ul li:hover > a", true);
+@include modifier-colors-items($menu-ul-colors, $name-menu, "ul", true);
 
 // Mega menu
-@include modifier-item-styles($menu-mega-li, $name-menu, $name-menu-mega, "li");
-@include modifier-item-styles($menu-mega-a, $name-menu, $name-menu-mega, "a", true);
-@include modifier-item-styles($menu-mega-ul, $name-menu, $name-menu-mega, "ul", true);
-@include modifier-item-styles($menu-mega-ul-ul, $name-menu, $name-menu-mega, "ul ul", true);
+@include modifier-styles-items($menu-mega-li, $name-menu, $name-menu-mega, "li");
+@include modifier-styles-items($menu-mega-a, $name-menu, $name-menu-mega, "a", true);
+@include modifier-styles-items($menu-mega-ul, $name-menu, $name-menu-mega, "ul", true);
+@include modifier-styles-items($menu-mega-ul-ul, $name-menu, $name-menu-mega, "ul ul", true);
 
 // Alignment
 @include modifiers-styles($menu-alignment, $name-menu);
-@include modifiers-item-styles($menu-alignment-ul, $name-menu, "ul", true);
-@include modifiers-item-styles($menu-alignment-li, $name-menu, "li");
+@include modifiers-styles-items($menu-alignment-ul, $name-menu, "ul", true);
+@include modifiers-styles-items($menu-alignment-li, $name-menu, "li");
 
 
 // Children //
 // Active colors
-@include child-colors($menu-active-colors, $name-menu, $name-active);
+@include modifier-colors-items($menu-active-colors, $name-menu, "." + $name-menu + $chi + $name-active, true);
 
 // Position
 @include child-class($menu-position, $name-menu, null, true);

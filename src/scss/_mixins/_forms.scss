@@ -321,7 +321,7 @@
 // @param {string} $name   -- The name key
 // @param {string} $strict -- The !important CSS value placeholder
 ///
-@mixin switch-size-slim($map, $name-1, $name-2, $strict: false, $direction: false, $ltr-styles: $ltr-styles, $rtl-styles: $rtl-styles) {
+@mixin switch-size-slim($map, $name-1, $name-2) {
     // Switch default
     @each $key, $value in $map {
         // Get inner map
@@ -330,7 +330,7 @@
         @if $key == 'sm' {
             // Generate styles
             .#{$name-1}.#{$name-1 + $mod + $name-2} {
-                @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+                @include generate-styles($inner);
             }
         }
     }
@@ -342,7 +342,8 @@
 
         // Generate styles
         .#{$name-1 + $mod + $key}.#{$name-1 + $mod + $name-2} {
-            @include generate-styles($inner, $strict, $direction, $ltr-styles, $rtl-styles);
+            @include generate-styles($inner);
         }
     }
 }
+

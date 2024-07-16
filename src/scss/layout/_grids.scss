@@ -11,7 +11,7 @@
  */
 // -- Component -- //
 @include component-styles($col-styles, $name-col);
-@include component-item-styles($col-e-styles, $name-col, "*");
+@include component-styles-items($col-e-styles, $name-col, "*");
 
 
 // -- Modifiers -- //

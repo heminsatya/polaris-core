@@ -35,5 +35,5 @@
 
 // Closable
 @include child-styles($alert-close-child, $name-alert, $name-closable, false, true, $alert-close-child-ltr, $alert-close-child-rtl);
-@include child-colors($alert-close-colors, $name-alert, $name-closable, true);
-@include child-colors-hover($alert-close-colors-hover, $name-alert, $name-closable, true);
+@include modifier-colors-items($alert-close-colors, $name-alert, "." + $name-alert + $chi + $name-closable, true, true);
+@include modifier-colors-items-hover($alert-close-colors-hover, $name-alert, "." + $name-alert + $chi + $name-closable, true, true);

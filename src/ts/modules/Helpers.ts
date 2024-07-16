@@ -66,6 +66,27 @@ export class Helpers extends Config {
         // Return the result
         return result;
     }
+
+
+    /**
+     * @desc Returns the equivalent HTMLElement of a selector
+     * 
+     * @param {string | HTMLElement} selector -- The selector name (object)
+     * 
+     * @return {HTMLElement}
+     */
+    public query(selector: any = null): any {
+        // Check the selector
+        if (this.exist(selector)['status']) {
+            if (typeof(selector) === "string") {
+                return document.querySelector(selector);
+            } else if (typeof(selector) === "object") {
+                return selector;
+            }
+        } else {
+            throw this.exist(selector)['message'];
+        }
+    }
     
 
     /**
@@ -166,7 +187,7 @@ export class Helpers extends Config {
      * 
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -221,7 +242,8 @@ export class Helpers extends Config {
         }
 
         // Prepend the node
-        node.innerHTML = content;
+        try { node.innerHTML = content; }
+        catch (error) { node.value = content; }
         parentNode.insertBefore(node, parentNode.firstChild);
 
         // Return the node
@@ -234,7 +256,7 @@ export class Helpers extends Config {
      * 
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -289,7 +311,8 @@ export class Helpers extends Config {
         }
         
         // Append the node
-        node.innerHTML = content;
+        try { node.innerHTML = content; }
+        catch (error) { node.value = content; }
         parentNode.appendChild(node);
 
         // Return the node
@@ -344,24 +367,41 @@ export class Helpers extends Config {
      * @desc Loops a function for a couple of times
      * 
      * @param {function} fn    -- The function that needed to be looped
-     * @param {number}   delay -- The time delay for each iteration
+     * @param {number}   speed -- The time speed for each iteration
+     * @param {number}   delay -- The time delay for loop
      * @param {number}   count -- The loop count
+     * @param {function} cf    -- The callback function for the last loop
      * 
      * @return {void}
      */
-    public loop(fn: any, delay: number = 1000, count: number = Infinity): void {
-        let i: number = 0;
-        let interval = setInterval(() => {
-            // Exit the loop
-            if (i == count || count <= 0) {
-                clearInterval(interval);
-                return false;
-            }
-
-            // Invoke the function
+    public loop(fn: any, speed: number = 1000, delay: number = 0, count: number = Infinity, cf: Function = () => {}): void {
+        setTimeout(() => {
+            // Function initial invoke
             fn();
 
-            i++;
+            // Start looping
+            let i: number = 0;
+            let interval = setInterval(() => {
+                // Last loop
+                if (i == count || count <= 0) {
+                    // Terminate the loop
+                    return false;
+                }
+
+                // One before the last loop
+                if (i == count-1) {
+                    // Invoke callback
+                    cf();
+
+                    // Clear the interval
+                    clearInterval(interval);
+                }
+
+                // Invoke the function
+                fn();
+
+                i++;
+            }, speed);
         }, delay);
     }
 
@@ -463,6 +503,16 @@ export class Helpers extends Config {
      */
     public href(): string {
         return this.replace(window.location.href, window.location.origin, "");
+    }
+
+
+    /**
+     * @desc Finds URL hash
+     * 
+     * @return {string}
+     */
+    public hash(): string {
+        return window.location.hash;
     }
 
 

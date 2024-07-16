@@ -1,11 +1,11 @@
 /**
  * Import the parent Class
  */
-import { Blueprints } from "./Blueprints";
+import { Defaults } from "./Defaults";
 /**
  * @desc Used for method chaining & initializing defaults & loading Blueprints
  */
-export declare class Core extends Blueprints {
+export declare class Core extends Defaults {
     /**
      * Properties
      */

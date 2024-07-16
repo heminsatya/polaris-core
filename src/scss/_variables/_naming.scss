@@ -4,6 +4,7 @@
 $name-bordered: "border" !default;
 $name-grouped:  "group" !default;
 $name-collapse: "collapse" !default;
+$name-inner:    "inner" !default;
 $name-closable: "close" !default;
 $name-icon:     "icon" !default;
 $name-content:  "content" !default;
@@ -290,6 +291,25 @@ $name-switch: "switch" !default;                    // Name key for switch
 $name-switch-slider: "slider" !default;             // 2nd name key for switch--slider
 $name-switch-slim: "slim" !default;                 // 2nd name key for switch-slim
 
+// Range //
+$name-range:          "range" !default;             // Name key for range
+$name-range-slim:     "slim" !default;              // 2nd name key for range-slim
+$name-range-vertical: "vertical" !default;          // 2nd name key for range__vertical
+
+// Chips //
+$name-chip:       "chip" !default;                  // Name key for chip
+$name-chip-items: "items" !default;                 // 2nd name key for chip--items
+$name-chip-item:  "item" !default;                  // 2nd name key for chip--item
+$name-chip-text:  "text" !default;                  // 2nd name key for chip--text
+$name-chip-close: "close" !default;                 // 2nd name key for chip--close
+$name-chip-input: "input" !default;                 // 2nd name key for chip--input
+
+// Autocomplete //
+$name-auto:        "auto" !default;                 // Name key for auto
+$name-auto-input:  "input" !default;                // 2nd name key for auto--input
+$name-auto-output: "output" !default;               // 2nd name key for auto--output
+$name-auto-open:   "open" !default;                 // 2nd name key for auto--open
+
 
 // -- Utilities -- //
 // Badges //
@@ -321,6 +341,12 @@ $name-pagination: "page" !default;                  // Name key for progress
 $name-trail: "trail" !default;                      // Name key for progress
 
 
+// -- Timeline -- //
+$name-timeline:         "timeline" !default;        // Name key for timeline
+$name-timeline-item:    "item" !default;            // 2nd name key for timeline--item
+$name-timeline-content: "content" !default;         // 2nd name key for timeline--content
+
+
 // -- Tooltip -- //
 $name-tooltip: "tooltip" !default;                  // Name key for tooltip
 
@@ -340,9 +366,34 @@ $name-modal: "modal" !default;                      // Name key for modal
 
 
 // -- Draggable -- //
-$name-draggable: "draggable" !default;              // Name key for draggable
-$name-dragging:  "dragging" !default;               // 2nd name key for draggable-dragging
-$name-swapping:  "swapping" !default;               // 2nd name key for draggable-swapping
-$name-drag-auto: "auto" !default;                   // 2nd name key for draggable__auto
-$name-drag-x:    "x" !default;                      // 2nd name key for draggable__x
-$name-drag-y:    "y" !default;                      // 2nd name key for draggable__y
+$name-drag:      "drag" !default;                   // Name key for drag
+$name-drag-item: "item" !default;                   // 2nd name key for drag--item
+$name-dragging:  "dragging" !default;               // 2nd name key for drag--dragging
+$name-swapping:  "swapping" !default;               // 2nd name key for drag--swapping
+$name-drag-auto: "auto" !default;                   // 2nd name key for drag-auto
+$name-drag-x:    "x" !default;                      // 2nd name key for drag-x
+$name-drag-y:    "y" !default;                      // 2nd name key for drag-y
+
+
+// -- Tab -- //
+$name-tab:          "tab" !default;                 // Name key for tab
+$name-tab-vertical: "vertical" !default;            // 2nd name key for tab-vertical
+$name-tab-links:    "links" !default;               // 2nd name key for tab--links
+$name-tab-link:     "link" !default;                // 2nd name key for tab--link
+$name-tab-contents: "contents" !default;            // 2nd name key for tab--contents
+$name-tab-content:  "content" !default;             // 2nd name key for tab--content
+
+
+// -- Accordion -- //
+$name-accord:         "accord" !default;            // Name key for accord
+$name-accord-arrow:   "arrow" !default;             // 2nd name key for accord-arrow
+$name-accord-unique:  "unique" !default;            // 2nd name key for accord-unique
+$name-accord-item:    "item" !default;              // 2nd name key for accord--item
+$name-accord-link:    "link" !default;              // 2nd name key for accord--link
+$name-accord-content: "content" !default;           // 2nd name key for accord--content
+
+
+// -- Counters -- //
+$name-counter:          "counter" !default;         // Name key for counter
+$name-counter-auto:     "auto" !default;            // 2nd name key for counter-auto
+$name-counter-counting: "counting" !default;        // 2nd name key for counter-counting

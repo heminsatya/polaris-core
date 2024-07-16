@@ -390,3 +390,420 @@ $switch-input-sizes: (
         height: 2rem
     )
 ) !default;
+
+
+// -- Range -- //
+// Parent //
+// range__control
+$range-control: (
+    position:      relative,
+    overflow:      visible,
+    margin-bottom: 1rem
+) !default;
+
+$range-control-pseudo: (
+    transition: none,
+    opacity:    1,
+    visibility: visible,
+) !default;
+
+$range-control-pseudo-ltr: (
+    left: var(--range-progress)
+) !default;
+
+$range-control-pseudo-rtl: (
+    right: var(--range-progress)
+) !default;
+
+// range__vertical
+$range-vertical: (
+    position: relative,
+    overflow: visible,
+) !default;
+
+$range-vertical-ltr: (
+    transform: rotate(-90deg)
+) !default;
+
+$range-vertical-rtl: (
+    transform: rotate(90deg)
+) !default;
+
+$range-vertical-span: (
+    display:    inline-block,
+    text-align: center,
+    direction:  ltr,
+) !default;
+
+$range-vertical-span-ltr: (
+    transform:  rotate(90deg),
+) !default;
+
+$range-vertical-span-rtl: (
+    transform:  rotate(-90deg),
+) !default;
+
+
+// Component //
+// Styles
+$range-styles: (
+    display:          inline-block,
+    vertical-align:   middle,
+    position:         relative,
+    border-radius:    1rem,
+    overflow:         visible,
+    width:            100%,
+    height:           1.5rem,
+    appearance:       none,
+    cursor:           pointer,
+    border:           none,
+    outline:          none,
+    padding:          0,
+    margin:           0,
+    --range-bg:       transparent,
+    --range-progress: 0,
+) !default;
+
+$range-styles-ltr: (
+    background: linear-gradient(to right, var(--range-bg) var(--range-progress, 0%), transparent var(--range-progress, 0%)),
+) !default;
+
+$range-styles-rtl: (
+    background: linear-gradient(to left, var(--range-bg) var(--range-progress, 0%), transparent var(--range-progress, 0%)),
+) !default;
+
+$range-thumb-styles: (
+    appearance:    none,
+    height:        1.5rem,
+    width:         1.5rem,
+    border-radius: 50%,
+    border:        none,
+    outline:       none,
+) !default;
+
+
+// Modifiers //
+// Sizes //
+$range-sizes: (
+    'xs': (
+        height: 1rem,
+    ),
+    'sm': (
+        height: 1.25rem,
+    ),
+    'md': (
+        height: 1.5rem,
+    ),
+    'lg': (
+        height: 1.75rem,
+    ),
+    'xl': (
+        height: 2rem,
+    )
+) !default;
+
+$range-sizes-slim: (
+    'xs': (
+        height: 0.5rem,
+        margin: 0.25rem 0,
+    ),
+    'sm': (
+        height: 0.625rem,
+        margin: 0.3125rem 0,
+    ),
+    'md': (
+        height: 0.75rem,
+        margin: 0.375rem 0,
+    ),
+    'lg': (
+        height: 0.875rem,
+        margin: 0.4375rem 0,
+    ),
+    'xl': (
+        height: 1rem,
+        margin: 0.5rem 0,
+    )
+) !default;
+
+$range-thumb-sizes: (
+    'xs': (
+        height: 1rem,
+        width:  1rem
+    ),
+    'sm': (
+        height: 1.25rem,
+        width:  1.25rem
+    ),
+    'md': (
+        height: 1.5rem,
+        width:  1.5rem
+    ),
+    'lg': (
+        height: 1.75rem,
+        width:  1.75rem
+    ),
+    'xl': (
+        height: 2rem,
+        width:  2rem
+    )
+) !default;
+
+// Colors
+$range-colors: (
+    "light": (
+        background-color: color(gray-150),
+        --range-bg:       color(app-200),
+    ),
+
+    "dark": (
+        background-color: color(gray-750),
+        --range-bg:       color(app-750),
+    )
+) !default;
+
+$range-thumb-colors: (
+    "light": (
+        background-color: color(app-500)
+    ),
+
+    "dark": (
+        background-color: color(app-400)
+    )
+) !default;
+
+// Disabled
+$range-disabled: (
+    opacity: 0.5
+) !default;
+
+
+// -- Chips -- //
+// Component //
+// chip
+$chip-styles: (
+    font-weight:   400,
+    font-size:     font-size(xl),
+    line-height:   1.5,
+    display:       flex,
+    flex-flow:     wrap,
+    width:         100%,
+    height:        auto,
+    padding:       0.25rem,
+    margin-bottom: 1rem,
+    border-radius: border-radius(sm),
+    box-sizing:    border-box,
+    transition:    #{"border-color " + transition(xs) + ", box-shadow " + transition(xs)},
+    border-style:  solid,
+    border-width:  1px,
+) !default;
+
+// Colors
+$chip-colors: (
+    "light": (
+        background-color: white,
+        border-color:     color(gray-250),
+    ),
+
+    "dark": (
+        background-color: color('dark'),
+        border-color:     color(gray-650),
+    )
+) !default;
+
+$chip-colors-focus: (
+    "light": (
+        border-color: color(gray-400)
+    ),
+
+    "dark": (
+        border-color:     color(gray-500)
+    )
+) !default;
+
+
+// Children //
+// chip--items
+$chip-items: (
+    display:   inline-flex,
+    flex-flow: wrap,
+    width:     auto,
+    height:    auto,
+) !default;
+
+// chip--item
+$chip-item: (
+    display:       inline-flex,
+    position:      relative,
+    overflow:      hidden,
+    height:        auto, 
+    width:         auto,
+    padding:       padding(xs) padding(sm),
+    border-radius: border-radius(sm),
+    margin:        0.25rem,
+) !default;
+
+$chip-item-colors: (
+    "light": (
+        background-color: color('light'),
+        color:            color('dark'),
+    ),
+
+    "dark": (
+        background-color: colora('white', 0.1),
+        color:            color('light'),
+    )
+) !default;
+
+// chip--text
+$chip-text: (
+    display: inline-block,
+) !default;
+
+$chip-text-ltr: (
+    padding-right: 1rem,
+) !default;
+
+$chip-text-rtl: (
+    padding-left: 1rem,
+) !default;
+
+// chip--close
+$chip-close: (
+    font-size:     75%,
+    cursor:        pointer,
+    display:       inline-block,
+    padding:       0.25rem,
+    border-radius: border-radius(sm),
+    transition:    #{"background-color " + transition(xs)},
+    position:      absolute,
+    top:           0,
+) !default;
+
+$chip-close-ltr: (
+    right: 0,
+) !default;
+
+$chip-close-rtl: (
+    left: 0,
+) !default;
+
+$chip-close-colors-hover: (
+    "light": (
+        background-color: colora('black', 0.05),
+    ),
+
+    "dark": (
+        background-color: colora('white', 0.1),
+    )
+) !default;
+
+// chip--input
+$chip-input: (
+    display:     inline-flex,
+    flex:        auto,
+    width:       auto,
+    min-width:   200px,
+    height:      2rem,
+    line-height: 2rem,
+    padding:     0 padding(sm),
+    margin:      0.25rem,
+    border:      none,
+    outline:     none,
+    box-shadow:  none,
+    background:  'transparent !important',
+) !default;
+
+$chip-input-colors: (
+    "light": (
+        color: rgba(0, 0, 0, 0.9),
+    ),
+
+    "dark": (
+        color: rgba(255, 255, 255, 0.9)
+    )
+) !default;
+
+
+// -- Autocomplete -- //
+// Component //
+// auto
+$auto-styles: (
+    display:       block,
+    position:      relative,
+    overflow:      visible,
+    width:         100%,
+    height:        auto,
+    margin-bottom: 1rem,
+) !default;
+
+// Children //
+// auto--input
+$auto-input: (
+    margin-bottom: 0,
+) !default;
+
+// auto--output
+$auto-output: (
+    list-style:    none,
+    margin:        0,
+    padding:       0,
+    width:         100%,
+    height:        auto,
+    position:      absolute,
+    z-index:       1,
+    opacity:       0,
+    visibility:    hidden,
+    border-radius: border-radius(sm),
+) !default;
+
+$auto-output-ltr: (
+    text-align: left,
+    direction:  ltr,
+) !default;
+
+$auto-output-rtl: (
+    text-align: right,
+    direction:  rtl,
+) !default;
+
+// auto--open
+$auto-open: (
+    opacity:    1,
+    visibility: visible,
+) !default;
+
+
+// Colors
+$auto-output-colors: (
+    "light": (
+        background-color: color('white'),
+        color:            color(dark),
+        box-shadow:       box-shadow(md),
+    ),
+
+    "dark": (
+        background-color: color('black'),
+        color:            color(light),
+        box-shadow:       m-box-shadow(md),
+    )
+) !default;
+
+// items
+$auto-output-items: (
+    display:    list-item,
+    width:      100%,
+    padding:    0.5rem 1rem,
+    margin:     0,
+    cursor:     pointer,
+    transition: all transition(xs),
+) !default;
+
+$auto-output-items-colors: (
+    "light": (
+        background-color: colora('black', 0.05),
+    ),
+
+    "dark": (
+        background-color: colora('white', 0.1),
+    )
+) !default;

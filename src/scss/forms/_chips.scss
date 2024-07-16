@@ -1,0 +1,25 @@
+/* ---------- Chips ---------- */
+// -- Component -- //
+// chip
+@include component-styles($chip-styles, $name-chip);
+@include modifier-colors($chip-colors, $name-chip);
+@include generate-colors($chip-colors-focus, $name-chip, false, "", ":focus-within");
+
+// -- Children -- //
+// chip--items
+@include child-styles($chip-items, $name-chip, $name-chip-items);
+
+// chip--item
+@include child-styles($chip-item, $name-chip, $name-chip-item);
+@include modifier-colors-items($chip-item-colors, $name-chip, "." + $name-chip + $chi + $name-chip-item, true);
+
+// chip--text
+@include child-styles($chip-text, $name-chip, $name-chip-text, false, true, $chip-text-ltr, $chip-text-rtl);
+
+// chip--close
+@include child-styles($chip-close, $name-chip, $name-chip-close, false, true, $chip-close-ltr, $chip-close-rtl);
+@include modifier-colors-items-hover($chip-close-colors-hover, $name-chip, "." + $name-chip + $chi + $name-chip-close, true);
+
+// chip--input
+@include child-styles($chip-input, $name-chip, $name-chip-input);
+@include modifier-colors-items($chip-input-colors, $name-chip, "." + $name-chip + $chi + $name-chip-input, true);

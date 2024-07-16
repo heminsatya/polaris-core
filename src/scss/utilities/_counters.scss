@@ -1,1 +1,9 @@
 /* ---------- Counters ---------- */
+// -- Component -- //
+@include component-styles($counter-styles, $name-counter);
+
+
+// -- Modifiers -- //
+// Sizes
+@include modifiers-styles($counter-sizes, $name-counter);
+

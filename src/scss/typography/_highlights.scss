@@ -20,4 +20,4 @@
 
 // -- Modifiers -- //
 // Colors
-@include modifier-colors-doc($mark-colors-light, $mark-colors-dark, $name-mark);
+@include modifier-themes($mark-colors-light, $mark-colors-dark, $name-mark);

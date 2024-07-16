@@ -1,13 +1,13 @@
 /**
  * Import the parent Class
  */ 
-import {Draggable} from "./Draggable";
+import {Blueprints} from "./Blueprints";
 
 
 /**
  * @desc Used for handling components default behaviors
  */ 
-export class Defaults extends Draggable {
+export class Defaults extends Blueprints {
 
     /**
      * @desc Constructor method
@@ -77,7 +77,7 @@ export class Defaults extends Draggable {
                     elem.setAttribute('href', 'javascript:void(0)');
                 }
 
-                // Prevent default behavior
+                // Alternatively prevent default behavior
                 // elem.onclick = () => {
                 //     return false;
                 // };
@@ -141,6 +141,51 @@ export class Defaults extends Draggable {
             });
         }
     }
+
+
+    /**
+     * @desc Handles range sliders automatically
+     * 
+     * @return {void}
+     */
+    public rangeDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameRange}`).length) {
+            document.querySelectorAll(`.${this.nameRange}`).forEach((elem: any) => {
+                // Handle range on load & input
+                this.range(elem);
+            });
+        }
+    }
+
+
+    /**
+     * @desc Handles chips automatically
+     * 
+     * @return {void}
+     */
+    public chipDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameChip}`).length) {
+            document.querySelectorAll(`.${this.nameChip}`).forEach((elem: any) => {
+                // Handle chips on load & enter & remove
+                this.chip(elem);
+            });
+        }
+    }
+
+
+    /**
+     * @desc Handles autocomplete automatically
+     * 
+     * @return {void}
+     */
+    public autoDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameAuto}`).length) {
+            document.querySelectorAll(`.${this.nameAuto}`).forEach((elem: any) => {
+                // Handle autocomplete on load & input
+                this.auto(elem);
+            });
+        }
+    }
     
 
     /**
@@ -151,13 +196,7 @@ export class Defaults extends Draggable {
     public messageDefaults(): void {
         if (document.querySelectorAll(`.${this.nameMessages + this.chiSep + this.nameClose}`).length) {
             document.querySelectorAll(`.${this.nameMessages + this.chiSep + this.nameClose}`).forEach((elem: any) => {
-                elem.onclick = () => {
-                    let parent = elem.parentElement.parentElement;
-
-                    this.animation(parent, this.hideYAnimation).then(() => {
-                        parent.remove();
-                    });
-                };
+                this.message(elem);
             });
         }
     }
@@ -171,36 +210,7 @@ export class Defaults extends Draggable {
     public popupDefaults(): void {
         if (document.querySelectorAll(`.${this.namePopup + this.parSep + this.nameControl}`).length) {
             document.querySelectorAll(`.${this.namePopup + this.parSep + this.nameControl}`).forEach((elem: any) => {
-                // Check clickable
-                if (elem.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`)) {
-                    elem.onclick = (i:any) => {
-                        // Popup component
-                        let popup = elem.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`);
-    
-                        // Ignore the click for component and its children(:not(.popup--close))
-                        let ignoreClick = false
-                        elem.querySelectorAll(`.${this.namePopup} *:not(.${this.namePopup + this.chiSep + this.nameClose})`).forEach((j: any) => {
-                            if (i.target == j) {
-                                ignoreClick = true;
-                            }
-                        });
-    
-                        // Check ignore click
-                        if (ignoreClick || i.target == popup) return;
-    
-                        // Remove open class (hide popup)
-                        if (elem.querySelector(`.${this.namePopup + this.modSep + this.nameOpen}`)) {
-                            popup.classList.remove(`${this.namePopup + this.modSep + this.nameOpen}`);
-                        }
-                        // Add open class (show popup)
-                        else {
-                            popup.classList.add(`${this.namePopup + this.modSep + this.nameOpen}`);
-                        }
-
-                        // Prevent default behavior
-                        return false;
-                    };
-                }
+                this.popups(elem);
             });
         }
     }
@@ -326,11 +336,85 @@ export class Defaults extends Draggable {
      * 
      * @return {void}
      */
-    public draggableDefaults(): void {
-        if (document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).length) {
-            document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).forEach((elem: any) => {
+    public dragDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameDrag + this.modSep + this.nameDragAuto}`).length) {
+            document.querySelectorAll(`.${this.nameDrag + this.modSep + this.nameDragAuto}`).forEach((elem: any) => {
                 // Set CSS properties and variables
-                this.draggable(elem);
+                this.drag(elem);
+            });
+        }
+    }
+    
+
+    /**
+     * @desc Handles tabs automatically
+     * 
+     * @return {void}
+     */
+    public tabDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameTab + this.modSep + this.nameTabAuto}`).length) {
+            document.querySelectorAll(`.${this.nameTab + this.modSep + this.nameTabAuto}`).forEach((elem: any) => {
+                // Fetch elements
+                let active = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameActive}`);
+                let open   = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameOpen}`);
+                let dataTab;
+                let hash;
+
+                // Handle open content
+                if (active && !open) {
+                    dataTab = active.dataset.tab;
+                    open 	= elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabContent}[data-tab="${dataTab}"]`);
+
+                    if (open) open.classList.add(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                }
+
+                // Handle URL hash
+                hash = this.hash();
+                if (hash) {
+                    hash = this.replace(hash, "#", "");
+                    if (hash) {
+                        if (active && active.dataset.tab !== hash) active.classList.remove(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        active = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabLink}[data-tab="${hash}"]`);
+                        if (active) active.classList.add(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        
+                        if (open && open.dataset.tab !== hash) open.classList.remove(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                        open = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabContent}[data-tab="${hash}"]`);
+                        if(open) open.classList.add(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                    }
+                }
+
+                // Handle tab links click
+                this.tab(elem);
+            });
+        }
+    }
+
+
+    /**
+     * @desc Handles accordions automatically
+     * 
+     * @return {void}
+     */
+    public accordDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameAccord}`).length) {
+            document.querySelectorAll(`.${this.nameAccord}`).forEach((elem: any) => {
+                // Handle accordion links click
+                this.accord(elem);
+            });
+        }
+    }
+
+
+    /**
+     * @desc Handles counters automatically
+     * 
+     * @return {void}
+     */
+    public counterDefaults(): void {
+        if (document.querySelectorAll(`.${this.nameCounter + this.modSep + this.nameCounterAuto}`).length) {
+            document.querySelectorAll(`.${this.nameCounter + this.modSep + this.nameCounterAuto}`).forEach((elem: any) => {
+                // Handle counter on load
+                this.counter(elem);
             });
         }
     }

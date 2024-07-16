@@ -1,0 +1,18 @@
+/* ---------- Autocomplete ---------- */
+// -- Component -- //
+// auto
+@include component-styles($auto-styles, $name-auto);
+
+
+// -- Children -- //
+// auto--input
+@include child-styles($auto-input, $name-auto, $name-auto-input);
+
+// auto--output
+@include child-styles($auto-output, $name-auto, $name-auto-output, false, true, $auto-output-ltr, $auto-output-rtl);
+@include modifier-colors-items($auto-output-colors, $name-auto, "." + $name-auto + $chi + $name-auto-output, true);
+@include child-styles-items($auto-output-items, $name-auto, $name-auto-output, "li", true);
+@include child-colors-items-hover($auto-output-items-colors, $name-auto, $name-auto-output, "li", true);
+
+// auto--open
+@include child-styles($auto-open, $name-auto, $name-auto-open);

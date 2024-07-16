@@ -19,6 +19,14 @@ export declare class Helpers extends Config {
      */
     exist(selector?: any): any;
     /**
+     * @desc Returns the equivalent HTMLElement of a selector
+     *
+     * @param {string | HTMLElement} selector -- The selector name (object)
+     *
+     * @return {HTMLElement}
+     */
+    query(selector?: any): any;
+    /**
      * @desc Produces the querySelector object
      *
      * @param {string} selector -- The selector name
@@ -49,7 +57,7 @@ export declare class Helpers extends Config {
      *
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -63,7 +71,7 @@ export declare class Helpers extends Config {
      *
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -92,12 +100,14 @@ export declare class Helpers extends Config {
      * @desc Loops a function for a couple of times
      *
      * @param {function} fn    -- The function that needed to be looped
-     * @param {number}   delay -- The time delay for each iteration
+     * @param {number}   speed -- The time speed for each iteration
+     * @param {number}   delay -- The time delay for loop
      * @param {number}   count -- The loop count
+     * @param {function} cf    -- The callback function for the last loop
      *
      * @return {void}
      */
-    loop(fn: any, delay?: number, count?: number): void;
+    loop(fn: any, speed?: number, delay?: number, count?: number, cf?: Function): void;
     /**
      * @desc Excecutes a function after document fully loaded
      *
@@ -158,6 +168,12 @@ export declare class Helpers extends Config {
      * @return {string}
      */
     href(): string;
+    /**
+     * @desc Finds URL hash
+     *
+     * @return {string}
+     */
+    hash(): string;
     /**
      * @desc Calculates the scrollbar width
      *

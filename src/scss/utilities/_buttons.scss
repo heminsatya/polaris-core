@@ -23,8 +23,8 @@
 @include modifier-colors-active($btn-colors-click, $name-btn);
 
 // Focusable colors 
-@include modifier-colors-focusable($btn-colors-focus, $name-btn);
+@include modifier-colors-focused($btn-colors-focus, $name-btn);
 
 // Bordered colors
 @include modifier-colors-bordered($btn-colors-border, $name-btn);
-@include modifier-colors-bordered-doc($btn-colors-border-light, $btn-colors-border-dark, $name-btn);
+@include modifier-themes-bordered($btn-colors-border-light, $btn-colors-border-dark, $name-btn);

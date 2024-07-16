@@ -1,1 +1,59 @@
 /* ---------- Timeline ---------- */
+// -- Component -- //
+@include component-styles($timeline-styles, $name-timeline);
+@include component-styles-after($timeline-after, $name-timeline, false, true, $timeline-after-ltr, $timeline-after-rtl);
+@include responsive-timeline-after($timeline-after-responsive, "." + $name-timeline, $timeline-breakpoint);
+
+
+// -- Children -- //
+// timeline--item
+@include child-styles($timeline-item, $name-timeline, $name-timeline-item);
+@include responsive-timeline-item($timeline-item-odd, $timeline-item-even, "." + $name-timeline + $chi + $name-timeline-item, $timeline-breakpoint);
+
+// timeline--content
+@include child-styles($timeline-content, $name-timeline, $name-timeline-content);
+.#{$name-timeline} .#{$name-timeline + $chi + $name-timeline-item}:last-child .#{$name-timeline + $chi + $name-timeline-content} {
+    margin-bottom: 0;
+}
+@include responsive-timeline-content($timeline-content-responsive, "." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+
+@include child-styles-before($timeline-content-before, $name-timeline, $name-timeline-content, false, true, $timeline-content-before-ltr, $timeline-content-before-rtl);
+@if $ltr {
+    @include responsive-timeline-content-before($timeline-content-before-odd, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+    @include responsive-timeline-content-before($timeline-content-before-even, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+} @else {
+    @include responsive-timeline-content-before($timeline-content-before-even, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+    @include responsive-timeline-content-before($timeline-content-before-odd, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+}
+
+@include child-styles-after($timeline-content-after, $name-timeline, $name-timeline-content, false, true, $timeline-content-after-ltr, $timeline-content-after-rtl);
+@if $ltr {
+    @include responsive-timeline-content-after($timeline-content-after-odd, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+    @include responsive-timeline-content-after($timeline-content-after-even, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+} @else {
+    @include responsive-timeline-content-after($timeline-content-after-even, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+    @include responsive-timeline-content-after($timeline-content-after-odd, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, $timeline-breakpoint);
+}
+
+// -- Modifiers -- //
+// Colors
+@include modifier-colors-after($timeline-after-colors, $name-timeline);
+@include modifier-colors-items($timeline-content-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-content, true);
+
+@if $ltr {
+    @include modifier-colors-items-before($timeline-content-before-ltr-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + " ." + $name-timeline + $chi + $name-timeline-content, true);
+} @else {
+    @include modifier-colors-items-before($timeline-content-before-rtl-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + " ." + $name-timeline + $chi + $name-timeline-content, true);
+}
+
+@include breakpoint($timeline-breakpoint) {
+    @if $ltr {
+        @include modifier-colors-items-before($timeline-content-before-odd-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, true);
+        @include modifier-colors-items-before($timeline-content-before-even-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, true);
+    } @else {
+        @include modifier-colors-items-before($timeline-content-before-even-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(odd)" + " ." + $name-timeline + $chi + $name-timeline-content, true);
+        @include modifier-colors-items-before($timeline-content-before-odd-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-item + ":nth-child(even)" + " ." + $name-timeline + $chi + $name-timeline-content, true);
+    }
+}
+
+@include modifier-colors-items-after($timeline-content-after-colors, $name-timeline, "." + $name-timeline + $chi + $name-timeline-content, true);

@@ -28,4 +28,4 @@
 @include divider-icon-styles($divider-gr-icon, $name-divider, $name-divider-gradient-right, $name-icon);
 
 // Icon colors
-@include child-colors($divider-icon-colors, $name-divider, $name-icon);
+@include modifier-colors-items($divider-icon-colors, $name-divider, "." + $name-divider + $chi + $name-icon, true);

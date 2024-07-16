@@ -1,6 +1,6 @@
 /**
- * Polaris Framework v0.9.17 Beta
- * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
+ * Polaris Framework v1.0.0
+ * MIT License github.com/heminsatya/polaris-core | © 2024 polarisui.com
 **/
 // -------------------------------------------------- //
 //                    Dependencies                    //
@@ -94,8 +94,9 @@
 @import "./forms/field-set";
 @import "./forms/validation";
 @import "./forms/switch";
-// @import "./forms/range";
-// @import "./forms/autocomplete";
+@import "./forms/range";
+@import "./forms/chips";
+@import "./forms/autocomplete";
 
 
 /* -------------------------------------------------- */
@@ -107,17 +108,13 @@
 @import "./utilities/alerts";
 @import "./utilities/pagination";
 @import "./utilities/trail";
-// @import "./utilities/cards";
+@import "./utilities/timeline";
 @import "./utilities/tooltip";
 @import "./utilities/popup";
 @import "./utilities/progress";
 @import "./utilities/menu";
 @import "./utilities/modal";
+@import "./utilities/tab";
+@import "./utilities/accordion";
 @import "./utilities/draggable";
-// @import "./utilities/tabs";
-// @import "./utilities/trees";
-// @import "./utilities/portlet";
-// @import "./utilities/timeline";
-// @import "./utilities/countdown";
-// @import "./utilities/rating";
-// @import "./utilities/sorting";
+@import "./utilities/counters";

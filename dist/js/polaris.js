@@ -12,121 +12,6 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/ts/modules/Alerts.ts":
-/*!**********************************!*\
-  !*** ./src/ts/modules/Alerts.ts ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Alerts: () => (/* binding */ Alerts)
-/* harmony export */ });
-/* harmony import */ var _Animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Animations */ "./src/ts/modules/Animations.ts");
-/**
- * Import the parent Class
- */
-
-/**
- * @desc Used for setting alerts
- */
-class Alerts extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
-    /**
-     * @desc Constructor method
-     */
-    constructor() {
-        // Inherit the parent class
-        super();
-    }
-    // Set Alert
-    /**
-     * @desc Sets an alert to alert__container#alert-blueprint
-     *
-     * @param {string} text     -- Alert text
-     * @param {string} enter    -- Alert animation enter
-     * @param {string} exit     -- Alert animation exit
-     * @param {string} status   -- Alert status: notice | warning | success
-     * @param {string} color    -- Alert color:  light | dark
-     * @param {boolean} close   -- Closable alert: true | false
-     * @param {number} duration -- Alert animation duration: number in miliseconds
-     * @param {number} delay    -- Alert animation delay: number in miliseconds
-     *
-     * @return {void}
-     */
-    alert(text, enter = "fadeIn", exit = "fadeOut", status = "", color = "", close = true, duration = 500, delay = 250) {
-        // Set the status code
-        let statusCode = "";
-        let statusClass = "";
-        if (status)
-            statusClass = ` ${this.nameAlert + this.modSep + this.nameIcon}`;
-        if (status === "notice") {
-            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertCircle}"></div>`;
-        }
-        else if (status === "warning") {
-            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertTri}"></div>`;
-        }
-        else if (status === "success") {
-            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertTick}"></div>`;
-        }
-        // Set the color class
-        let colorClass = "";
-        if (color === "light") {
-            colorClass = ` ${this.nameAlert + this.modSep + color}`;
-        }
-        // Check the closable
-        let closeCode = "";
-        let closeClass = "";
-        if (close) {
-            closeCode = `<div class="${this.nameAlert + this.chiSep + this.nameClose} ${this.piClose}"></div>`;
-            closeClass = ` ${this.nameAlert + this.modSep + this.nameClose}`;
-        }
-        // Produce the alert content
-        let content = `<div class="${this.nameAlert + colorClass + statusClass + closeClass} ${this.nameAnimation}" style="animation-name:${enter}; --animation-duration: ${duration}ms;">`;
-        content += statusCode;
-        content += `<div class="${this.nameAlert + this.chiSep + this.nameContent}">`;
-        content += text;
-        content += '</div>';
-        content += closeCode;
-        content += '</div>';
-        // Create the parent
-        const parent = document.querySelector(`#${this.nameAlert + '-' + this.nameBlueprint}`);
-        // Create the node
-        const element = document.createElement('div');
-        // Modify the node
-        element.classList.add(this.nameAlert + this.parSep + this.nameControl, this.nameAnimation);
-        element.style.cssText = `--animation-duration: ${duration}ms; --animation-height: 4.5rem;`;
-        element.innerHTML = content;
-        // Append the node to the parent
-        parent.appendChild(element);
-        // Find the child node
-        const child = element.querySelector(`.${this.nameAlert}`);
-        // Set animation exit timeout
-        let timeout = setTimeout(() => {
-            this.animation(child, exit);
-            timeout = setTimeout(() => {
-                this.animation(element, this.hideYAnimation).then(() => {
-                    element.remove();
-                });
-            }, delay);
-        }, this.hideTimeout);
-        // Set animation exit on click
-        if (element.querySelector(`.${this.nameAlert + this.chiSep + this.nameClose}`)) {
-            element.querySelector(`.${this.nameAlert + this.chiSep + this.nameClose}`).onclick = () => {
-                clearTimeout(timeout);
-                this.animation(child, exit);
-                timeout = setTimeout(() => {
-                    this.animation(element, this.hideYAnimation).then(() => {
-                        element.remove();
-                    });
-                }, delay);
-            };
-        }
-    }
-}
-
-
-/***/ }),
-
 /***/ "./src/ts/modules/Animations.ts":
 /*!**************************************!*\
   !*** ./src/ts/modules/Animations.ts ***!
@@ -434,7 +319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Blueprints: () => (/* binding */ Blueprints)
 /* harmony export */ });
-/* harmony import */ var _Defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Defaults */ "./src/ts/modules/Defaults.ts");
+/* harmony import */ var _Components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Components */ "./src/ts/modules/Components.ts");
 /**
  * Import the parent Class
  */
@@ -442,7 +327,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @desc Used for loading component blueprints
  */
-class Blueprints extends _Defaults__WEBPACK_IMPORTED_MODULE_0__.Defaults {
+class Blueprints extends _Components__WEBPACK_IMPORTED_MODULE_0__.Components {
     /**
      * @desc Constructor method
      */
@@ -491,6 +376,793 @@ class Blueprints extends _Defaults__WEBPACK_IMPORTED_MODULE_0__.Defaults {
 
 /***/ }),
 
+/***/ "./src/ts/modules/Components.ts":
+/*!**************************************!*\
+  !*** ./src/ts/modules/Components.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Components: () => (/* binding */ Components)
+/* harmony export */ });
+/* harmony import */ var _Animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Animations */ "./src/ts/modules/Animations.ts");
+/**
+ * Import the parent Class
+ */
+
+/**
+ * @desc Used for handling Components (Utilities)
+ */
+class Components extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
+    /**
+     * @desc Constructor method
+     */
+    constructor() {
+        // Inherit the parent class
+        super();
+    }
+    /**
+     * @desc Hadnles tabs
+     *
+     * @param {HTMLElement} sel -- The tab selector
+     *
+     * @return {void}
+     */
+    range(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        let progress, distort = 0;
+        let thumbWidth;
+        // Set thumbWidth
+        if (selector.classList.contains(this.nameRange + this.modSep + "xs")) {
+            thumbWidth = this.rangeWidthXS;
+        }
+        else if (selector.classList.contains(this.nameRange + this.modSep + "sm")) {
+            thumbWidth = this.rangeWidthSM;
+        }
+        else if (selector.classList.contains(this.nameRange + this.modSep + "md")) {
+            thumbWidth = this.rangeWidthMD;
+        }
+        else if (selector.classList.contains(this.nameRange + this.modSep + "lg")) {
+            thumbWidth = this.rangeWidthLG;
+        }
+        else if (selector.classList.contains(this.nameRange + this.modSep + "xl")) {
+            thumbWidth = this.rangeWidthXL;
+        }
+        else {
+            thumbWidth = this.rangeWidthMD;
+        }
+        // Handle range on load
+        progress = (Number(selector.value) - Number(selector.min)) / (Number(selector.max) - Number(selector.min)) * 100;
+        distort = (50 - progress) * thumbWidth / 100;
+        selector.style.setProperty("--range-progress", `calc(${progress}% + ${distort}rem)`);
+        if (selector.parentElement.classList.contains(this.nameRange + this.parSep + this.nameControl)) {
+            selector.parentElement.style.setProperty("--range-progress", `calc(${progress}% + ${distort}rem)`);
+        }
+        // Handle range on input
+        selector.oninput = () => {
+            progress = (Number(selector.value) - Number(selector.min)) / (Number(selector.max) - Number(selector.min)) * 100;
+            distort = (50 - progress) * thumbWidth / 100;
+            selector.style.setProperty("--range-progress", `calc(${progress}% + ${distort}rem)`);
+            if (selector.parentElement.classList.contains(this.nameRange + this.parSep + this.nameControl)) {
+                selector.parentElement.style.setProperty("--range-progress", `calc(${progress}% + ${distort}rem)`);
+            }
+        };
+    }
+    /**
+     * @desc Hadnles chips
+     *
+     * @param {HTMLElement} sel -- The chip selector
+     *
+     * @return {void}
+     */
+    chip(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Fetch chip elements
+        let chipItems = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipItems}`);
+        let chipInput = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipInput}`);
+        let chipOutput = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipOutput}`);
+        let chipValues = [];
+        // Check chip--items
+        if (!chipItems) {
+            this.prepend('div', selector, '', [this.nameChip + this.chiSep + this.nameChipItems]);
+            chipItems = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipItems}`);
+        }
+        // Check chip--input
+        if (!chipInput) {
+            this.append('input', selector, '', [this.nameChip + this.chiSep + this.nameChipInput], '', '', { "type": "text" });
+            chipInput = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipInput}`);
+        }
+        // Check chip--output
+        if (!chipOutput) {
+            this.append('input', selector, '', [this.nameChip + this.chiSep + this.nameChipOutput], '', '', { "type": "hidden" });
+            chipOutput = selector.querySelector(`.${this.nameChip + this.chiSep + this.nameChipOutput}`);
+        }
+        // Check chip--output value
+        if (chipOutput.value.trim()) {
+            chipValues = chipOutput.value.split(',');
+            chipItems.innerHTML = "";
+            chipValues.forEach((chipValue) => {
+                this.append('div', chipItems, `<span class="${this.nameChip + this.chiSep + this.nameChipText}">${chipValue}</span><span class="${this.nameChip + this.chiSep + this.nameChipClose} ${this.piClose}"></span>`, [this.nameChip + this.chiSep + this.nameChipItem]);
+            });
+        }
+        // Handle chip--close on click
+        const chipClose = () => {
+            const items = chipItems.querySelectorAll(`.${this.nameChip + this.chiSep + this.nameChipClose}`);
+            items.forEach((item) => {
+                item.onclick = () => {
+                    // Find value
+                    const value = item.parentElement.querySelector(`.${this.nameChip + this.chiSep + this.nameChipText}`).innerHTML;
+                    // Update chipValues
+                    chipValues.splice(chipValues.indexOf(value), 1);
+                    // Update chipOutput
+                    chipOutput.value = chipValues.toString();
+                    // Remove item
+                    this.remove(item.parentElement);
+                };
+            });
+        };
+        // Call chipClose onload
+        chipClose();
+        // Handle chip--input on enter
+        chipInput.onkeydown = (event) => {
+            if (event.keyCode === 13) {
+                // Prevent default behavior
+                event.preventDefault();
+                let value = chipInput.value.trim();
+                // Prevent repetitive value insertion
+                if (!chipValues.includes(value) && value && !value.includes(",")) {
+                    // Update chip values
+                    chipValues.push(value);
+                    // Update chip--output
+                    chipOutput.value = chipValues.toString();
+                    // Append chip--item
+                    this.append('div', chipItems, `<span class="${this.nameChip + this.chiSep + this.nameChipText}">${value}</span><span class="${this.nameChip + this.chiSep + this.nameChipClose} ${this.piClose}"></span>`, [this.nameChip + this.chiSep + this.nameChipItem]);
+                    // Empty chip--input
+                    chipInput.value = "";
+                    // chipClose recursion
+                    chipClose();
+                }
+                // Check autocomplete
+                if (selector.querySelector(`.${this.nameAuto}`)) {
+                    chipInput.blur();
+                    this.auto(selector.querySelector(`.${this.nameAuto}`));
+                    chipInput.focus();
+                }
+            }
+        };
+    }
+    /**
+     * @desc Hadnles autocomplete
+     *
+     * @param {HTMLElement} sel -- The autocomplete selector
+     *
+     * @return {void}
+     */
+    auto(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Fetch elements
+        let autoInput = selector.querySelector(`.${this.nameAuto + this.chiSep + this.nameAutoInput}`);
+        let autoOutput = selector.querySelector(`.${this.nameAuto + this.chiSep + this.nameAutoOutput}`);
+        let autoItems;
+        // Check auto--input data-items
+        if (!autoInput.hasAttribute("data-items")) {
+            autoInput.setAttribute("data-items", "");
+        }
+        // Check auto--input
+        if (!autoInput) {
+            this.prepend('input', selector, '', [this.nameAuto + this.chiSep + this.nameAutoInput]);
+            autoInput = selector.querySelector(`.${this.nameAuto + this.chiSep + this.nameAutoInput}`);
+        }
+        // Check auto--input data-sort
+        if (!autoInput.hasAttribute("data-sort")) {
+            autoInput.setAttribute("data-sort", true);
+        }
+        // Check auto--input autocomplete
+        if (!autoInput.hasAttribute("autocomplete")) {
+            autoInput.setAttribute("autocomplete", "off");
+        }
+        // Check auto--output
+        if (!autoOutput) {
+            this.append('ul', selector, '', [this.nameAuto + this.chiSep + this.nameAutoOutput]);
+            autoOutput = selector.querySelector(`.${this.nameAuto + this.chiSep + this.nameAutoOutput}`);
+        }
+        // Set auto--output items
+        autoItems = autoInput.dataset.items.split(',');
+        // Sort auto--output items
+        if (autoInput.dataset.sort === "true") {
+            autoItems.sort();
+        }
+        // Update auto--output items
+        autoOutput.innerHTML = "";
+        for (let item of autoItems) {
+            this.append('li', autoOutput, item);
+        }
+        // Handle auto--input data-default focus in
+        if (autoInput.dataset.default === "true") {
+            autoInput.onfocus = () => {
+                if (!autoInput.value) {
+                    autoOutput.classList.add(this.nameAuto + this.chiSep + this.nameAutoOpen);
+                }
+            };
+        }
+        // Item select function
+        const itemSelect = (item) => {
+            // Set auto--input value
+            autoInput.value = item.innerHTML;
+            autoInput.focus();
+            // Hide auto--output
+            autoOutput.classList.remove(this.nameAuto + this.chiSep + this.nameAutoOpen);
+        };
+        // Handle items on click
+        autoOutput.querySelectorAll("li").forEach((item) => {
+            item.onclick = () => {
+                itemSelect(item);
+            };
+        });
+        // Handle auto--input input
+        autoInput.oninput = () => {
+            // Check the input
+            if (autoInput.value) {
+                autoOutput.classList.add(this.nameAuto + this.chiSep + this.nameAutoOpen);
+            }
+            else {
+                autoOutput.classList.add(this.nameAuto + this.chiSep + this.nameAutoOpen);
+                if (autoInput.dataset.default === "true") {
+                    autoOutput.classList.add(this.nameAuto + this.chiSep + this.nameAutoOpen);
+                }
+                else {
+                    autoOutput.classList.remove(this.nameAuto + this.chiSep + this.nameAutoOpen);
+                }
+            }
+            // Filter the items
+            let newItems = [];
+            for (let item of autoItems) {
+                if (item.substr(0, autoInput.value.length).toUpperCase() == autoInput.value.toUpperCase()) {
+                    newItems.push(item);
+                }
+            }
+            autoOutput.innerHTML = "";
+            for (let item of newItems) {
+                this.append('li', autoOutput, item);
+            }
+            // Handle new items on click
+            autoOutput.querySelectorAll("li").forEach((item) => {
+                item.onclick = () => {
+                    itemSelect(item);
+                };
+            });
+        };
+        // Handle auto--input focus out
+        autoInput.onblur = () => {
+            autoOutput.classList.remove(this.nameAuto + this.chiSep + this.nameAutoOpen);
+        };
+    }
+    // Set Alert
+    /**
+     * @desc Sets an alert to alert__container#alert-blueprint
+     *
+     * @param {string} text     -- Alert text
+     * @param {string} enter    -- Alert animation enter
+     * @param {string} exit     -- Alert animation exit
+     * @param {string} status   -- Alert status: notice | warning | success
+     * @param {string} color    -- Alert color:  light | dark
+     * @param {boolean} close   -- Closable alert: true | false
+     * @param {number} duration -- Alert animation duration: number in miliseconds
+     * @param {number} delay    -- Alert animation delay: number in miliseconds
+     *
+     * @return {void}
+     */
+    alert(text, enter = "fadeIn", exit = "fadeOut", status = "", color = "", close = true, duration = 500, delay = 250) {
+        // Set the status code
+        let statusCode = "";
+        let statusClass = "";
+        if (status)
+            statusClass = ` ${this.nameAlert + this.modSep + this.nameIcon}`;
+        if (status === "notice") {
+            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertCircle}"></div>`;
+        }
+        else if (status === "warning") {
+            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertTri}"></div>`;
+        }
+        else if (status === "success") {
+            statusCode = `<div class="${this.nameAlert + this.chiSep + this.nameIcon} ${this.piAlertTick}"></div>`;
+        }
+        // Set the color class
+        let colorClass = "";
+        if (color === "light") {
+            colorClass = ` ${this.nameAlert + this.modSep + color}`;
+        }
+        // Check the closable
+        let closeCode = "";
+        let closeClass = "";
+        if (close) {
+            closeCode = `<div class="${this.nameAlert + this.chiSep + this.nameClose} ${this.piClose}"></div>`;
+            closeClass = ` ${this.nameAlert + this.modSep + this.nameClose}`;
+        }
+        // Produce the alert content
+        let content = `<div class="${this.nameAlert + colorClass + statusClass + closeClass} ${this.nameAnimation}" style="animation-name:${enter}; --animation-duration: ${duration}ms;">`;
+        content += statusCode;
+        content += `<div class="${this.nameAlert + this.chiSep + this.nameContent}">`;
+        content += text;
+        content += '</div>';
+        content += closeCode;
+        content += '</div>';
+        // Create the parent
+        const parent = document.querySelector(`#${this.nameAlert + '-' + this.nameBlueprint}`);
+        // Create the node
+        const element = document.createElement('div');
+        // Modify the node
+        element.classList.add(this.nameAlert + this.parSep + this.nameControl, this.nameAnimation);
+        element.style.cssText = `--animation-duration: ${duration}ms; --animation-height: 4.5rem;`;
+        element.innerHTML = content;
+        // Append the node to the parent
+        parent.appendChild(element);
+        // Find the child node
+        const child = element.querySelector(`.${this.nameAlert}`);
+        // Set animation exit timeout
+        let timeout = setTimeout(() => {
+            this.animation(child, exit);
+            timeout = setTimeout(() => {
+                this.animation(element, this.hideYAnimation).then(() => {
+                    element.remove();
+                });
+            }, delay);
+        }, this.hideTimeout);
+        // Set animation exit on click
+        if (element.querySelector(`.${this.nameAlert + this.chiSep + this.nameClose}`)) {
+            element.querySelector(`.${this.nameAlert + this.chiSep + this.nameClose}`).onclick = () => {
+                clearTimeout(timeout);
+                this.animation(child, exit);
+                timeout = setTimeout(() => {
+                    this.animation(element, this.hideYAnimation).then(() => {
+                        element.remove();
+                    });
+                }, delay);
+            };
+        }
+    }
+    /**
+     * @desc Sets modal to modal__container#modal-blueprint
+     *
+     * @param {string} title     -- Modal title
+     * @param {string} body      -- Modal body
+     * @param {string} footer    -- Modal footer
+     * @param {string} size      -- Modal size (xs, sm, md, lg, xl)
+     * @param {string} enter     -- Modal animation enter
+     * @param {string} exit      -- Modal animation exit
+     * @param {string} color     -- Modal color:  light | dark
+     * @param {boolean} close    -- Closable modal: true | false
+     * @param {boolean} backdrop -- Has backdrop: true | false
+     * @param {number} duration  -- Modal animation duration: number in miliseconds
+     *
+     * @return {void}
+     */
+    modal(title, body, footer = "", size = "xs", enter = "fadeIn", exit = "fadeOut", color = "", close = true, backdrop = true, duration = 500) {
+        // Check size
+        let sizeCLass = "";
+        if (this.polarisSizes.includes(size)) {
+            sizeCLass = ` ${this.nameModal + this.modSep + size}`;
+        }
+        else if (size) {
+            sizeCLass = ` ${size}`;
+        }
+        else {
+            sizeCLass = ` ${this.nameWidth}-100`;
+        }
+        // Set the color class
+        let colorClass = "";
+        if (color === "light") {
+            colorClass = ` ${this.nameModal + this.modSep + color}`;
+        }
+        // Check the closable
+        let closeCode = "";
+        if (close) {
+            closeCode = `<div class="${this.nameModal + this.chiSep + this.nameClose} ${this.piClose}"></div>`;
+        }
+        // Check footer
+        let footerCode = "";
+        if (footer) {
+            footerCode = `<footer class="${this.nameModal + this.chiSep + this.nameFooter}">${footer}</main>`;
+        }
+        // Produce the modal content
+        let content = `<div class="${this.nameModal + sizeCLass + colorClass} ${this.nameAnimation} scroll scroll-sm scroll-radius-sm" style="animation-name:${enter}; --animation-duration: ${duration}ms;">`;
+        content += closeCode;
+        content += `<header class="${this.nameModal + this.chiSep + this.nameHeader}">`;
+        content += `<h1>${title}</h1>`;
+        content += '</header>';
+        content += `<main class="${this.nameModal + this.chiSep + this.nameBody}">`;
+        content += body;
+        content += '</main>';
+        content += footerCode;
+        content += '</div>';
+        // Find the parent
+        const parent = document.querySelector(`#${this.nameModal + '-' + this.nameBlueprint}`);
+        // Find the backdrop
+        const bdrop = document.querySelector(`.${this.nameBackdrop}`);
+        // Create the node
+        const element = document.createElement('div');
+        // Append the node to the parent
+        parent.appendChild(element);
+        // Modify the node
+        element.outerHTML = content;
+        // Find the child node
+        const child = parent.querySelector(`.${this.nameModal}`);
+        // Hide the scrollbar
+        let bodyElement = document.querySelector('body');
+        bodyElement.style.paddingRight = this.scrollWidth() + "px";
+        bodyElement.style.overflow = "hidden";
+        // Show the backdrop
+        if (backdrop) {
+            this.animation(bdrop, this.fadeInAnimation);
+        }
+        // Show the parent
+        this.animation(parent, this.fadeInAnimation);
+        // Set animation exit on click
+        if (child.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`)) {
+            child.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`).onclick = () => {
+                // Hide the backdrop
+                if (backdrop) {
+                    this.animation(bdrop, this.fadeOutAnimation);
+                }
+                // Show the scrollbar
+                setTimeout(() => {
+                    bodyElement.style.paddingRight = "";
+                    bodyElement.style.overflow = "";
+                }, duration / 2);
+                // Hide the child
+                this.animation(child, exit).then(() => {
+                    // Remove the child
+                    child.remove();
+                    // Hide the parent
+                    this.animation(parent, this.fadeOutAnimation);
+                });
+            };
+        }
+    }
+    /**
+     * @desc Sets custom modal to custom modal__container
+     *
+     * @param {HTMLElement} cont      -- Modal container selector
+     * @param {string}      enter     -- Modal animation enter
+     * @param {string}      exit      -- Modal animation exit
+     * @param {boolean}     backdrop  -- Has backdrop: true | false
+     * @param {number}      duration  -- Modal animation duration: number in miliseconds
+     *
+     * @return {void}
+     */
+    setModal(cont, enter = "fadeIn", exit = "fadeOut", backdrop = true, duration = 500) {
+        // Find the container selector
+        const container = this.query(cont);
+        // Find the modal selector
+        const selector = container.querySelector(`.${this.nameModal}`);
+        // Find the backdrop
+        const bdrop = document.querySelector(`.${this.nameBackdrop}`);
+        // Hide the scrollbar
+        let bodyElement = document.querySelector('body');
+        bodyElement.style.paddingRight = this.scrollWidth() + "px";
+        bodyElement.style.overflow = "hidden";
+        // Show the backdrop
+        if (backdrop) {
+            this.animation(bdrop, this.fadeInAnimation);
+        }
+        // Show the container
+        this.animation(container, this.fadeInAnimation);
+        // Show the modal
+        this.animation(selector, enter);
+        // Set animation exit on click
+        if (selector.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`)) {
+            selector.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`).onclick = () => {
+                // Hide the backdrop
+                if (backdrop) {
+                    this.animation(bdrop, this.fadeOutAnimation);
+                }
+                // Show the scrollbar
+                setTimeout(() => {
+                    bodyElement.style.paddingRight = "";
+                    bodyElement.style.overflow = "";
+                }, duration / 2);
+                // Hide the modal
+                this.animation(selector, exit).then(() => {
+                    // Hide the container
+                    this.animation(container, this.fadeOutAnimation);
+                });
+            };
+        }
+    }
+    /**
+     * @desc Hadnles the dragable items on drag
+     *
+     * @param {HTMLElement} sel -- The dragable selector
+     *
+     * @return {Promise}
+     */
+    drag(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Animation promise
+        const promise = new Promise((resolve, reject) => {
+            const draggables = Array.from(selector.children);
+            // Items
+            let counter = 1;
+            draggables.forEach((draggable) => {
+                // Check the data-order
+                if (!draggable.dataset.order) {
+                    draggable.dataset.order = counter;
+                }
+                // Drag start
+                draggable.ondragstart = (e) => {
+                    if (e.target === draggable) {
+                        draggable.classList.add(this.nameDrag + this.chiSep + this.nameDragging);
+                    }
+                };
+                // Drag enter
+                draggable.ondragenter = (e) => {
+                    if (e.target === draggable) {
+                        const dragging = selector.querySelector(`.${this.nameDrag + this.chiSep + this.nameDragging}`);
+                        if (draggable != dragging && dragging) {
+                            if (dragging.parentNode === draggable.parentNode) {
+                                const draggingOrder = dragging.dataset.order;
+                                const draggableOrder = draggable.dataset.order;
+                                // Swap orders
+                                dragging.dataset.order = draggableOrder;
+                                draggable.dataset.order = draggingOrder;
+                                // Swap items
+                                this.swap(dragging, draggable);
+                                // Swaping
+                                draggable.classList.add(this.nameDrag + this.chiSep + this.nameSwapping);
+                                dragging.classList.add(this.nameDrag + this.chiSep + this.nameSwapping);
+                            }
+                        }
+                    }
+                };
+                // Drag leave
+                draggable.ondragleave = (e) => {
+                    if (e.target === draggable) {
+                        const dragging = selector.querySelector(`.${this.nameDrag + this.chiSep + this.nameDragging}`);
+                        if (draggable != dragging && dragging) {
+                            if (dragging.parentNode === draggable.parentNode) {
+                                // Swaping
+                                draggable.classList.remove(this.nameDrag + this.chiSep + this.nameSwapping);
+                                dragging.classList.remove(this.nameDrag + this.chiSep + this.nameSwapping);
+                            }
+                        }
+                    }
+                };
+                // Drag over
+                draggable.ondragover = (e) => {
+                    const dragging = selector.querySelector(`.${this.nameDrag + this.chiSep + this.nameDragging}`);
+                    if (dragging) {
+                        if (dragging.parentNode === draggable.parentNode) {
+                            e.preventDefault();
+                        }
+                    }
+                };
+                // Drag end
+                draggable.ondragend = (e) => {
+                    if (e.target === draggable) {
+                        // Swaping
+                        const swaping = selector.querySelector(`.${this.nameDrag + this.modSep + this.nameSwapping}`);
+                        if (swaping)
+                            swaping.classList.remove(this.nameDrag + this.modSep + this.nameSwapping);
+                        const dragging = selector.querySelector(`.${this.nameDrag + this.chiSep + this.nameDragging}`);
+                        if (dragging)
+                            dragging.classList.remove(this.nameDrag + this.modSep + this.nameSwapping);
+                        draggable.classList.remove(this.nameDrag + this.chiSep + this.nameDragging);
+                    }
+                    // Promise on resolve
+                    resolve('Dragabble ended!');
+                    // Promise on reject
+                    reject('Dragabble crashed!');
+                };
+                // Increase counter
+                counter++;
+            });
+        });
+        // Return the promise
+        return promise;
+    }
+    /**
+     * @desc Handles closable message
+     *
+     * @param {HTMLElement} sel -- The message close selector
+     *
+     * @return {void}
+     */
+    message(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Message on close
+        selector.onclick = () => {
+            let parent = selector.parentElement.parentElement;
+            this.animation(parent, this.hideYAnimation).then(() => {
+                parent.remove();
+            });
+        };
+    }
+    /**
+     * @desc Handles clickable popups
+     *
+     * @param {HTMLElement} sel -- The popup selector
+     *
+     * @return {void}
+     */
+    popups(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Check clickable
+        if (selector.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`)) {
+            selector.onclick = (i) => {
+                // Popup component
+                let popup = selector.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`);
+                // Ignore the click for component and its children(:not(.popup--close))
+                let ignoreClick = false;
+                selector.querySelectorAll(`.${this.namePopup} *:not(.${this.namePopup + this.chiSep + this.nameClose})`).forEach((j) => {
+                    if (i.target == j) {
+                        ignoreClick = true;
+                    }
+                });
+                // Check ignore click
+                if (ignoreClick || i.target == popup)
+                    return;
+                // Remove open class (hide popup)
+                if (selector.querySelector(`.${this.namePopup + this.modSep + this.nameOpen}`)) {
+                    popup.classList.remove(`${this.namePopup + this.modSep + this.nameOpen}`);
+                }
+                // Add open class (show popup)
+                else {
+                    popup.classList.add(`${this.namePopup + this.modSep + this.nameOpen}`);
+                }
+                // Prevent default behavior
+                return false;
+            };
+        }
+    }
+    /**
+     * @desc Hadnles tabs
+     *
+     * @param {HTMLElement} sel -- The tab selector
+     *
+     * @return {Promise}
+     */
+    tab(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Draggable promise
+        const promise = new Promise((resolve, reject) => {
+            // Fetch elements
+            const links = selector.querySelectorAll(`.${this.nameTab + this.chiSep + this.nameTabLink}`);
+            let active = selector.querySelector(`.${this.nameTab + this.chiSep + this.nameActive}`);
+            let open = selector.querySelector(`.${this.nameTab + this.chiSep + this.nameOpen}`);
+            let dataTab;
+            // Handle click links
+            links.forEach((link) => {
+                link.onclick = () => {
+                    // Check current tab
+                    if (link !== active) {
+                        dataTab = link.dataset.tab;
+                        // Handle active
+                        if (active)
+                            active.classList.remove(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        active = link;
+                        active.classList.add(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        // Handle open
+                        if (open)
+                            open.classList.remove(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                        open = selector.querySelector(`.${this.nameTab + this.chiSep + this.nameTabContent}[data-tab="${dataTab}"]`);
+                        if (open)
+                            open.classList.add(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                    }
+                    // Promise on resolve
+                    resolve('Tab opened!');
+                    // Promise on reject
+                    reject('Tab crashed!');
+                };
+            });
+        });
+        // Return the promise
+        return promise;
+    }
+    /**
+     * @desc Hadnles tabs
+     *
+     * @param {HTMLElement} sel -- The accordion selector
+     *
+     * @return {void}
+     */
+    accord(sel) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Fetch elements
+        const unique = Boolean(selector.classList.contains(`${this.nameAccord + this.modSep + this.nameAccordUnique}`));
+        const links = selector.querySelectorAll(`.${this.nameAccord + this.chiSep + this.nameAccordLink}`);
+        let item, content, maxHeight;
+        // Handle links
+        links.forEach((link) => {
+            // Set items default max-height
+            item = link.parentElement;
+            content = link.nextElementSibling;
+            if (item.classList.contains(`${this.nameAccord + this.chiSep + this.nameActive}`)) {
+                maxHeight = content.scrollHeight + "px";
+                content.style.maxHeight = maxHeight;
+            }
+            else {
+                content.style.maxHeight = "0";
+            }
+            // Handle links on click
+            link.onclick = () => {
+                item = link.parentElement;
+                content = link.nextElementSibling;
+                maxHeight = content.scrollHeight + "px";
+                // Set item max-height
+                if (item.classList.contains(`${this.nameAccord + this.chiSep + this.nameActive}`)) {
+                    content.style.maxHeight = "0";
+                }
+                else {
+                    content.style.maxHeight = maxHeight;
+                }
+                // Toggle active class
+                item.classList.toggle(`${this.nameAccord + this.chiSep + this.nameActive}`);
+                // Check unique
+                if (unique) {
+                    const actives = selector.querySelectorAll(`.${this.nameAccord + this.chiSep + this.nameActive}`);
+                    actives.forEach((active) => {
+                        // Inactive the active items (except for the current item)
+                        if (active !== item) {
+                            active.classList.remove(`${this.nameAccord + this.chiSep + this.nameActive}`);
+                            active.querySelector(`.${this.nameAccord + this.chiSep + this.nameAccordLink}`).nextElementSibling.style.maxHeight = "0";
+                        }
+                    });
+                }
+            };
+        });
+    }
+    /**
+     * @desc Hadnles tabs
+     *
+     * @param {HTMLElement} sel -- The counter selector
+     * @param {function}    cf  -- The callback function for the last count
+     *
+     * @return {void|boolean}
+     */
+    counter(sel, cf = () => { }) {
+        // Check the selector
+        const selector = this.query(sel);
+        // Check the counting
+        if (selector.classList.contains(`${this.nameCounter + this.modSep + this.nameCounterCounting}`))
+            return false;
+        // Fetch datasets
+        const start = Number(selector.dataset.start);
+        const stop = Number(selector.dataset.stop);
+        const step = Number(selector.dataset.step);
+        const count = Math.abs(stop - start) / step;
+        const delay = Number(selector.dataset.delay);
+        const speed = Number(selector.dataset.speed);
+        // Start counting
+        let ii = start;
+        this.loop(() => {
+            // Set the counting
+            if (ii == start) {
+                selector.classList.add(`${this.nameCounter + this.modSep + this.nameCounterCounting}`);
+            }
+            // Unset the counting
+            else if (ii == stop) {
+                selector.classList.remove(`${this.nameCounter + this.modSep + this.nameCounterCounting}`);
+            }
+            // Set the counter
+            selector.innerHTML = ii;
+            // Set the stepper
+            (stop > start) ? ii += step : ii -= step;
+        }, speed, delay, count, cf);
+    }
+}
+
+
+/***/ }),
+
 /***/ "./src/ts/modules/Config.ts":
 /*!**********************************!*\
   !*** ./src/ts/modules/Config.ts ***!
@@ -513,15 +1185,6 @@ class Config {
         this.nameDoc = "doc"; // Name key for document component
         this.nameLight = "light"; // Name key for light color
         this.nameDark = "dark"; // Name key for dark color
-        this.nameAnimation = "animation"; // Name key for animation component
-        this.nameAnimated = "animated"; // Name key for animation-animated
-        this.nameRipple = "ripple"; // Name key for ripple component
-        this.nameAlert = "alert"; // Name key for alert component
-        this.nameMessages = "msg"; // Name key for msg component
-        this.nameBackdrop = "backdrop"; // Name key for backdrop component
-        this.namePopup = "popup"; // Name key for popup component
-        this.nameMenu = "menu"; // Name key for menu component
-        this.nameModal = "modal"; // Name key for modal component
         this.nameBlueprint = "blueprint"; // Name key for component's blueprint
         this.nameContainer = "container"; // Name key for container
         this.nameControl = "control"; // Name key for control
@@ -530,7 +1193,7 @@ class Config {
         this.nameClose = "close"; // Name key for close
         this.nameClick = "click"; // Name key for click
         this.nameActive = "active"; // Name key for active
-        this.nameVoid = "void"; // Name key for active
+        this.nameVoid = "void"; // Name key for void
         this.nameOpen = "open"; // Name key for open inffix
         this.nameHeader = "header"; // Name key for header
         this.nameBody = "body"; // Name key for body
@@ -539,25 +1202,78 @@ class Config {
         this.nameHeight = "h"; // Name key for css height classes
         this.nameRadius = "round"; // Name key for border-radius & component roundness
         this.namePosition = "position"; // Name key for position classes
-        this.nameDraggable = "draggable"; // Name key for draggable
-        this.nameDragging = "dragging"; // 2nd name key for draggable-dragging
-        this.nameSwapping = "swapping"; // 2nd name key for draggable-swapping
-        this.nameDragAuto = "auto"; // 2nd name key for draggable__auto
+        this.nameAnimation = "animation"; // Name key for animation component
+        this.nameAnimated = "animated"; // Name key for animation-animated
+        this.nameRipple = "ripple"; // Name key for ripple component
+        this.nameRange = "range"; // Name key for range
+        this.nameChip = "chip"; // Name key for chip
+        this.nameChipItems = "items"; // 2nd name key for chip--items
+        this.nameChipItem = "item"; // 2nd name key for chip--item
+        this.nameChipText = "text"; // 2nd name key for chip--text
+        this.nameChipClose = "close"; // 2nd name key for chip--close
+        this.nameChipInput = "input"; // 2nd name key for chip--input
+        this.nameChipOutput = "output"; // 2nd name key for chip--output
+        this.nameAuto = "auto"; // Name key for auto
+        this.nameAutoInput = "input"; // 2nd name key for auto--input
+        this.nameAutoOutput = "output"; // 2nd name key for auto--output
+        this.nameAutoOpen = "open"; // 2nd name key for auto--open
+        this.nameAlert = "alert"; // Name key for alert component
+        this.nameMessages = "msg"; // Name key for msg component
+        this.nameBackdrop = "backdrop"; // Name key for backdrop component
+        this.namePopup = "popup"; // Name key for popup component
+        this.nameMenu = "menu"; // Name key for menu component
+        this.nameModal = "modal"; // Name key for modal component
+        this.nameDrag = "drag"; // Name key for drag
+        this.nameDragging = "dragging"; // 2nd name key for drag--dragging
+        this.nameSwapping = "swapping"; // 2nd name key for drag--swapping
+        this.nameDragAuto = "auto"; // 2nd name key for drag-auto
+        this.nameTab = "tab"; // Name key for tab
+        this.nameTabAuto = "auto"; // 2nd name key for tab-auto
+        this.nameTabLink = "link"; // 2nd name key for tab--link
+        this.nameTabContent = "content"; // 2nd name key for tab--content
+        this.nameAccord = "accord"; // Name key for accordion
+        this.nameAccordUnique = "unique"; // 2nd name key for accord-unique
+        this.nameAccordLink = "link"; // 2nd name key for accord--link
+        this.nameCounter = "counter"; // Name key for counter
+        this.nameCounterAuto = "auto"; // 2nd name key for counter-auto
+        this.nameCounterCounting = "counting"; // 2nd name key for counter-counting
+        this.piAlertCircle = "pi-alert-circle"; // Polaris Icon: alert-circle
+        this.piAlertTri = "pi-alert-triangle"; // Polaris Icon: alert-triangle
+        this.piAlertTick = "pi-alert-tick"; // Polaris Icon: alert-tick
+        this.piClose = "pi-close"; // Polaris Icon: close
         this.fadeInAnimation = "fadeIn"; // fadeIn animation
         this.fadeOutAnimation = "fadeOut"; // fadeOut animation
         this.hideYAnimation = "hideY"; // hideY animation
         this.rippleAnimation = "ripple"; // ripple animation
         this.rippleAutoAnimation = "rippleAuto"; // rippleAuto animation
-        this.piAlertCircle = "pi-alert-circle"; // Polaris Icon: alert-circle
-        this.piAlertTri = "pi-alert-triangle"; // Polaris Icon: alert-triangle
-        this.piAlertTick = "pi-alert-tick"; // Polaris Icon: alert-tick
-        this.piClose = "pi-close"; // Polaris Icon: close
         this.hideTimeout = 8000; // Default hide timeout (in miliseconds)
         this.alertPosition = "bottom"; // Alert default position
         this.polarisSizes = ['xs', 'sm', 'md', 'lg', 'xl']; // Polaris standard sizes
         this.phoneWidth = 0; // Smartphone min-width
         this.tabletWidth = 768; // Tablet min-width
         this.desktopWidth = 1280; // Desktop min-width
+        this.rangeWidthXS = 1; // XS range slider thumb width (rem)
+        this.rangeWidthSM = 1.25; // SM range slider thumb width (rem)
+        this.rangeWidthMD = 1.5; // MD range slider thumb width (rem)
+        this.rangeWidthLG = 1.75; // LG range slider thumb width (rem)
+        this.rangeWidthXL = 2; // XL range slider thumb width (rem)
+        this.hasBackdropBlueprint = true; // Backdrop blueprint status
+        this.hasAlertBlueprint = true; // Alert blueprint status
+        this.hasModalBlueprint = true; // Modal blueprint status
+        this.hasDocDefaults = true; // Document default classes status
+        this.hasLinkDefaults = true; // Void links defaults status
+        this.hasRippleDefaults = true; // Ripple default animations status
+        this.hasAnimationDefaults = true; // Animation default datasets status
+        this.hasRangeDefaults = true; // Range slider default status
+        this.hasChipDefaults = true; // Chips default status
+        this.hasAutoDefaults = true; // Autocomplete default status
+        this.hasMessageDefaults = true; // Closable messages defaults status
+        this.hasPopupDefaults = true; // Clickable & animated popups defaults status
+        this.hasMenuDefaults = true; // Clickable & animated menus defaults status
+        this.hasDragDefaults = true; // Auto drag items status
+        this.hasTabDefaults = true; // Tabs defaults status
+        this.hasAccordDefaults = true; // Accordions defaults status
+        this.hasCounterDefaults = true; // Counters defaults status
     }
 }
 
@@ -574,7 +1290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Core: () => (/* binding */ Core)
 /* harmony export */ });
-/* harmony import */ var _Blueprints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blueprints */ "./src/ts/modules/Blueprints.ts");
+/* harmony import */ var _Defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Defaults */ "./src/ts/modules/Defaults.ts");
 /**
  * Import the parent Class
  */
@@ -582,7 +1298,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @desc Used for method chaining & initializing defaults & loading Blueprints
  */
-class Core extends _Blueprints__WEBPACK_IMPORTED_MODULE_0__.Blueprints {
+class Core extends _Defaults__WEBPACK_IMPORTED_MODULE_0__.Defaults {
     /**
      * @desc Constructor method
      */
@@ -683,55 +1399,96 @@ class Core extends _Blueprints__WEBPACK_IMPORTED_MODULE_0__.Blueprints {
      */
     init() {
         /**
-         *  Load Defaults
-         */
-        /**
-         *  Document default classes
-         */
-        this.docDefaults();
-        /**
-         *  Void links
-         */
-        this.linkDefaults();
-        /**
-         *  Ripple animations
-         */
-        this.rippleDefaults();
-        /**
-         *  Animation datasets
-         */
-        this.animationDefaults();
-        /**
-         *  Closable messages
-         */
-        this.messageDefaults();
-        /**
-         *  Clickable & animated popups
-         */
-        this.popupDefaults();
-        /**
-         *  Clickable & animated menus
-         */
-        this.menuDefaults();
-        /**
-         *  Auto draggable items
-         */
-        this.draggableDefaults();
-        /**
          *  Load Blueprints
          */
         /**
          *  Backdrop blueprint
          */
-        this.backdropBlueprint();
+        if (this.hasBackdropBlueprint)
+            this.backdropBlueprint();
         /**
          *  Alert blueprint
          */
-        this.alertBlueprint();
+        if (this.hasAlertBlueprint)
+            this.alertBlueprint();
         /**
          *  Modal blueprint
          */
-        this.modalBlueprint();
+        if (this.hasModalBlueprint)
+            this.modalBlueprint();
+        /**
+         *  Load Defaults
+         */
+        /**
+         *  Document default classes
+         */
+        if (this.hasDocDefaults)
+            this.docDefaults();
+        /**
+         *  Void links defaults
+         */
+        if (this.hasLinkDefaults)
+            this.linkDefaults();
+        /**
+         *  Ripple default animations
+         */
+        if (this.hasRippleDefaults)
+            this.rippleDefaults();
+        /**
+         *  Animation default datasets
+         */
+        if (this.hasAnimationDefaults)
+            this.animationDefaults();
+        /**
+         *  Range slider defaults
+         */
+        if (this.hasRangeDefaults)
+            this.rangeDefaults();
+        /**
+         *  Chips defaults
+         */
+        if (this.hasChipDefaults)
+            this.chipDefaults();
+        /**
+         *  Autocomplete defaults
+         */
+        if (this.hasAutoDefaults)
+            this.autoDefaults();
+        /**
+         *  Closable messages defaults
+         */
+        if (this.hasMessageDefaults)
+            this.messageDefaults();
+        /**
+         *  Clickable & animated popups defaults
+         */
+        if (this.hasPopupDefaults)
+            this.popupDefaults();
+        /**
+         *  Clickable & animated menus defaults
+         */
+        if (this.hasMenuDefaults)
+            this.menuDefaults();
+        /**
+         *  Auto draggable items
+         */
+        if (this.hasDragDefaults)
+            this.dragDefaults();
+        /**
+         *  Tabs defaults
+         */
+        if (this.hasTabDefaults)
+            this.tabDefaults();
+        /**
+         *  Accordions defaults
+         */
+        if (this.hasAccordDefaults)
+            this.accordDefaults();
+        /**
+         *  Counters defaults
+         */
+        if (this.hasCounterDefaults)
+            this.counterDefaults();
     }
 }
 
@@ -748,7 +1505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Defaults: () => (/* binding */ Defaults)
 /* harmony export */ });
-/* harmony import */ var _Draggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Draggable */ "./src/ts/modules/Draggable.ts");
+/* harmony import */ var _Blueprints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blueprints */ "./src/ts/modules/Blueprints.ts");
 /**
  * Import the parent Class
  */
@@ -756,7 +1513,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * @desc Used for handling components default behaviors
  */
-class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
+class Defaults extends _Blueprints__WEBPACK_IMPORTED_MODULE_0__.Blueprints {
     /**
      * @desc Constructor method
      */
@@ -813,7 +1570,7 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
                 if (elem.getAttribute('href') === "#") {
                     elem.setAttribute('href', 'javascript:void(0)');
                 }
-                // Prevent default behavior
+                // Alternatively prevent default behavior
                 // elem.onclick = () => {
                 //     return false;
                 // };
@@ -868,6 +1625,45 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
         }
     }
     /**
+     * @desc Handles range sliders automatically
+     *
+     * @return {void}
+     */
+    rangeDefaults() {
+        if (document.querySelectorAll(`.${this.nameRange}`).length) {
+            document.querySelectorAll(`.${this.nameRange}`).forEach((elem) => {
+                // Handle range on load & input
+                this.range(elem);
+            });
+        }
+    }
+    /**
+     * @desc Handles chips automatically
+     *
+     * @return {void}
+     */
+    chipDefaults() {
+        if (document.querySelectorAll(`.${this.nameChip}`).length) {
+            document.querySelectorAll(`.${this.nameChip}`).forEach((elem) => {
+                // Handle chips on load & enter & remove
+                this.chip(elem);
+            });
+        }
+    }
+    /**
+     * @desc Handles autocomplete automatically
+     *
+     * @return {void}
+     */
+    autoDefaults() {
+        if (document.querySelectorAll(`.${this.nameAuto}`).length) {
+            document.querySelectorAll(`.${this.nameAuto}`).forEach((elem) => {
+                // Handle autocomplete on load & input
+                this.auto(elem);
+            });
+        }
+    }
+    /**
      * @desc Handles closable messages
      *
      * @return {void}
@@ -875,12 +1671,7 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
     messageDefaults() {
         if (document.querySelectorAll(`.${this.nameMessages + this.chiSep + this.nameClose}`).length) {
             document.querySelectorAll(`.${this.nameMessages + this.chiSep + this.nameClose}`).forEach((elem) => {
-                elem.onclick = () => {
-                    let parent = elem.parentElement.parentElement;
-                    this.animation(parent, this.hideYAnimation).then(() => {
-                        parent.remove();
-                    });
-                };
+                this.message(elem);
             });
         }
     }
@@ -892,33 +1683,7 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
     popupDefaults() {
         if (document.querySelectorAll(`.${this.namePopup + this.parSep + this.nameControl}`).length) {
             document.querySelectorAll(`.${this.namePopup + this.parSep + this.nameControl}`).forEach((elem) => {
-                // Check clickable
-                if (elem.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`)) {
-                    elem.onclick = (i) => {
-                        // Popup component
-                        let popup = elem.querySelector(`.${this.namePopup + this.modSep + this.nameClick}`);
-                        // Ignore the click for component and its children(:not(.popup--close))
-                        let ignoreClick = false;
-                        elem.querySelectorAll(`.${this.namePopup} *:not(.${this.namePopup + this.chiSep + this.nameClose})`).forEach((j) => {
-                            if (i.target == j) {
-                                ignoreClick = true;
-                            }
-                        });
-                        // Check ignore click
-                        if (ignoreClick || i.target == popup)
-                            return;
-                        // Remove open class (hide popup)
-                        if (elem.querySelector(`.${this.namePopup + this.modSep + this.nameOpen}`)) {
-                            popup.classList.remove(`${this.namePopup + this.modSep + this.nameOpen}`);
-                        }
-                        // Add open class (show popup)
-                        else {
-                            popup.classList.add(`${this.namePopup + this.modSep + this.nameOpen}`);
-                        }
-                        // Prevent default behavior
-                        return false;
-                    };
-                }
+                this.popups(elem);
             });
         }
     }
@@ -1033,147 +1798,81 @@ class Defaults extends _Draggable__WEBPACK_IMPORTED_MODULE_0__.Draggable {
      *
      * @return {void}
      */
-    draggableDefaults() {
-        if (document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).length) {
-            document.querySelectorAll(`.${this.nameDraggable + this.parSep + this.nameDragAuto}`).forEach((elem) => {
+    dragDefaults() {
+        if (document.querySelectorAll(`.${this.nameDrag + this.modSep + this.nameDragAuto}`).length) {
+            document.querySelectorAll(`.${this.nameDrag + this.modSep + this.nameDragAuto}`).forEach((elem) => {
                 // Set CSS properties and variables
-                this.draggable(elem);
+                this.drag(elem);
             });
         }
     }
-}
-
-
-/***/ }),
-
-/***/ "./src/ts/modules/Draggable.ts":
-/*!*************************************!*\
-  !*** ./src/ts/modules/Draggable.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Draggable: () => (/* binding */ Draggable)
-/* harmony export */ });
-/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal */ "./src/ts/modules/Modal.ts");
-/**
- * Import the parent Class
- */
-
-/**
- * @desc Used for handling draggable items
- */
-class Draggable extends _Modal__WEBPACK_IMPORTED_MODULE_0__.Modal {
     /**
-     * @desc Constructor method
-     */
-    constructor() {
-        // Inherit the parent class
-        super();
-    }
-    /**
-     * @desc Hadnles the dragable items on drag
+     * @desc Handles tabs automatically
      *
-     * @param {HTMLElement} container -- The dragable container
-     *
-     * @return {Promise}
+     * @return {void}
      */
-    draggable(container) {
-        let selector = null;
-        // Check the container
-        if (this.exist(container)['status']) {
-            if (typeof (container) === "string") {
-                selector = document.querySelector(container);
-            }
-            else if (typeof (container) === "object") {
-                selector = container;
-            }
-        }
-        else {
-            throw this.exist(container)['message'];
-        }
-        // Animation promise
-        const promise = new Promise((resolve, reject) => {
-            const draggables = Array.from(selector.children);
-            // Items
-            let counter = 1;
-            draggables.forEach((draggable) => {
-                // Check the data-order
-                if (!draggable.dataset.order) {
-                    draggable.dataset.order = counter;
+    tabDefaults() {
+        if (document.querySelectorAll(`.${this.nameTab + this.modSep + this.nameTabAuto}`).length) {
+            document.querySelectorAll(`.${this.nameTab + this.modSep + this.nameTabAuto}`).forEach((elem) => {
+                // Fetch elements
+                let active = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameActive}`);
+                let open = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameOpen}`);
+                let dataTab;
+                let hash;
+                // Handle open content
+                if (active && !open) {
+                    dataTab = active.dataset.tab;
+                    open = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabContent}[data-tab="${dataTab}"]`);
+                    if (open)
+                        open.classList.add(`${this.nameTab + this.chiSep + this.nameOpen}`);
                 }
-                // Drag start
-                draggable.ondragstart = (e) => {
-                    if (e.target === draggable) {
-                        draggable.classList.add(this.nameDraggable + this.modSep + this.nameDragging);
+                // Handle URL hash
+                hash = this.hash();
+                if (hash) {
+                    hash = this.replace(hash, "#", "");
+                    if (hash) {
+                        if (active && active.dataset.tab !== hash)
+                            active.classList.remove(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        active = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabLink}[data-tab="${hash}"]`);
+                        if (active)
+                            active.classList.add(`${this.nameTab + this.chiSep + this.nameActive}`);
+                        if (open && open.dataset.tab !== hash)
+                            open.classList.remove(`${this.nameTab + this.chiSep + this.nameOpen}`);
+                        open = elem.querySelector(`.${this.nameTab + this.chiSep + this.nameTabContent}[data-tab="${hash}"]`);
+                        if (open)
+                            open.classList.add(`${this.nameTab + this.chiSep + this.nameOpen}`);
                     }
-                };
-                // Drag enter
-                draggable.ondragenter = (e) => {
-                    if (e.target === draggable) {
-                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
-                        if (draggable != dragging && dragging) {
-                            if (dragging.parentNode === draggable.parentNode) {
-                                const draggingOrder = dragging.dataset.order;
-                                const draggableOrder = draggable.dataset.order;
-                                // Swap orders
-                                dragging.dataset.order = draggableOrder;
-                                draggable.dataset.order = draggingOrder;
-                                // Swap items
-                                this.swap(dragging, draggable);
-                                // Swaping
-                                draggable.classList.add(this.nameDraggable + this.modSep + this.nameSwapping);
-                                dragging.classList.add(this.nameDraggable + this.modSep + this.nameSwapping);
-                            }
-                        }
-                    }
-                };
-                // Drag leave
-                draggable.ondragleave = (e) => {
-                    if (e.target === draggable) {
-                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
-                        if (draggable != dragging && dragging) {
-                            if (dragging.parentNode === draggable.parentNode) {
-                                // Swaping
-                                draggable.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
-                                dragging.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
-                            }
-                        }
-                    }
-                };
-                // Drag over
-                draggable.ondragover = (e) => {
-                    const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
-                    if (dragging) {
-                        if (dragging.parentNode === draggable.parentNode) {
-                            e.preventDefault();
-                        }
-                    }
-                };
-                // Drag end
-                draggable.ondragend = (e) => {
-                    if (e.target === draggable) {
-                        // Swaping
-                        const swaping = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameSwapping}`);
-                        if (swaping)
-                            swaping.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
-                        const dragging = selector.querySelector(`.${this.nameDraggable + this.modSep + this.nameDragging}`);
-                        if (dragging)
-                            dragging.classList.remove(this.nameDraggable + this.modSep + this.nameSwapping);
-                        draggable.classList.remove(this.nameDraggable + this.modSep + this.nameDragging);
-                    }
-                    // Promise on resolve
-                    resolve('Dragabble ended!');
-                    // Promise on reject
-                    reject('Dragabble crashed!');
-                };
-                // Increase counter
-                counter++;
+                }
+                // Handle tab links click
+                this.tab(elem);
             });
-        });
-        // Return the promise
-        return promise;
+        }
+    }
+    /**
+     * @desc Handles accordions automatically
+     *
+     * @return {void}
+     */
+    accordDefaults() {
+        if (document.querySelectorAll(`.${this.nameAccord}`).length) {
+            document.querySelectorAll(`.${this.nameAccord}`).forEach((elem) => {
+                // Handle accordion links click
+                this.accord(elem);
+            });
+        }
+    }
+    /**
+     * @desc Handles counters automatically
+     *
+     * @return {void}
+     */
+    counterDefaults() {
+        if (document.querySelectorAll(`.${this.nameCounter + this.modSep + this.nameCounterAuto}`).length) {
+            document.querySelectorAll(`.${this.nameCounter + this.modSep + this.nameCounterAuto}`).forEach((elem) => {
+                // Handle counter on load
+                this.counter(elem);
+            });
+        }
     }
 }
 
@@ -1284,6 +1983,27 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
         return result;
     }
     /**
+     * @desc Returns the equivalent HTMLElement of a selector
+     *
+     * @param {string | HTMLElement} selector -- The selector name (object)
+     *
+     * @return {HTMLElement}
+     */
+    query(selector = null) {
+        // Check the selector
+        if (this.exist(selector)['status']) {
+            if (typeof (selector) === "string") {
+                return document.querySelector(selector);
+            }
+            else if (typeof (selector) === "object") {
+                return selector;
+            }
+        }
+        else {
+            throw this.exist(selector)['message'];
+        }
+    }
+    /**
      * @desc Produces the querySelector object
      *
      * @param {string} selector -- The selector name
@@ -1370,7 +2090,7 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
      *
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -1417,7 +2137,12 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
             }
         }
         // Prepend the node
-        node.innerHTML = content;
+        try {
+            node.innerHTML = content;
+        }
+        catch (error) {
+            node.value = content;
+        }
         parentNode.insertBefore(node, parentNode.firstChild);
         // Return the node
         return node;
@@ -1427,7 +2152,7 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
      *
      * @param {string}          selector  -- The selector name
      * @param {string | object} parent    -- The selector's parent name (object)
-     * @param {string}          content   -- The selector's content
+     * @param {string}          content   -- The selector's content | value
      * @param {object}          classList -- The selector's class list ['class-1', 'class-2', ...]
      * @param {string}          id        -- The selector's id name
      * @param {string}          style     -- The selector's inline CSS styles
@@ -1474,7 +2199,12 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
             }
         }
         // Append the node
-        node.innerHTML = content;
+        try {
+            node.innerHTML = content;
+        }
+        catch (error) {
+            node.value = content;
+        }
         parentNode.appendChild(node);
         // Return the node
         return node;
@@ -1519,22 +2249,36 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
      * @desc Loops a function for a couple of times
      *
      * @param {function} fn    -- The function that needed to be looped
-     * @param {number}   delay -- The time delay for each iteration
+     * @param {number}   speed -- The time speed for each iteration
+     * @param {number}   delay -- The time delay for loop
      * @param {number}   count -- The loop count
+     * @param {function} cf    -- The callback function for the last loop
      *
      * @return {void}
      */
-    loop(fn, delay = 1000, count = Infinity) {
-        let i = 0;
-        let interval = setInterval(() => {
-            // Exit the loop
-            if (i == count || count <= 0) {
-                clearInterval(interval);
-                return false;
-            }
-            // Invoke the function
+    loop(fn, speed = 1000, delay = 0, count = Infinity, cf = () => { }) {
+        setTimeout(() => {
+            // Function initial invoke
             fn();
-            i++;
+            // Start looping
+            let i = 0;
+            let interval = setInterval(() => {
+                // Last loop
+                if (i == count || count <= 0) {
+                    // Terminate the loop
+                    return false;
+                }
+                // One before the last loop
+                if (i == count - 1) {
+                    // Invoke callback
+                    cf();
+                    // Clear the interval
+                    clearInterval(interval);
+                }
+                // Invoke the function
+                fn();
+                i++;
+            }, speed);
         }, delay);
     }
     /**
@@ -1588,6 +2332,14 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
      */
     href() {
         return this.replace(window.location.href, window.location.origin, "");
+    }
+    /**
+     * @desc Finds URL hash
+     *
+     * @return {string}
+     */
+    hash() {
+        return window.location.hash;
     }
     /**
      * @desc Calculates the scrollbar width
@@ -1953,189 +2705,6 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
 }
 
 
-/***/ }),
-
-/***/ "./src/ts/modules/Modal.ts":
-/*!*********************************!*\
-  !*** ./src/ts/modules/Modal.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Modal: () => (/* binding */ Modal)
-/* harmony export */ });
-/* harmony import */ var _Alerts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Alerts */ "./src/ts/modules/Alerts.ts");
-/**
- * Import the parent Class
- */
-
-/**
- * @desc Used for setting modal
- */
-class Modal extends _Alerts__WEBPACK_IMPORTED_MODULE_0__.Alerts {
-    /**
-     * @desc Constructor method
-     */
-    constructor() {
-        // Inherit the parent class
-        super();
-    }
-    /**
-     * @desc Sets modal to modal__container#modal-blueprint
-     *
-     * @param {string} title     -- Modal title
-     * @param {string} body      -- Modal body
-     * @param {string} footer    -- Modal footer
-     * @param {string} size      -- Modal size (xs, sm, md, lg, xl)
-     * @param {string} enter     -- Modal animation enter
-     * @param {string} exit      -- Modal animation exit
-     * @param {string} color     -- Modal color:  light | dark
-     * @param {boolean} close    -- Closable modal: true | false
-     * @param {boolean} backdrop -- Has backdrop: true | false
-     * @param {number} duration  -- Modal animation duration: number in miliseconds
-     *
-     * @return {void}
-     */
-    modal(title, body, footer = "", size = "xs", enter = "fadeIn", exit = "fadeOut", color = "", close = true, backdrop = true, duration = 500) {
-        // Check size
-        let sizeCLass = "";
-        if (this.polarisSizes.includes(size)) {
-            sizeCLass = ` ${this.nameModal + this.modSep + size}`;
-        }
-        else if (size) {
-            sizeCLass = ` ${size}`;
-        }
-        else {
-            sizeCLass = ` ${this.nameWidth}-100`;
-        }
-        // Set the color class
-        let colorClass = "";
-        if (color === "light") {
-            colorClass = ` ${this.nameModal + this.modSep + color}`;
-        }
-        // Check the closable
-        let closeCode = "";
-        if (close) {
-            closeCode = `<div class="${this.nameModal + this.chiSep + this.nameClose} ${this.piClose}"></div>`;
-        }
-        // Check footer
-        let footerCode = "";
-        if (footer) {
-            footerCode = `<footer class="${this.nameModal + this.chiSep + this.nameFooter}">${footer}</main>`;
-        }
-        // Produce the modal content
-        let content = `<div class="${this.nameModal + sizeCLass + colorClass} ${this.nameAnimation} scroll scroll-sm scroll-radius-sm" style="animation-name:${enter}; --animation-duration: ${duration}ms;">`;
-        content += closeCode;
-        content += `<header class="${this.nameModal + this.chiSep + this.nameHeader}">`;
-        content += `<h1>${title}</h1>`;
-        content += '</header>';
-        content += `<main class="${this.nameModal + this.chiSep + this.nameBody}">`;
-        content += body;
-        content += '</main>';
-        content += footerCode;
-        content += '</div>';
-        // Find the parent
-        const parent = document.querySelector(`#${this.nameModal + '-' + this.nameBlueprint}`);
-        // Find the backdrop
-        const bdrop = document.querySelector(`.${this.nameBackdrop}`);
-        // Create the node
-        const element = document.createElement('div');
-        // Append the node to the parent
-        parent.appendChild(element);
-        // Modify the node
-        element.outerHTML = content;
-        // Find the child node
-        const child = parent.querySelector(`.${this.nameModal}`);
-        // Hide the scrollbar
-        let bodyElement = document.querySelector('body');
-        bodyElement.style.paddingRight = this.scrollWidth() + "px";
-        bodyElement.style.overflow = "hidden";
-        // Show the backdrop
-        if (backdrop) {
-            this.animation(bdrop, this.fadeInAnimation);
-        }
-        // Show the parent
-        this.animation(parent, this.fadeInAnimation);
-        // Set animation exit on click
-        if (child.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`)) {
-            child.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`).onclick = () => {
-                // Hide the backdrop
-                if (backdrop) {
-                    this.animation(bdrop, this.fadeOutAnimation);
-                }
-                // Show the scrollbar
-                setTimeout(() => {
-                    bodyElement.style.paddingRight = "";
-                    bodyElement.style.overflow = "";
-                }, duration / 2);
-                // Hide the child
-                this.animation(child, exit).then(() => {
-                    // Remove the child
-                    child.remove();
-                    // Hide the parent
-                    this.animation(parent, this.fadeOutAnimation);
-                });
-            };
-        }
-    }
-    /**
-     * @desc Sets custom modal to custom modal__container
-     *
-     * @param {string|object} parent -- Modal container selector or object
-     * @param {string} enter         -- Modal animation enter
-     * @param {string} exit          -- Modal animation exit
-     * @param {boolean} backdrop     -- Has backdrop: true | false
-     * @param {number} duration      -- Modal animation duration: number in miliseconds
-     *
-     * @return {void}
-     */
-    setModal(parent, enter = "fadeIn", exit = "fadeOut", backdrop = true, duration = 500) {
-        // Find the parent
-        let parentNode;
-        if (typeof (parent) === "string")
-            parentNode = document.querySelector(parent);
-        else if (typeof (parent) === "object")
-            parentNode = parent;
-        // Find the modal
-        const modal = parentNode.querySelector(`.${this.nameModal}`);
-        // Find the backdrop
-        const bdrop = document.querySelector(`.${this.nameBackdrop}`);
-        // Hide the scrollbar
-        let bodyElement = document.querySelector('body');
-        bodyElement.style.paddingRight = this.scrollWidth() + "px";
-        bodyElement.style.overflow = "hidden";
-        // Show the backdrop
-        if (backdrop) {
-            this.animation(bdrop, this.fadeInAnimation);
-        }
-        // Show the parent
-        this.animation(parentNode, this.fadeInAnimation);
-        // Show the modal
-        this.animation(modal, enter);
-        // Set animation exit on click
-        if (modal.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`)) {
-            modal.querySelector(`.${this.nameModal + this.chiSep + this.nameClose}`).onclick = () => {
-                // Hide the backdrop
-                if (backdrop) {
-                    this.animation(bdrop, this.fadeOutAnimation);
-                }
-                // Show the scrollbar
-                setTimeout(() => {
-                    bodyElement.style.paddingRight = "";
-                    bodyElement.style.overflow = "";
-                }, duration / 2);
-                // Hide the modal
-                this.animation(modal, exit).then(() => {
-                    // Hide the parent
-                    this.animation(parentNode, this.fadeOutAnimation);
-                });
-            };
-        }
-    }
-}
-
-
 /***/ })
 
 /******/ 	});
@@ -2206,7 +2775,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v0.9.16 Beta
+ * Polaris Framework v1.0.0
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

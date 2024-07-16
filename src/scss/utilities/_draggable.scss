@@ -1,19 +1,20 @@
 /* ---------- Draggable  ---------- */
-// -- Parent -- //
-// draggable__container
-@include parent-styles($draggable-container, $name-draggable, $name-container);
-
-
 // -- Component -- //
-@include component-styles($draggable-styles, $name-draggable);
+// drag
+@include component-styles($drag-styles, $name-drag);
 
 
-// Modifiers //
-// Colors
-@include modifier-colors($draggable-colors, $name-draggable);
+// -- Modifiers -- //
+// Items colors
+@include modifier-colors-items($drag-colors, $name-drag, "." + $name-drag + $chi + $name-drag-item, true);
 
-// Dragging
-@include modifier-styles($dragging-styles, $name-draggable, $name-dragging, true);
 
-// Swapping
-@include swapping($name-draggable, $name-swapping, $name-dragging, $name-drag-x, $name-drag-y, $swappingX, $swappingY)
+// -- Children -- //
+// drag--item
+@include child-styles($drag-item-styles, $name-drag, $name-drag-item);
+
+// drag--dragging
+@include child-styles($dragging-styles, $name-drag, $name-dragging);
+
+// drag--swapping
+@include swapping($name-drag, $name-swapping, $name-dragging, $name-drag-x, $name-drag-y, $swappingX, $swappingY);

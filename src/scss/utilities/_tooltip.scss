@@ -1,15 +1,15 @@
 /* ---------- Tooltip ---------- */
 // -- Component -- //
 @include component-styles($tooltip-styles, $name-tooltip);
-@include component-before-styles($tooltip-before, $name-tooltip);
-@include component-after-styles($tooltip-after, $name-tooltip);
-@include component-pseudo-styles-hover($tooltip-pseudo-hover, $name-tooltip);
+@include component-styles-before($tooltip-before, $name-tooltip, false, true, $tooltip-before-ltr, $tooltip-before-rtl);
+@include component-styles-after($tooltip-after, $name-tooltip, false, true, $tooltip-after-ltr, $tooltip-after-rtl);
+@include component-styles-pseudo-hover($tooltip-pseudo-hover, $name-tooltip);
 
 
 // -- Modifiers -- //
 // Colors
-@include modifier-before-colors($tooltip-before-colors, $name-tooltip);
-@include modifier-after-colors($tooltip-after-colors, $name-tooltip);
+@include modifier-colors-before($tooltip-before-colors, $name-tooltip);
+@include modifier-colors-after($tooltip-after-colors, $name-tooltip);
 
 // ::after border-color
 .#{$name-tooltip}:not(.#{$name-tooltip + $mod + 'top'}):not(.#{$name-tooltip + $mod + 'bottom'}):not(.#{$name-tooltip + $mod + 'left'}):not(.#{$name-tooltip + $mod + 'right'})::after {
@@ -19,8 +19,13 @@
 }
 
 // Sizes
-@include modifiers-before-styles($tooltip-before-sizes, $name-tooltip);
+@include modifiers-styles-before($tooltip-before-sizes, $name-tooltip);
 
 // Positions
-@include modifiers-before-styles($tooltip-before-positions, $name-tooltip);
-@include modifiers-after-styles($tooltip-after-positions, $name-tooltip);
+@if $ltr {
+    @include modifiers-styles-before($tooltip-before-positions-ltr, $name-tooltip);
+    @include modifiers-styles-after($tooltip-after-positions-ltr, $name-tooltip);
+} @else {
+    @include modifiers-styles-before($tooltip-before-positions-rtl, $name-tooltip);
+    @include modifiers-styles-after($tooltip-after-positions-rtl, $name-tooltip);
+}

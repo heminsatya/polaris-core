@@ -10,12 +10,4 @@ export declare class Draggable extends Modal {
      * @desc Constructor method
      */
     constructor();
-    /**
-     * @desc Hadnles the dragable items on drag
-     *
-     * @param {HTMLElement} container -- The dragable container
-     *
-     * @return {Promise}
-     */
-    draggable(container: any): any;
 }
