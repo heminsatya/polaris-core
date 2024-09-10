@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /**
- * Polaris Framework v1.0.0
+ * Polaris Framework v1.0.1
  * MIT License github.com/heminsatya/polaris-core | © 2024 polarisui.com
 **/
 /* -------------------------------------------------- */
@@ -17889,7 +17889,7 @@ input:checked[type=radio].field:focus {
   transition: 0.125s;
 }
 
-.page-hover li:last-child a {
+.page-hover li:first-child a {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }

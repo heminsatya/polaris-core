@@ -124,7 +124,7 @@
         }
     }
     @else{
-        .#{$name-1 + $mod + $name-2} li:last-child a {
+        .#{$name-1 + $mod + $name-2} li:first-child a {
             border-top-right-radius:    border-radius(sm);
             border-bottom-right-radius: border-radius(sm);
         }

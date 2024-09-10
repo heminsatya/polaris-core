@@ -1,4 +1,4 @@
-# Polaris Core (v1.0.0)
+# Polaris Core (v1.0.1)
 
 Polaris is a front-end web framework for creating responsive UI components, with a focus on simplicity.
 
