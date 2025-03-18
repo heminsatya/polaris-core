@@ -382,24 +382,22 @@ export class Helpers extends Config {
             // Start looping
             let i: number = 0;
             let interval = setInterval(() => {
+                // Invoke the function
+                fn();
+
                 // Last loop
-                if (i == count || count <= 0) {
+                if (i == count-1) {
+                    // Clear the interval
+                    clearInterval(interval);
+
+                    // Invoke the callback
+                    cf();
+
                     // Terminate the loop
                     return false;
                 }
 
-                // One before the last loop
-                if (i == count-1) {
-                    // Invoke callback
-                    cf();
-
-                    // Clear the interval
-                    clearInterval(interval);
-                }
-
-                // Invoke the function
-                fn();
-
+                // Update the conter
                 i++;
             }, speed);
         }, delay);

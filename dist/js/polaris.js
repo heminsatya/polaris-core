@@ -2263,20 +2263,18 @@ class Helpers extends _Config__WEBPACK_IMPORTED_MODULE_0__.Config {
             // Start looping
             let i = 0;
             let interval = setInterval(() => {
+                // Invoke the function
+                fn();
                 // Last loop
-                if (i == count || count <= 0) {
+                if (i == count - 1) {
+                    // Clear the interval
+                    clearInterval(interval);
+                    // Invoke the callback
+                    cf();
                     // Terminate the loop
                     return false;
                 }
-                // One before the last loop
-                if (i == count - 1) {
-                    // Invoke callback
-                    cf();
-                    // Clear the interval
-                    clearInterval(interval);
-                }
-                // Invoke the function
-                fn();
+                // Update the conter
                 i++;
             }, speed);
         }, delay);
@@ -2775,7 +2773,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v1.0.1
+ * Polaris Framework v1.0.2
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**
