@@ -752,6 +752,11 @@ export class Components extends Animations {
         const count = Math.abs(stop - start) / step;
         const delay = Number(selector.dataset.delay);
         const speed = Number(selector.dataset.speed);
+        const float = Boolean(selector.dataset.float);
+        let precision;
+        selector.dataset.precision ? precision = Number(selector.dataset.precision) : precision = 1;
+        const pow = Math.pow(10, precision);
+        console.log(precision);
         // Start counting
         let ii = start;
         this.loop(() => {
@@ -764,7 +769,12 @@ export class Components extends Animations {
                 selector.classList.remove(`${this.nameCounter + this.modSep + this.nameCounterCounting}`);
             }
             // Set the counter
-            selector.innerHTML = ii;
+            if (float) {
+                selector.innerHTML = Math.round(ii * pow) / pow;
+            }
+            else {
+                selector.innerHTML = ii;
+            }
             // Set the stepper
             (stop > start) ? ii += step : ii -= step;
         }, speed, delay, count, cf);

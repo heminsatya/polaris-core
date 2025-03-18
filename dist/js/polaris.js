@@ -1141,6 +1141,11 @@ class Components extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
         const count = Math.abs(stop - start) / step;
         const delay = Number(selector.dataset.delay);
         const speed = Number(selector.dataset.speed);
+        const float = Boolean(selector.dataset.float);
+        let precision;
+        selector.dataset.precision ? precision = Number(selector.dataset.precision) : precision = 1;
+        const pow = Math.pow(10, precision);
+        console.log(precision);
         // Start counting
         let ii = start;
         this.loop(() => {
@@ -1153,7 +1158,12 @@ class Components extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
                 selector.classList.remove(`${this.nameCounter + this.modSep + this.nameCounterCounting}`);
             }
             // Set the counter
-            selector.innerHTML = ii;
+            if (float) {
+                selector.innerHTML = Math.round(ii * pow) / pow;
+            }
+            else {
+                selector.innerHTML = ii;
+            }
             // Set the stepper
             (stop > start) ? ii += step : ii -= step;
         }, speed, delay, count, cf);
@@ -2773,7 +2783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v1.0.2
+ * Polaris Framework v1.0.3
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**
