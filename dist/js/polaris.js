@@ -1145,7 +1145,6 @@ class Components extends _Animations__WEBPACK_IMPORTED_MODULE_0__.Animations {
         let precision;
         selector.dataset.precision ? precision = Number(selector.dataset.precision) : precision = 1;
         const pow = Math.pow(10, precision);
-        console.log(precision);
         // Start counting
         let ii = start;
         this.loop(() => {
@@ -2783,7 +2782,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/Core */ "./src/ts/modules/Core.ts");
 /**
- * Polaris Framework v1.0.3
+ * Polaris Framework v1.0.4
  * MIT License github.com/heminsatya/polaris-core | © 2022 polarisui.com
 **/
 /**

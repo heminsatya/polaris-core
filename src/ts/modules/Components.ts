@@ -887,8 +887,6 @@ export class Components extends Animations {
         selector.dataset.precision ? precision = Number(selector.dataset.precision) : precision = 1;
         const pow: number = Math.pow(10, precision);
 
-        console.log(precision);
-
         // Start counting
         let ii = start;
         this.loop(() => {

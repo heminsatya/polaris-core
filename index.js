@@ -1,5 +1,5 @@
 const msg = `
-    Polaris Framework Core v1.0.3
+    Polaris Framework Core v1.0.4
 `
 
 module.exports = msg
