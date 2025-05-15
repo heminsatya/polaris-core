@@ -753,6 +753,9 @@ export class Components extends Animations {
         const delay = Number(selector.dataset.delay);
         const speed = Number(selector.dataset.speed);
         const float = Boolean(selector.dataset.float);
+        // Check datasets
+        if (start == stop)
+            return false;
         let precision;
         selector.dataset.precision ? precision = Number(selector.dataset.precision) : precision = 1;
         const pow = Math.pow(10, precision);
